@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface WorkoutDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) // Si el entrenamiento existe lo reemplaza
+    @Insert(onConflict = OnConflictStrategy.REPLACE) // Si el entrenamiento ya existe lo reemplaza
     suspend fun create(workout: WorkoutEntity)
 
     @Update
