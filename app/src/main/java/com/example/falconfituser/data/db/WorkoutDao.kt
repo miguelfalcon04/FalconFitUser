@@ -1,6 +1,7 @@
 package com.example.falconfituser.data.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -16,8 +17,11 @@ interface WorkoutDao {
     @Update
     suspend fun update(workout: WorkoutEntity)
 
+    @Delete
+    suspend fun delete(workout: WorkoutEntity)
+
     @Query("SELECT * FROM workout")
-    suspend fun getAll(): List<WorkoutEntity>
+    suspend fun readAll(): List<WorkoutEntity>
 
     @Query("SELECT * FROM workout")
     fun observeAll(): Flow<List<WorkoutEntity>> // Actualiza en tiempo real cuando hay cambios

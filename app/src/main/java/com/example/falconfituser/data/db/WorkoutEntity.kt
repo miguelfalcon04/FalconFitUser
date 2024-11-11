@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class WorkoutEntity (
     @PrimaryKey val id: String,
                 val name: String,
+                val description: String,
                 val machineIds: String //Ids separados por coma para poder almacenarlos
 )
