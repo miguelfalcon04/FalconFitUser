@@ -51,6 +51,8 @@ dependencies {
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
 
+    implementation ("com.android.support:cardview-v7:27.1.1")
+    implementation ("com.android.support:design:27.1.1")
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("androidx.fragment:fragment-ktx:1.8.5")
