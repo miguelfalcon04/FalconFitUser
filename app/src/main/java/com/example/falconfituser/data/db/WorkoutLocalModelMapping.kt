@@ -5,8 +5,8 @@ import com.example.falconfituser.data.repository.Workout
 fun Workout.toLocal():WorkoutEntity{
     return WorkoutEntity(
         id = this.id,
-        name = this.name,
-        description = this.description,
+        title = this.title,
+        subtitle = this.subtitle,
         machineIds = this.machineIds
     )
 }
@@ -19,8 +19,8 @@ fun List<Workout>.toLocal(): List<WorkoutEntity>{
 fun WorkoutEntity.toExternal(): Workout{
     return Workout(
         id = this.id,
-        name = this.name,
-        description = this.description,
+        title = this.title,
+        subtitle = this.subtitle,
         machineIds = this.machineIds
     )
 }
