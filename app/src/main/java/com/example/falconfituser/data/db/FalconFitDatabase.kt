@@ -7,6 +7,6 @@ import androidx.room.RoomDatabase
     entities = [WorkoutEntity::class],
     version = 1
 )
-abstract class WorkoutDatabase:RoomDatabase() {
+abstract class FalconFitDatabase:RoomDatabase() {
     abstract fun workoutDao():WorkoutDao
 }

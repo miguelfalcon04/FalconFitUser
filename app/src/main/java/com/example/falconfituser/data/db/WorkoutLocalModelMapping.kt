@@ -1,6 +1,6 @@
 package com.example.falconfituser.data.db
 
-import com.example.falconfituser.data.repository.Workout
+import com.example.falconfituser.data.Workout
 
 fun Workout.toLocal():WorkoutEntity{
     return WorkoutEntity(
@@ -16,7 +16,7 @@ fun List<Workout>.toLocal(): List<WorkoutEntity>{
     return this.map{ w-> w.toLocal() }
 }
 
-fun WorkoutEntity.toExternal(): Workout{
+fun WorkoutEntity.toExternal(): Workout {
     return Workout(
         id = this.id,
         title = this.title,

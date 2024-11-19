@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FalconFit</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="machine">Máquina</string>
+    <string name="workout">Rutina</string>
+    <string name="superset">Superserie</string>
+    <string name="user">Usuario</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

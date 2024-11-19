@@ -43,18 +43,16 @@ android {
 
 dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
-    annotationProcessor("androidx.room:room-compiler:2.6.1")
-
-    // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:2.6.1")
-
-    // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
 
-    implementation ("com.android.support:cardview-v7:27.1.1")
-    implementation ("com.android.support:design:27.1.1")
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("com.google.android.material:material:1.9.0")
+
+    // Retrofit actualizado
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
@@ -70,6 +68,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("io.coil-kt:coil:2.4.0")
 }
+
 kapt {
     correctErrorTypes = true
 }

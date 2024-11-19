@@ -1,6 +1,6 @@
 package com.example.falconfituser.data.db
 
-import com.example.falconfituser.data.repository.Workout
+import com.example.falconfituser.data.Workout
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

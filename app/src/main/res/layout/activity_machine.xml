@@ -7,7 +7,7 @@
     android:background="#1A1A2E"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.MachineListFragment">
+    tools:context=".ui.machine.MachineListFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
