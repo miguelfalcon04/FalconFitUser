@@ -47,7 +47,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
 
     implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.11.0")
 
     // Retrofit actualizado
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

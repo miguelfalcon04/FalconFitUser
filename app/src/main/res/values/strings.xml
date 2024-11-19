@@ -1,8 +1,7 @@
 <resources>
-    <string name="app_name">FalconFit</string>
-    <string name="machine">Máquina</string>
-    <string name="workout">Rutina</string>
-    <string name="superset">Superserie</string>
-    <string name="user">Usuario</string>
+    <string name="app_name" translatable="false">FalconFit</string>
+    <string name="machine">Máquinas</string>
+    <string name="workout">Rutinas</string>
+    <string name="superset">Superseries</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
