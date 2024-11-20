@@ -8,6 +8,6 @@
     <fragment
         android:id="@+id/machineListFragment"
         android:name="com.example.falconfituser.ui.machine.MachineListFragment"
-        android:label="activity_machine"
-        tools:layout="@layout/activity_machine" />
+        android:label="MachineListFragment"
+        tools:layout="@layout/fragment_machine_list"/>
 </navigation>

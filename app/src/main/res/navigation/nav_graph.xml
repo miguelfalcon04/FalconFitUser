@@ -5,7 +5,6 @@
     android:id="@+id/main"
     app:startDestination="@+id/machine">
 
-    <include app:graph="@navigation/machine" />
     <include app:graph="@navigation/workout" />
     <include app:graph="@navigation/superset" />
 </navigation>

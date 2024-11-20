@@ -1,4 +1,4 @@
-package com.example.falconfituser.data.db
+package com.example.falconfituser.data.db.workout
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

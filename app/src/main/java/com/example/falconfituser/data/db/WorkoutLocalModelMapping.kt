@@ -1,8 +1,9 @@
 package com.example.falconfituser.data.db
 
 import com.example.falconfituser.data.Workout
+import com.example.falconfituser.data.db.workout.WorkoutEntity
 
-fun Workout.toLocal():WorkoutEntity{
+fun Workout.toLocal(): WorkoutEntity {
     return WorkoutEntity(
         id = this.id,
         title = this.title,
