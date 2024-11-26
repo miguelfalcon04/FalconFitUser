@@ -7,10 +7,12 @@ import com.example.falconfituser.data.Machine
 import com.example.falconfituser.data.api.FalconFitApiRepository
 import com.example.falconfituser.ui.machine.MachineListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okio.IOException
 import javax.inject.Inject
 
@@ -31,10 +33,10 @@ class MachineListViewModel @Inject constructor(
             }
         }
 
-        // viewModelScope.launch{
-        //    repository.machine.collect{
-        //        _uiState.value = MachineListUiState(it)
-        //    }
-        //}
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                FalconFitRepository.readAll()
+            }
+        }
     }
 }
