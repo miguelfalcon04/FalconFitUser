@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_machine"
         android:title="@string/machine" />
     <item
-        android:id="@+id/workout"
+        android:id="@+id/exercise"
         android:enabled="true"
         android:icon="@drawable/ic_workout"
-        android:title="@string/workout"/>
+        android:title="@string/exercise"/>
     <item
         android:id="@+id/superset"
         android:enabled="true"

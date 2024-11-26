@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration= AppBarConfiguration(
             setOf(
                 R.id.machineListFragment,
-                R.id.workoutListFragment,
+                R.id.exerciseListFragment,
                 R.id.supersetListFragment
             )
         )
