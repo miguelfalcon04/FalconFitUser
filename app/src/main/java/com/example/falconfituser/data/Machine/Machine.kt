@@ -1,4 +1,4 @@
-package com.example.falconfituser.data
+package com.example.falconfituser.data.Machine
 
 data class Machine (
     val id: Int = 0,

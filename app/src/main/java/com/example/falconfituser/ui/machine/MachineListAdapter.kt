@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.falconfituser.data.Machine
+import com.example.falconfituser.data.Machine.Machine
 import com.example.falconfituser.databinding.ItemMachineBinding
 
 class MachineListAdapter(private val context: Context): ListAdapter<Machine, MachineListAdapter.MachineItemViewHolder>(MachineComparer) {
