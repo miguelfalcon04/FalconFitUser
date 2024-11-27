@@ -1,4 +1,4 @@
-package com.example.falconfituser.data.remote.machine
+package com.example.falconfituser.data.api.machine
 
 data class MachineListRaw (
     val data: List<MachineRaw>

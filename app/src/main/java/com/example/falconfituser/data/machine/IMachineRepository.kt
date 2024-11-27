@@ -1,4 +1,4 @@
-package com.example.falconfituser.data.Machine
+package com.example.falconfituser.data.machine
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

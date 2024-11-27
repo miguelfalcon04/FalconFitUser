@@ -1,4 +1,4 @@
-package com.example.falconfituser.data.Workout
+package com.example.falconfituser.data.workout
 
 data class Workout (
     val id: Int = 0,

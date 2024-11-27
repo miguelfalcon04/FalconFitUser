@@ -1,4 +1,4 @@
-package com.example.falconfituser.data.Superset
+package com.example.falconfituser.data.superset
 
 data class Superset (
     val id: Int = 0,

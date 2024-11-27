@@ -1,6 +1,6 @@
-package com.example.falconfituser.data.remote.machine
+package com.example.falconfituser.data.api.machine
 
-import com.example.falconfituser.data.Machine.Machine
+import com.example.falconfituser.data.machine.Machine
 import retrofit2.Response
 
 interface IMachineApiDataSource {

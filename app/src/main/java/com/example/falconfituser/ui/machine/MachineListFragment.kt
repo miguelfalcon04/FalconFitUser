@@ -5,16 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.falconfituser.databinding.FragmentMachineListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MachineListFragment : Fragment() {
 
     private lateinit var binding: FragmentMachineListBinding
-    // private val viewModel: MachineListViewModel by viewModels()
+    private val viewModel: MachineListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,18 +33,24 @@ class MachineListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MachineListAdapter(requireContext())
-        val rv = binding.machineList
-        rv.adapter = adapter
-        viewLifecycleOwner.lifecycleScope.launch{
-            repeatOnLifecycle(Lifecycle.State.STARTED){
-                //viewModel.uiState.collect{
-                    //viewModel.uiState.collect{
-                        //adapter.submitList(it.machine)
-                    //}
-                //}
+        val adapter = MachineListAdapter() //TODO SI FALLA MIRA AQUI
+        binding.machineList.adapter = adapter
+
+        lifecycleScope.launch{
+            viewModel.uiState.collect{uiState ->
+                when(uiState){
+                    MchnListUiState.Loading -> {
+                    }
+                    is MchnListUiState.Success -> {
+                        adapter.submitList(uiState.mchnList)
+                    }
+                    is MchnListUiState.Error -> {
+                    }
+                }
+
             }
         }
+
     }
 }
 
