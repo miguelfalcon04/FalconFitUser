@@ -8,4 +8,14 @@
     <include app:graph="@navigation/machine" />
     <include app:graph="@navigation/exercise" />
     <include app:graph="@navigation/superset" />
+    <include app:graph="@navigation/login" />
+    <include app:graph="@navigation/register" />
+
+    <action
+        android:id="@+id/action_loginFragment_to_registerFragment"
+        app:destination="@id/registerFragment" />
+
+    <action
+        android:id="@+id/action_registerFragment_to_loginFragment"
+        app:destination="@id/loginFragment" />
 </navigation>

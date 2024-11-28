@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MachineListFragment : Fragment() {
-
     private lateinit var binding: FragmentMachineListBinding
     private val viewModel: MachineListViewModel by viewModels()
 
@@ -33,7 +32,7 @@ class MachineListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = MachineListAdapter() //TODO SI FALLA MIRA AQUI
+        val adapter = MachineListAdapter()
         binding.machineList.adapter = adapter
 
         lifecycleScope.launch{

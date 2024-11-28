@@ -5,4 +5,9 @@
     <string name="superset">Superseries</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="include">Realizar</string>
+    <string name="email">Correo electrónico\n</string>
+    <string name="password">contraseña\n</string>
+    <string name="login">Login</string>
+    <string name="register">Registrate</string>
+    <string name="username">Nombre de Usuario\n</string>
 </resources>

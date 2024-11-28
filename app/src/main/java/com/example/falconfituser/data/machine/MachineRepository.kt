@@ -11,12 +11,15 @@ import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class MachineRepository @Inject constructor(
     private val apiData: IMachineApiDataSource,
 ): IMachineRepository {
 
-    private val _state = MutableStateFlow<List<Machine>>(listOf())
+    private val _state = MutableStateFlow<List<Machine>>(listOf(
+        Machine(id = "1", title = "Banca", subtitle = "Pecho", description = "Muy chula me encanta mucho todo este como funciona puta strapi"),
+        Machine(id = "2", title = "Extensiones"),
+        Machine(id = "3", title = "Abdominales")
+    ))
     override val setStream: StateFlow<List<Machine>>
         get() = _state.asStateFlow()
 

@@ -20,4 +20,5 @@ abstract class MachineRepositoryModule {
     @Singleton
     @Binds
     abstract fun bindMachineApi(api: MachineApiDataSource): IMachineApiDataSource
+
 }
