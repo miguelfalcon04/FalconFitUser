@@ -7,10 +7,11 @@ import com.example.falconfituser.data.machine.MachineRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(Singleton::class)
+@InstallIn(SingletonComponent::class)
 abstract class MachineRepositoryModule {
     @Singleton
     @Binds
