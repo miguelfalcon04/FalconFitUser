@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav = findViewById(R.id.bottom_navigation)
         bottomNav.setupWithNavController(navController)
 
+        // Si esta en login o register no se ve el menu
         navController.addOnDestinationChangedListener{ _,dest,_ ->
             when(dest.id){
                 R.id.loginFragment, R.id.registerFragment -> {
