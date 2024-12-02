@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentMachineListBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -32,6 +35,10 @@ class MachineListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val btnLogin = view.findViewById<Button>(R.id.loginButton)
+        val toRegister = view.findViewById<Button>(R.id.registerButton)
+
         val adapter = MachineListAdapter()
         binding.machineList.adapter = adapter
 
@@ -49,6 +56,8 @@ class MachineListFragment : Fragment() {
 
             }
         }
+
+
 
     }
 }

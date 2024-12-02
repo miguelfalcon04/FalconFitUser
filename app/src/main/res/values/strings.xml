@@ -7,7 +7,7 @@
     <string name="include">Realizar</string>
     <string name="email">Correo electrónico\n</string>
     <string name="password">contraseña\n</string>
-    <string name="login">Login</string>
+    <string name="login">Inicia sesión</string>
     <string name="register">Registrate</string>
     <string name="username">Nombre de Usuario\n</string>
 </resources>

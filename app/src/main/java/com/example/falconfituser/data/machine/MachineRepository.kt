@@ -46,7 +46,7 @@ class MachineRepository @Inject constructor(
 
     private fun refreshLocal(){
         runBlocking {
-            val compRemote = apiData.readAll()
+            val mchApi = apiData.readAll()
         }
     }
 

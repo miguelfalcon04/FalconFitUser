@@ -3,19 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@+id/machine">
+    app:startDestination="@+id/loginFragment">
 
-    <include app:graph="@navigation/machine" />
-    <include app:graph="@navigation/exercise" />
-    <include app:graph="@navigation/superset" />
-    <include app:graph="@navigation/login" />
-    <include app:graph="@navigation/register" />
+    <!-- MACHINE -->
+    <fragment
+        android:id="@+id/machineListFragment"
+        android:name="com.example.falconfituser.ui.machine.MachineListFragment"
+        android:label="MachineListFragment"
+        tools:layout="@layout/fragment_machine_list">
+        <action
+            android:id="@+id/action_machineListFragment_to_exerciseListFragment"
+            app:destination="@id/exerciseListFragment" />
+        <action
+            android:id="@+id/action_machineListFragment_to_supersetListFragment"
+            app:destination="@id/supersetListFragment" />
+    </fragment>
 
-    <action
-        android:id="@+id/action_loginFragment_to_registerFragment"
-        app:destination="@id/registerFragment" />
+    <!-- EXERCISE -->
+    <fragment
+        android:id="@+id/exerciseListFragment"
+        android:name="com.example.falconfituser.ui.exercise.ExerciseListFragment"
+        android:label="fragment_exercise_list"
+        tools:layout="@layout/fragment_exercise_list" >
+        <action
+            android:id="@+id/action_exerciseListFragment_to_supersetListFragment"
+            app:destination="@id/supersetListFragment" />
+        <action
+            android:id="@+id/action_exerciseListFragment_to_machineListFragment"
+            app:destination="@id/machineListFragment" />
+    </fragment>
 
-    <action
-        android:id="@+id/action_registerFragment_to_loginFragment"
-        app:destination="@id/loginFragment" />
+    <!-- SUPERSET -->
+    <fragment
+        android:id="@+id/supersetListFragment"
+        android:name="com.example.falconfituser.ui.superset.SupersetListFragment"
+        android:label="fragment_superset_list"
+        tools:layout="@layout/fragment_superset_list" >
+        <action
+            android:id="@+id/action_supersetListFragment_to_machineListFragment"
+            app:destination="@id/machineListFragment" />
+    </fragment>
+
+    <!-- LOGIN -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.falconfituser.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_machineListFragment"
+            app:destination="@id/machineListFragment" />
+    </fragment>
+
+    <!-- REGISTER -->
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.falconfituser.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
 </navigation>
