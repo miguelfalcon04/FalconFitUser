@@ -12,7 +12,5 @@ class MachineApiDataSource @Inject constructor(
         return ffApi.getMachines()
     }
 
-    override suspend fun readOne(id: Int): Response<Machine> {
-        return ffApi.getOneMachine(id)
-    }
+
 }

@@ -8,4 +8,5 @@ class ExerciseRaw (
 data class ExerciseRawAttributes(
     val title: String,
     val subtitle: String,
+    val description: String
 )

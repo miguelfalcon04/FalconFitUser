@@ -30,6 +30,7 @@ class ExerciseListAdapter: ListAdapter<Exercise,
         fun bind(exercise: Exercise){
             binding.exerciseTitle.text = exercise.title
             binding.exerciseSubtitle.text = exercise.subtitle
+            binding.exerciseDescription.text = exercise.description
         }
     }
 

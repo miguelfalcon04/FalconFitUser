@@ -16,6 +16,13 @@ import com.example.falconfituser.databinding.ItemMachineBinding
 import com.example.falconfituser.ui.MainActivity
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
+    private lateinit var binding: FragmentRegisterBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -30,7 +37,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val email = getEmail.text.toString()
             val password = getPassword.text.toString()
             if (username.isEmpty() && email.isEmpty() && password.isEmpty()){
-                Toast.makeText(context, "Alguna de las credenciales es incorrecta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Rellene todos los campos", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
         }
