@@ -53,9 +53,7 @@ class MachineListFragment : Fragment() {
                 }
             }
         }
-
-
-
     }
+
 }
 

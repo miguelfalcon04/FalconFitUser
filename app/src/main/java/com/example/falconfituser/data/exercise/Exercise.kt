@@ -1,6 +1,7 @@
 package com.example.falconfituser.data.exercise
 
 data class Exercise (
-    val id: Int,
-    val title: String
+    val id: String,
+    val title: String,
+    val subtitle: String,
 )

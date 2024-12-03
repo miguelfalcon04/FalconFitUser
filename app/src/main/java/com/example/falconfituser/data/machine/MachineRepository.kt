@@ -36,7 +36,7 @@ class MachineRepository @Inject constructor(
     override suspend fun readOne(id: Int): Machine {
         val res = apiData.readOne(id)
         return if(res.isSuccessful)res.body()!!
-        else Machine("0","fuera","no","funciona")
+        else Machine("0","fuera","no","furula")
     }
 
     override fun observeAll(): Flow<List<Machine>> {

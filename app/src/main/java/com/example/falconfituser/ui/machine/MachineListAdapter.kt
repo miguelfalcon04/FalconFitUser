@@ -1,16 +1,15 @@
 package com.example.falconfituser.ui.machine
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.databinding.ItemMachineBinding
 
-class MachineListAdapter: ListAdapter<Machine, MachineListAdapter.MachineViewHolder>(DiffCallback()) {
+class MachineListAdapter: ListAdapter<Machine,
+        MachineListAdapter.MachineViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MachineViewHolder {
         val binding = ItemMachineBinding.inflate(

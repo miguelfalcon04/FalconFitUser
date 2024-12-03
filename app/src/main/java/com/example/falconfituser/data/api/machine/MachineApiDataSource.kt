@@ -4,7 +4,6 @@ import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.data.api.IFalconFitApi
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MachineApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi

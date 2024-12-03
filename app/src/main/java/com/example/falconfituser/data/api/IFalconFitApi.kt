@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.api
 
+import com.example.falconfituser.data.api.exercise.ExerciseListRaw
 import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.exercise.Exercise
@@ -14,7 +15,7 @@ interface IFalconFitApi {
     suspend fun getOneMachine(@Path("id")id: Int): Response<Machine>
 
     @GET("exercises")
-    suspend fun getExercises(): Response<MachineListRaw>
+    suspend fun getExercises(): Response<ExerciseListRaw>
     @GET("exercises/{id}")
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>
 }
