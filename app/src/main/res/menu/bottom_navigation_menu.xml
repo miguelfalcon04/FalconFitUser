@@ -2,17 +2,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/machine"
+        android:checkable="true"
         android:enabled="true"
         android:icon="@drawable/ic_machine"
-        android:title="@string/machine" />
+        android:title="@string/machine"
+        android:visible="true"
+        app:showAsAction="always" />
     <item
         android:id="@+id/exercise"
         android:enabled="true"
         android:icon="@drawable/ic_workout"
-        android:title="@string/exercise"/>
+        android:title="@string/exercise"
+        android:visible="true" />
     <item
         android:id="@+id/superset"
         android:enabled="true"
         android:icon="@drawable/ic_superset"
-        android:title="@string/superset"/>
+        android:title="@string/superset"
+        android:visible="true" />
 </menu>

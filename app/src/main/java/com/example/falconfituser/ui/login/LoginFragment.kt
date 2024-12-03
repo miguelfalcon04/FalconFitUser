@@ -40,7 +40,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         btnLogin.setOnClickListener{
-            findNavController().navigate(R.id.machineListFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_machine)
         }
     }
 
