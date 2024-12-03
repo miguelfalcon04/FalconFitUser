@@ -2,10 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/machine"
-    app:startDestination="@id/machineListFragment2">
+    app:startDestination="@id/machineListFragment">
 
     <fragment
-        android:id="@+id/machineListFragment2"
+        android:id="@+id/machineListFragment"
         android:name="com.example.falconfituser.ui.machine.MachineListFragment"
         android:label="MachineListFragment" />
 </navigation>

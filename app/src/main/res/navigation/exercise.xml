@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/exercise"
-    app:startDestination="@id/exerciseListFragment2">
+    app:startDestination="@id/exerciseListFragment">
 
     <fragment
-        android:id="@+id/exerciseListFragment2"
+        android:id="@+id/exerciseListFragment"
         android:name="com.example.falconfituser.ui.exercise.ExerciseListFragment"
         android:label="fragment_exercise_list"
         tools:layout="@layout/fragment_exercise_list" />
