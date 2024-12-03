@@ -34,6 +34,11 @@ class MachineListViewModel @Inject constructor(
                 }
             }
         }
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                machineRepository.readAll()
+            }
+        }
     }
 
 }

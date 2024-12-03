@@ -6,7 +6,6 @@ import retrofit2.Response
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class MachineApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi
 ): IMachineApiDataSource {

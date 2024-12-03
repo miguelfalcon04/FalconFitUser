@@ -22,9 +22,10 @@ class MachineListFragment : Fragment() {
     private val viewModel: MachineListViewModel by viewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMachineListBinding.inflate(
             inflater,
             container,
@@ -35,9 +36,6 @@ class MachineListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val btnLogin = view.findViewById<Button>(R.id.loginButton)
-        val toRegister = view.findViewById<Button>(R.id.registerButton)
 
         val adapter = MachineListAdapter()
         binding.machineList.adapter = adapter
@@ -53,7 +51,6 @@ class MachineListFragment : Fragment() {
                     is MchnListUiState.Error -> {
                     }
                 }
-
             }
         }
 

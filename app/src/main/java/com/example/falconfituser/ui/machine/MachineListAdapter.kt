@@ -5,28 +5,29 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.databinding.ItemMachineBinding
 
-class MachineListAdapter: ListAdapter<Machine, MachineListAdapter.MachineItemViewHolder>(DiffCallback()) {
+class MachineListAdapter: ListAdapter<Machine, MachineListAdapter.MachineViewHolder>(DiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MachineItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MachineViewHolder {
         val binding = ItemMachineBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return MachineItemViewHolder(binding)
+        return MachineViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MachineItemViewHolder,position: Int){
+    override fun onBindViewHolder(holder: MachineViewHolder,position: Int){
         val machine = getItem(position)
         holder.bind(machine)
     }
 
-    class MachineItemViewHolder(private val binding: ItemMachineBinding):
-        ViewHolder(binding.root){
+    class MachineViewHolder(private val binding: ItemMachineBinding):
+        RecyclerView.ViewHolder(binding.root){
         fun bind(machine: Machine){
             binding.machineTitle.text = machine.title
             binding.machineSubtitle.text = machine.subtitle

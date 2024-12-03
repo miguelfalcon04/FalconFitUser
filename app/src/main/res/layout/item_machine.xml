@@ -6,9 +6,10 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">f
+    android:layout_margin="8dp">
 
     <LinearLayout
+        android:id="@+id/machine_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
