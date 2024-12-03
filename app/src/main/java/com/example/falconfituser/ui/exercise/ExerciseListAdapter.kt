@@ -11,6 +11,20 @@ import com.example.falconfituser.databinding.ItemExerciseBinding
 class ExerciseListAdapter: ListAdapter<Exercise,
         ExerciseListAdapter.ExerciseViewHolder>(DiffCallback()) {
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
+        val binding = ItemExerciseBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return ExerciseViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
+        val exercise = getItem(position)
+        holder.bind(exercise)
+    }
+
     class ExerciseViewHolder(private val binding: ItemExerciseBinding):
         RecyclerView.ViewHolder(binding.root){
         fun bind(exercise: Exercise){
@@ -28,20 +42,5 @@ class ExerciseListAdapter: ListAdapter<Exercise,
             return oldItem == newItem
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
-        val binding = ItemExerciseBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ExerciseViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-        val exercise = getItem(position)
-        holder.bind(exercise)
-    }
-
 
 }

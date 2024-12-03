@@ -1,7 +1,6 @@
 package com.example.falconfituser.data.exercise
 
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
-import com.example.falconfituser.data.machine.Machine
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

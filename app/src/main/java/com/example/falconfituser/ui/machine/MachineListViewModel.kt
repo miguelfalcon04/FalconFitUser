@@ -25,7 +25,7 @@ class MachineListViewModel @Inject constructor(
         viewModelScope.launch{
             withContext(Dispatchers.Main){
                 machineRepository.setStream.collect{
-                    mchnList ->
+                        mchnList ->
                     if(mchnList.isEmpty()){
                         _uiState.value = MchnListUiState.Loading
                     }else{
@@ -40,7 +40,6 @@ class MachineListViewModel @Inject constructor(
             }
         }
     }
-
 }
 
 sealed class MchnListUiState(){

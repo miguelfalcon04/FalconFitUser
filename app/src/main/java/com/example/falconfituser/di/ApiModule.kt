@@ -33,7 +33,6 @@ object RetrofitInstance{
 @Module
 @InstallIn(SingletonComponent::class)
 class ApiModule {
-
     @Provides
     @Singleton
     fun provideIFalconFitApi(): IFalconFitApi{

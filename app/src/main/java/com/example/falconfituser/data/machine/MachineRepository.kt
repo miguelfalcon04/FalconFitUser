@@ -5,19 +5,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class MachineRepository @Inject constructor(
     private val apiData: IMachineApiDataSource,
 ): IMachineRepository {
-    /*
-    private val _state = MutableStateFlow<List<Machine>>(listOf(
-        Machine(id = "1", title = "Banca", subtitle = "Pecho", description = "Muy chula me encanta mucho todo este como funciona puta strapi"),
-        Machine(id = "2", title = "Extensiones"),
-        Machine(id = "3", title = "Abdominales")
-    ))
-    */
+
     private val _state = MutableStateFlow<List<Machine>>(listOf())
     override val setStream: StateFlow<List<Machine>>
         get() = _state.asStateFlow()
@@ -42,11 +35,4 @@ class MachineRepository @Inject constructor(
     override fun observeAll(): Flow<List<Machine>> {
         TODO("Not yet implemented")
     }
-
-    private fun refreshLocal(){
-        runBlocking {
-            val mchApi = apiData.readAll()
-        }
-    }
-
 }

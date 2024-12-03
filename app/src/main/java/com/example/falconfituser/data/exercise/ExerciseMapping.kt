@@ -1,8 +1,6 @@
 package com.example.falconfituser.data.exercise
 
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
-import com.example.falconfituser.data.machine.Machine
-import com.example.falconfituser.data.api.machine.MachineRaw
 
 fun ExerciseRaw.toExternal(): Exercise {
     return Exercise(
