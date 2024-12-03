@@ -5,11 +5,6 @@
     android:id="@+id/main"
     app:startDestination="@+id/loginFragment">
 
-    <!-- MACHINE -->
-
-
-    <!-- SUPERSET -->
-
     <!-- LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
@@ -34,6 +29,7 @@
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+
     <include app:graph="@navigation/exercise" />
     <include app:graph="@navigation/machine" />
     <include app:graph="@navigation/superset" />
