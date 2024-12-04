@@ -10,3 +10,7 @@ data class ExerciseRawAttributes(
     val subtitle: String,
     val description: String
 )
+
+data class ExerciseCreateData(
+    val data: ExerciseRawAttributes
+)

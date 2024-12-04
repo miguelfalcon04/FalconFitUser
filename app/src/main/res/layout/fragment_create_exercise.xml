@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.exercise.CreateExerciseFragment">
+    tools:context=".ui.exercise.CreateExerciseFragment"
+    android:id="@+id/createAnExerciseFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutTitle"

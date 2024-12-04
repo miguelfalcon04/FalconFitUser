@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.exercise
 
+import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,9 +33,8 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula")
     }
 
-    override suspend fun createExercise(title: String, subtitle: String, description: String) {
-        val res = apiData.createExercise()
-        val exerc =
+    override suspend fun createExercise(exercise: ExerciseCreateData) {
+        apiData.createExercise(exercise)
     }
 
     override fun observeAll(): Flow<List<Exercise>> {

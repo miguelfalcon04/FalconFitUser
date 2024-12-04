@@ -34,4 +34,15 @@
     <include app:graph="@navigation/machine" />
     <include app:graph="@navigation/superset" />
 
+
+    <fragment
+        android:id="@+id/createExerciseFragment"
+        android:name="com.example.falconfituser.ui.exercise.CreateExerciseFragment"
+        android:label="fragment_create_exercise"
+        tools:layout="@layout/fragment_create_exercise" >
+        <action
+            android:id="@+id/action_createExerciseFragment_to_exercise"
+            app:destination="@id/exercise" />
+    </fragment>
+
 </navigation>

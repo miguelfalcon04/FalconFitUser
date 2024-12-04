@@ -3,12 +3,9 @@ package com.example.falconfituser.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.falconfituser.R
-import com.example.falconfituser.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,10 +23,10 @@ class MainActivity : AppCompatActivity() {
         bottomNav = findViewById(R.id.bottom_navigation)
         bottomNav.setupWithNavController(navController)
 
-        // Si esta en login o register no se ve el menu
+        // Ocultar menu segun su ubicaión
         navController.addOnDestinationChangedListener{ _,dest,_ ->
             when(dest.id){
-                R.id.loginFragment, R.id.registerFragment -> {
+                R.id.loginFragment, R.id.registerFragment, R.id.createExerciseFragment -> {
                     bottomNav.visibility = View.GONE
                 }
                 else -> bottomNav.visibility = View.VISIBLE
