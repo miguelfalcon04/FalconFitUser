@@ -15,4 +15,9 @@ class ExerciseApiDataSource @Inject constructor(
     override suspend fun readOne(id: Int): Response<Exercise> {
         return ffApi.getOneExercise(id)
     }
+
+    override suspend fun createExercise(exercise: ExerciseRaw) {
+        return ffApi.createExercise(exercise)
+    }
+
 }

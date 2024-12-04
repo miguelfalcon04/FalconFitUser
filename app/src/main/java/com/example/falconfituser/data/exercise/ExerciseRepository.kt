@@ -32,6 +32,11 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula")
     }
 
+    override suspend fun createExercise(title: String, subtitle: String, description: String) {
+        val res = apiData.createExercise()
+        val exerc =
+    }
+
     override fun observeAll(): Flow<List<Exercise>> {
         TODO("Not yet implemented")
     }

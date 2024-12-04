@@ -10,4 +10,8 @@
     <string name="login">Inicia sesión</string>
     <string name="register">Registrate</string>
     <string name="username">Nombre de Usuario\n</string>
+    <string name="titleExercise">Título</string>
+    <string name="subtitleExercise">subtítulo</string>
+    <string name="createExercise">Crear ejercicio</string>
+    <string name="backToExerciseList">Volver</string>
 </resources>

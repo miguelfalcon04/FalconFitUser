@@ -7,5 +7,6 @@ interface IExerciseRepository {
     val setStream: StateFlow<List<Exercise>>
     suspend fun readAll(): List<Exercise>
     suspend fun readOne(id: Int): Exercise
+    suspend fun createExercise(title: String, subtitle: String, description: String)
     fun observeAll(): Flow<List<Exercise>>
 }
