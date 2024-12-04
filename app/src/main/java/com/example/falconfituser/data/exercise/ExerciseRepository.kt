@@ -37,6 +37,10 @@ class ExerciseRepository @Inject constructor(
         apiData.createExercise(exercise)
     }
 
+    override suspend fun deleteExercise(exerciseId: Int) {
+        apiData.deleteExercise(exerciseId)
+    }
+
     override fun observeAll(): Flow<List<Exercise>> {
         TODO("Not yet implemented")
     }

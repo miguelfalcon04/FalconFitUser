@@ -14,4 +14,6 @@
     <string name="subtitleExercise">subtítulo</string>
     <string name="createExercise">Crear ejercicio</string>
     <string name="backToExerciseList">Volver</string>
+    <string name="Delete">Eliminar</string>
+    <string name="Update">Actualizar</string>
 </resources>

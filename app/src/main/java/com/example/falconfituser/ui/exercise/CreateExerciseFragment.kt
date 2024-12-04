@@ -60,7 +60,7 @@ class CreateExerciseFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // Creo un ExerciseRaw para pasarselo a la función
+            // Creo un ExerciseCreateData para pasarselo a la función
             val newExercise = ExerciseCreateData(
                 data = ExerciseRawAttributes(
                         title = title,
@@ -72,6 +72,7 @@ class CreateExerciseFragment : Fragment() {
             // Llamo al createExercise() del ViewModel
             viewModel.createExercise(newExercise)
 
+            // Y vuelvo a navegar a la lista
             findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
         }
     }
