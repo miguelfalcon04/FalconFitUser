@@ -16,46 +16,46 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
-    private val exerciseRepository: IExerciseRepository
-): ViewModel(){
+    private val exerciseRepository: IExerciseRepository,
+): ViewModel() {
     private val _uiState = MutableStateFlow<ExercListUiState>(ExercListUiState.Loading)
     val uiState: StateFlow<ExercListUiState>
         get() = _uiState.asStateFlow()
 
-    fun deleteExercise(exerciseId: Int){
-        viewModelScope.launch{
+    fun deleteExercise(exerciseId: Int) {
+        viewModelScope.launch {
             exerciseRepository.deleteExercise(exerciseId)
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 exerciseRepository.readAll()
             }
         }
     }
-
-    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData){
-        viewModelScope.launch{
+    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
+        viewModelScope.launch {
             exerciseRepository.updateExercise(exerciseId, exercise)
         }
     }
     init {
-        viewModelScope.launch{
-            withContext(Dispatchers.Main){
-                exerciseRepository.setStream.collect{
-                        exercList ->
-                    if(exercList.isEmpty()){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                exerciseRepository.setStream.collect { exercList ->
+                    if (exercList.isEmpty()) {
                         _uiState.value = ExercListUiState.Loading
-                    }else{
+                    } else {
                         _uiState.value = ExercListUiState.Success(exercList)
                     }
                 }
             }
         }
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 exerciseRepository.readAll()
             }
         }
     }
 }
+
+
 
 sealed class ExercListUiState(){
     data object Loading: ExercListUiState()

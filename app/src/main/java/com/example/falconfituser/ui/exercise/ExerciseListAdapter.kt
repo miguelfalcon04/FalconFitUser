@@ -2,15 +2,18 @@ package com.example.falconfituser.ui.exercise
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.ItemExerciseBinding
 
 
 class ExerciseListAdapter(
-    private val viewModel: ExerciseListViewModel
+    private val viewModel: ExerciseListViewModel,
+    private val navController: NavController
 ): ListAdapter<Exercise,
         ExerciseListAdapter.ExerciseViewHolder>(DiffCallback()) {
 
@@ -21,7 +24,7 @@ class ExerciseListAdapter(
             parent,
             false
         )
-        return ExerciseViewHolder(binding, viewModel)
+        return ExerciseViewHolder(binding, viewModel, navController)
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
@@ -31,7 +34,9 @@ class ExerciseListAdapter(
 
     class ExerciseViewHolder(
         private val binding: ItemExerciseBinding,
-        private val viewModel: ExerciseListViewModel):
+        private val viewModel: ExerciseListViewModel,
+        private val navController: NavController
+        ):
         RecyclerView.ViewHolder(binding.root){
         fun bind(exercise: Exercise){
             binding.exerciseTitle.text = exercise.title
@@ -41,6 +46,7 @@ class ExerciseListAdapter(
                 viewModel.deleteExercise(exercise.id.toInt())
             }
             binding.btnUpdate.setOnClickListener{
+                navController.navigate(R.id.createExerciseFragment)
             }
         }
     }
