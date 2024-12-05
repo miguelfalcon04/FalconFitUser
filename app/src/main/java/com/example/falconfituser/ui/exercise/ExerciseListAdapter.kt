@@ -2,14 +2,20 @@ package com.example.falconfituser.ui.exercise
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.ItemExerciseBinding
+import kotlin.getValue
 
-class ExerciseListAdapter: ListAdapter<Exercise,
+
+class ExerciseListAdapter(
+    private val viewModel: ExerciseListViewModel
+): ListAdapter<Exercise,
         ExerciseListAdapter.ExerciseViewHolder>(DiffCallback()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
         val binding = ItemExerciseBinding.inflate(
@@ -17,7 +23,7 @@ class ExerciseListAdapter: ListAdapter<Exercise,
             parent,
             false
         )
-        return ExerciseViewHolder(binding)
+        return ExerciseViewHolder(binding, viewModel)
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
@@ -25,12 +31,17 @@ class ExerciseListAdapter: ListAdapter<Exercise,
         holder.bind(exercise)
     }
 
-    class ExerciseViewHolder(private val binding: ItemExerciseBinding):
+    class ExerciseViewHolder(
+        private val binding: ItemExerciseBinding,
+        private val viewModel: ExerciseListViewModel):
         RecyclerView.ViewHolder(binding.root){
         fun bind(exercise: Exercise){
             binding.exerciseTitle.text = exercise.title
             binding.exerciseSubtitle.text = exercise.subtitle
             binding.exerciseDescription.text = exercise.description
+            binding.btnDelete.setOnClickListener{
+                viewModel.deleteExercise(exercise.id.toInt())
+            }
         }
     }
 

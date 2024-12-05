@@ -2,6 +2,7 @@ package com.example.falconfituser.ui.exercise
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,14 @@ class ExerciseListViewModel @Inject constructor(
     val uiState: StateFlow<ExercListUiState>
         get() = _uiState.asStateFlow()
 
+    fun deleteExercise(exerciseId: Int){
+        viewModelScope.launch{
+            exerciseRepository.deleteExercise(exerciseId)
+            withContext(Dispatchers.IO){
+                exerciseRepository.readAll()
+            }
+        }
+    }
     init {
         viewModelScope.launch{
             withContext(Dispatchers.Main){

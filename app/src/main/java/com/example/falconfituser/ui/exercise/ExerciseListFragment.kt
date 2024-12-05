@@ -41,7 +41,7 @@ class ExerciseListFragment : Fragment() {
             findNavController().navigate(R.id.createExerciseFragment)
         }
 
-        val adapter = ExerciseListAdapter()
+        val adapter = ExerciseListAdapter(viewModel)
         binding.exerciseList.adapter = adapter
 
         lifecycleScope.launch{
