@@ -2,13 +2,11 @@ package com.example.falconfituser.ui.exercise
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.ItemExerciseBinding
-import kotlin.getValue
 
 
 class ExerciseListAdapter(
@@ -41,6 +39,8 @@ class ExerciseListAdapter(
             binding.exerciseDescription.text = exercise.description
             binding.btnDelete.setOnClickListener{
                 viewModel.deleteExercise(exercise.id.toInt())
+            }
+            binding.btnUpdate.setOnClickListener{
             }
         }
     }

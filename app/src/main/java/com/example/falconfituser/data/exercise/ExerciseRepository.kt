@@ -37,6 +37,10 @@ class ExerciseRepository @Inject constructor(
         apiData.createExercise(exercise)
     }
 
+    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
+        apiData.updateExercise(exerciseId, exercise)
+    }
+
     override suspend fun deleteExercise(exerciseId: Int) {
         apiData.deleteExercise(exerciseId)
     }

@@ -20,6 +20,10 @@ class ExerciseApiDataSource @Inject constructor(
         return ffApi.createExercise(exercise)
     }
 
+    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
+        return ffApi.updateExercise(exerciseId, exercise)
+    }
+
     override suspend fun deleteExercise(exerciseId: Int) {
         return ffApi.deleteExercise(exerciseId)
     }

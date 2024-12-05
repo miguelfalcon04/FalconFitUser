@@ -57,23 +57,22 @@ class CreateExerciseFragment : Fragment() {
                     "Rellene todos los campos",
                     Toast.LENGTH_SHORT
                 ).show()
-                return@setOnClickListener
-            }
-
-            // Creo un ExerciseCreateData para pasarselo a la función
-            val newExercise = ExerciseCreateData(
-                data = ExerciseRawAttributes(
+            }else{
+                // Creo un ExerciseCreateData para pasarselo a la función
+                val newExercise = ExerciseCreateData(
+                    data = ExerciseRawAttributes(
                         title = title,
                         subtitle = subtitle,
                         description = description
+                    )
                 )
-            )
 
-            // Llamo al createExercise() del ViewModel
-            viewModel.createExercise(newExercise)
+                // Llamo al createExercise() del ViewModel
+                viewModel.createExercise(newExercise)
 
-            // Y vuelvo a navegar a la lista
-            findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
+                // Y vuelvo a navegar a la lista
+                findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
+            }
         }
     }
 }
