@@ -2,6 +2,8 @@ package com.example.falconfituser.data.api
 
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseListRaw
+import com.example.falconfituser.data.api.loginRegister.LoginRaw
+import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.exercise.Exercise
 import retrofit2.Response
@@ -28,8 +30,7 @@ interface IFalconFitApi {
     suspend fun deleteExercise(@Path("id")id: Int)
 
     @POST("auth/local/register")
-    suspend fun register(@Body registerRequest: RegisterRequest): Response<AuthResponse>
-
+    suspend fun register(@Body userToRegister: RegisterRaw) //: Response<AuthResponse>
     @POST("auth/local")
-    suspend fun login(@Body loginRequest: LoginRequest): Response<AuthResponse>
+    suspend fun login(@Body userToLogin: LoginRaw) //: Response<AuthResponse>
 }

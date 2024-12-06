@@ -9,12 +9,20 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
+import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.databinding.FragmentRegisterBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import kotlin.getValue
 
+@AndroidEntryPoint
 class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
+    private val viewModel: LoginRegisterViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
@@ -36,12 +44,35 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val password = getPassword.text.toString()
             if (username.isEmpty() && email.isEmpty() && password.isEmpty()){
                 Toast.makeText(context, "Rellene todos los campos", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            }else{
+                val userToRegister = RegisterRaw(
+                    username = username,
+                    email = email,
+                    password = password
+                )
+                viewModel.register(userToRegister)
+
             }
+
+
         }
 
         toLogin.setOnClickListener{
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+
+        lifecycleScope.launch{
+            viewModel.registerState.collect{ registerState ->
+                when(registerState){
+                    RegisterState.Loading -> {}
+                    is RegisterState.Success -> {
+                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                    }
+                    is RegisterState.Error -> {
+                        Toast.makeText(context, "Algo salió mal. Revise sus creedenciales", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
