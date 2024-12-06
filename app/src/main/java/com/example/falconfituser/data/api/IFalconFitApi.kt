@@ -26,4 +26,10 @@ interface IFalconFitApi {
     suspend fun updateExercise(@Path("id")id: Int, @Body exercise: ExerciseCreateData)
     @DELETE("exercises/{id}")
     suspend fun deleteExercise(@Path("id")id: Int)
+
+    @POST("auth/local/register")
+    suspend fun register(@Body registerRequest: RegisterRequest): Response<AuthResponse>
+
+    @POST("auth/local")
+    suspend fun login(@Body loginRequest: LoginRequest): Response<AuthResponse>
 }

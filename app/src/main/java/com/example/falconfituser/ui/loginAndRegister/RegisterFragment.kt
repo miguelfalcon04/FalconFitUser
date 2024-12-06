@@ -1,7 +1,6 @@
-package com.example.falconfituser.ui.register
+package com.example.falconfituser.ui.loginAndRegister
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentRegisterBinding
-import com.example.falconfituser.databinding.ItemMachineBinding
-import com.example.falconfituser.ui.MainActivity
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding

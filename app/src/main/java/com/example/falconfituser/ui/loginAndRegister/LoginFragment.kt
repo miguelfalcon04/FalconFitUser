@@ -1,4 +1,4 @@
-package com.example.falconfituser.ui.login
+package com.example.falconfituser.ui.loginAndRegister
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,7 +10,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
-import com.example.falconfituser.ui.MainActivity
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {

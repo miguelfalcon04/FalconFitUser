@@ -30,11 +30,7 @@ class ExerciseListViewModel @Inject constructor(
             }
         }
     }
-    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
-        viewModelScope.launch {
-            exerciseRepository.updateExercise(exerciseId, exercise)
-        }
-    }
+
     init {
         viewModelScope.launch {
             withContext(Dispatchers.Main) {

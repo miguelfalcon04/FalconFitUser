@@ -81,7 +81,7 @@
         android:id="@+id/createExerciseButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/createExercise"
+        android:text="@string/execute"
         android:textColor="@color/white"
         android:backgroundTint="#A31D2E"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription"

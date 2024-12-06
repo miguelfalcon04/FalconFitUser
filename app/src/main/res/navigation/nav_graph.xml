@@ -8,7 +8,7 @@
     <!-- LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.falconfituser.ui.login.LoginFragment"
+        android:name="com.example.falconfituser.ui.loginAndRegister.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -22,7 +22,7 @@
     <!-- REGISTER -->
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.falconfituser.ui.register.RegisterFragment"
+        android:name="com.example.falconfituser.ui.loginAndRegister.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -43,12 +43,6 @@
         <action
             android:id="@+id/action_createExerciseFragment_to_exercise"
             app:destination="@id/exercise" />
-        <!-- Este argumento me servirá para saber desde donde estoy navegando segun el valor
-             asi podre actualizar o crear dependiendo del valor que tenga -->
-        <argument
-            android:name="exerciseId"
-            app:argType="integer"
-            android:defaultValue="-1" />
     </fragment>
 
 </navigation>

@@ -6,14 +6,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="include">Realizar</string>
     <string name="email">Correo electrónico\n</string>
-    <string name="password">contraseña\n</string>
+    <string name="password">Contraseña\n</string>
     <string name="login">Inicia sesión</string>
     <string name="register">Registrate</string>
     <string name="username">Nombre de Usuario\n</string>
     <string name="titleExercise">Título</string>
-    <string name="subtitleExercise">subtítulo</string>
-    <string name="createExercise">Crear ejercicio</string>
+    <string name="subtitleExercise">Subtítulo</string>
+    <string name="execute">Ejecutar</string>
     <string name="backToExerciseList">Volver</string>
-    <string name="Delete">Eliminar</string>
-    <string name="Update">Actualizar</string>
+    <string name="delete">Eliminar</string>
+    <string name="update">Actualizar</string>
 </resources>
