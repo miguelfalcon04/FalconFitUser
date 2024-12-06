@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.exercise
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -45,8 +46,10 @@ class ExerciseListAdapter(
             binding.btnDelete.setOnClickListener{
                 viewModel.deleteExercise(exercise.id.toInt())
             }
-            binding.btnUpdate.setOnClickListener{
-                navController.navigate(R.id.createExerciseFragment)
+            binding.btnUpdate.setOnClickListener{ // Si pulsamos este boton obtenemos el id del ejercicio en especifico y navegamos al createExerciseFragment, recogemos el id y si es != null entonces hacemos un update, si es == null entonces unicamente hace un post
+                val exerciseId = Bundle();
+                exerciseId.putInt("exerciseId", exercise.id.toInt())
+                navController.navigate(R.id.createExerciseFragment, exerciseId)
             }
         }
     }

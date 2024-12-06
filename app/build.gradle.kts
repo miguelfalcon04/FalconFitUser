@@ -59,8 +59,8 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.8.5")
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation("androidx.navigation:navigation-fragment:2.8.0")
-    implementation("androidx.navigation:navigation-ui:2.8.0")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.0") // Navegacion de stack overflow para arguemntos en la navegación
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.0") // Lo mismo
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

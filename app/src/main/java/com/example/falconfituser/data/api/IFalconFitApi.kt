@@ -9,6 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface IFalconFitApi {
@@ -21,7 +22,7 @@ interface IFalconFitApi {
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>
     @POST("exercises") // @Body es que lo que ponga en exercise se va a enviar en el cuerpo de la solicitud
     suspend fun createExercise(@Body exercise: ExerciseCreateData)
-    @POST("exercises/{id}") // Hace el update
+    @PUT("exercises/{id}") // Hace el update
     suspend fun updateExercise(@Path("id")id: Int, @Body exercise: ExerciseCreateData)
     @DELETE("exercises/{id}")
     suspend fun deleteExercise(@Path("id")id: Int)

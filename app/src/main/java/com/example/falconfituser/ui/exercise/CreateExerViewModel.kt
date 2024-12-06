@@ -25,6 +25,12 @@ class CreateExerViewModel @Inject constructor(
             exerciseRepository.createExercise(exercise)
         }
     }
+
+    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData){
+        viewModelScope.launch{
+            exerciseRepository.updateExercise(exerciseId, exercise)
+        }
+    }
 }
 
 sealed class CreateExerUiState(){
