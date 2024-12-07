@@ -52,11 +52,7 @@ class CreateExerciseFragment : Fragment() {
 
             // Verifico que los campos estan rellenos
             if (title.isBlank() || subtitle.isBlank() || description.isBlank()) {
-                Toast.makeText(
-                    requireContext(),
-                    "Rellene todos los campos",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(),"Rellene todos los campos", Toast.LENGTH_SHORT).show()
             }else{
                 // Creo un ExerciseCreateData para pasarselo a la función
                 val createOrUpdateExercise = ExerciseCreateData(

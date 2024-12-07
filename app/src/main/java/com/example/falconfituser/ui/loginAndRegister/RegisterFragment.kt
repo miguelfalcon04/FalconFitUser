@@ -51,10 +51,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     password = password
                 )
                 viewModel.register(userToRegister)
-
             }
-
-
         }
 
         toLogin.setOnClickListener{

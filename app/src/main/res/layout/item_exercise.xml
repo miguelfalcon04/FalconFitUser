@@ -75,10 +75,26 @@
                     android:id="@+id/btnUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
                     android:backgroundTint="#1D3557"
                     android:text="@string/update"
                     app:cornerRadius="8dp" />
+
+                <!-- Botón para compartir -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnShare"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_row="0"
+                    android:layout_column="3"
+                    android:backgroundTint="#D4AF37"
+                    app:cornerRadius="28dp"
+                    app:icon="@drawable/ic_share"
+                    app:iconTint="@color/white"
+                    android:padding="15dp"/>
+
             </GridLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

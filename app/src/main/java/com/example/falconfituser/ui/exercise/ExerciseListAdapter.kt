@@ -1,8 +1,10 @@
 package com.example.falconfituser.ui.exercise
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -51,6 +53,20 @@ class ExerciseListAdapter(
                 val exerciseId = Bundle();
                 exerciseId.putInt("exerciseId", exercise.id.toInt())
                 navController.navigate(R.id.createExerciseFragment, exerciseId)
+            }
+            binding.btnShare.setOnClickListener{ // Realizado con la documentación de https://developer.android.com/guide/components/intents-filters?hl=es-419#Building
+                val textMessage = "¡Mira este ejercicio! ${exercise.title} - ${exercise.subtitle}: ${exercise.description}"
+                val sendIntent = Intent().apply{
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, textMessage)
+                    type = "text/plain"
+                }
+
+                try{
+                    binding.root.context.startActivity(Intent.createChooser(sendIntent, "Compartir usando"))
+                }catch (e: Exception){
+                    Toast.makeText(binding.root.context,"Se produjo algún error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
