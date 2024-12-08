@@ -5,6 +5,8 @@ import com.example.falconfituser.data.api.exercise.ExerciseListRaw
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
+import com.example.falconfituser.data.api.superset.SupersetListRaw
+import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import retrofit2.Response
 import retrofit2.http.Body
@@ -29,8 +31,19 @@ interface IFalconFitApi {
     @DELETE("exercises/{id}")
     suspend fun deleteExercise(@Path("id")id: Int)
 
+    @GET("supersets")
+    suspend fun getSupersets(): Response<SupersetListRaw>
+    @GET("supersets/{id}")
+    suspend fun getOneSuperset(@Path("id")id: Int): Response<SupersetListRaw>
+    @POST("supersets")
+    suspend fun createSuperset(@Body superset: SupersetRaw)
+    @PUT("supersets/{id}")
+    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetRaw)
+    @DELETE("supersets/{id}")
+    suspend fun deleteSuperset(@Path("id")id: Int)
+
     @POST("auth/local/register")
-    suspend fun register(@Body userToRegister: RegisterRaw) //: Response<AuthResponse>
+    suspend fun register(@Body userToRegister: RegisterRaw)
     @POST("auth/local")
-    suspend fun login(@Body userToLogin: LoginRaw) //: Response<AuthResponse>
+    suspend fun login(@Body userToLogin: LoginRaw)
 }
