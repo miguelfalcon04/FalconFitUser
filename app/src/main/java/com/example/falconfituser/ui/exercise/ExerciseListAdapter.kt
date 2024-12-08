@@ -45,9 +45,11 @@ class ExerciseListAdapter(
             binding.exerciseTitle.text = exercise.title
             binding.exerciseSubtitle.text = exercise.subtitle
             binding.exerciseDescription.text = exercise.description
+
             binding.btnDelete.setOnClickListener{
                 viewModel.deleteExercise(exercise.id.toInt())
             }
+
             // PARA DAVID -> No se si has explicado lo de Bundle, lo he sacado de stack over flow
             binding.btnUpdate.setOnClickListener{ // Si pulsamos este boton obtenemos el id del ejercicio en especifico y navegamos al createExerciseFragment, recogemos el id y si es != null entonces hacemos un update, si es == null entonces unicamente hace un post
                 val exerciseId = Bundle();

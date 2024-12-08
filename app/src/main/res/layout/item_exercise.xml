@@ -67,8 +67,7 @@
                     android:textColor="@color/white"
                     android:backgroundTint="#8B1A1A"
                     android:text="@string/delete"
-                    app:cornerRadius="8dp"
-                    tools:ignore="HardcodedText" />
+                    app:cornerRadius="8dp"/>
 
                 <!-- Botón para actualizar -->
                 <com.google.android.material.button.MaterialButton

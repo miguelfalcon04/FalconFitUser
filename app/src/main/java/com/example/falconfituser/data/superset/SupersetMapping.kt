@@ -6,7 +6,8 @@ fun SupersetRaw.toExternal(): Superset{
     return Superset(
         id = this.id.toString(),
         title = this.attributes.title,
-        exercises = this.attributes.exercises.data
+        exercises = emptyList()
+        // this.attributes.exercises.data
     )
 }
 
