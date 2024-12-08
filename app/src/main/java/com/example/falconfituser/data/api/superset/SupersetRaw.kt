@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.api.superset
 
+import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.exercise.Exercise
 
 // Al hacer un GET Bruno me devuelve
@@ -14,5 +15,5 @@ data class SupersetRawAttributes(
 )
 
 data class ExerciseCollection(
-    val data: List<Exercise>
+    val data: List<ExerciseRaw> // Aquí está la lista de ejercicios dentro de `data`
 )

@@ -32,7 +32,8 @@ class SupersetListAdapter(
         RecyclerView.ViewHolder(binding.root){
         fun bind(superset: Superset){
             binding.supersetTitle.text = superset.title
-
+            binding.supersetFirstEx.text = superset.exerciseOne.title
+            binding.supersetSecondEx.text = superset.exercisTwo.title
             binding.btnDelete.setOnClickListener{
                 viewModel.deleteSuperset(superset.id.toInt())
             }
