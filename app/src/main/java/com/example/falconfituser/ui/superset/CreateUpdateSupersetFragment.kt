@@ -1,7 +1,6 @@
 package com.example.falconfituser.ui.superset
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
+import com.example.falconfituser.data.api.superset.ExercisePost
+import com.example.falconfituser.data.api.superset.SupersetPost
+import com.example.falconfituser.data.api.superset.SupersetRawPost
 import com.example.falconfituser.databinding.FragmentCreateUpdateSupersetBinding
-import com.example.falconfituser.ui.exercise.ExercListUiState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -41,6 +42,31 @@ class CreateUpdateSupersetFragment : Fragment() {
 
         val btnCreateSuperset = view.findViewById<Button>(R.id.confirmSupersetButton)
         btnCreateSuperset.setOnClickListener{
+            val title = binding.addSupersetTitle.text.toString()
+            val selectedExercisesIds = adapter.exerToAdd
+
+            // Verifico que los campos estan rellenos
+                if (selectedExercisesIds.size > 2) {
+                    Toast.makeText(requireContext(), "Elimine un ejercicio para continuar", Toast.LENGTH_SHORT).show()
+                } else if (selectedExercisesIds.size < 2) {
+                    Toast.makeText(requireContext(), "Añada más ejercicios para continuar", Toast.LENGTH_SHORT).show()
+                } else {
+                    if (title.isBlank()) {
+                        Toast.makeText(requireContext(), "Añada un título", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val createOrUpdateSuperset = SupersetPost(
+                            data = SupersetRawPost(
+                                title = title,
+                                exercises = selectedExercisesIds.map { ExercisePost(it) }
+                            )
+                        )
+                        viewModel.createSuperset(createOrUpdateSuperset)
+
+                        // Por último navego
+                        findNavController().navigate(R.id.action_createUpdateSupersetFragment_to_superset)
+                    }
+                }
+
 
         }
 
@@ -57,7 +83,5 @@ class CreateUpdateSupersetFragment : Fragment() {
                 }
             }
         }
-
     }
-
 }

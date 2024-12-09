@@ -15,11 +15,11 @@ class SupersetApiDataSource @Inject constructor(
         return ffApi.getOneSuperset(id)
     }
 
-    override suspend fun createSuperset(superset: SupersetRaw) {
+    override suspend fun createSuperset(superset: SupersetPost) {
         return ffApi.createSuperset(superset)
     }
 
-    override suspend fun updateSuperset(supersetId: Int, superset: SupersetRaw) {
+    override suspend fun updateSuperset(supersetId: Int, superset: SupersetPost) {
         return ffApi.updateSuperset(supersetId, superset)
     }
 

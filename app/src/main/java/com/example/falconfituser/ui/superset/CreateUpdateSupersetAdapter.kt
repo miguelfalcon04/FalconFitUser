@@ -13,13 +13,15 @@ class CreateUpdateSupersetAdapter(
     private val viewModel: CreateUpdateSupersViewModel
 ): ListAdapter<Exercise, CreateUpdateSupersetAdapter.CreateUpdateViewHolder>(DiffCallback()) {
 
+    val exerToAdd: MutableList<Int> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateUpdateViewHolder {
         val binding = ItemToListExerciseBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
-        return CreateUpdateViewHolder(binding, viewModel)
+        return CreateUpdateViewHolder(binding, viewModel, exerToAdd)
     }
 
     override fun onBindViewHolder(holder: CreateUpdateViewHolder, position: Int) {
@@ -29,9 +31,9 @@ class CreateUpdateSupersetAdapter(
 
     class CreateUpdateViewHolder(
         private val binding: ItemToListExerciseBinding,
-        private val viewModel: CreateUpdateSupersViewModel):
+        private val viewModel: CreateUpdateSupersViewModel,
+        private val exerToAdd: MutableList<Int> ):
         RecyclerView.ViewHolder(binding.root){
-            var exerToAdd: MutableList<Int> = mutableListOf()
             fun bind(exercise: Exercise){
                 binding.exerciseToLisTitle.text = exercise.title
                 binding.exerciseToListSubtitle.text = exercise.subtitle

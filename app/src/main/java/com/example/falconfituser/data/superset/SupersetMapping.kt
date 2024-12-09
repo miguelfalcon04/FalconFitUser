@@ -7,8 +7,8 @@ import com.example.falconfituser.data.exercise.toExternal
 fun SupersetRaw.toExternal(): Superset{
     // En caso de que se borre un ejercicio asociado a un superset para que no de petardazo
     val exercises = this.attributes.exercises.data
-    val exerciseOne = exercises.get(0)?.toExternal()?: Exercise("0", "Ejercicio no disponible", "Ninguno", "Nada")
-    val exerciseTwo = exercises.get(1)?.toExternal()?: Exercise("0", "Ejercicio no disponible", "Ninguno", "Nada")
+    val exerciseOne = exercises.getOrNull(0)?.toExternal()?: Exercise("0", "Ejercicio no disponible", "Ninguno", "Nada")
+    val exerciseTwo = exercises.getOrNull(1)?.toExternal()?: Exercise("0", "Ejercicio no disponible", "Ninguno", "Nada")
     return Superset(
         id = this.id.toString(),
         title = this.attributes.title,

@@ -1,6 +1,7 @@
 package com.example.falconfituser.data.superset
 
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
+import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import kotlinx.coroutines.flow.Flow
@@ -43,11 +44,11 @@ class SupersetRepository @Inject constructor(
     }
 
 
-    override suspend fun createSuperset(superset: SupersetRaw) {
+    override suspend fun createSuperset(superset: SupersetPost) {
         return apiData.createSuperset(superset)
     }
 
-    override suspend fun updateSuperset(supersetId: Int, superset: SupersetRaw) {
+    override suspend fun updateSuperset(supersetId: Int, superset: SupersetPost) {
         return apiData.updateSuperset(supersetId, superset)
     }
 

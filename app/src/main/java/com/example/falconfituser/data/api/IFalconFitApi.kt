@@ -6,6 +6,7 @@ import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
+import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import retrofit2.Response
@@ -36,9 +37,9 @@ interface IFalconFitApi {
     @GET("supersets/{id}")
     suspend fun getOneSuperset(@Path("id")id: Int): Response<SupersetListRaw>
     @POST("supersets")
-    suspend fun createSuperset(@Body superset: SupersetRaw)
+    suspend fun createSuperset(@Body superset: SupersetPost)
     @PUT("supersets/{id}")
-    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetRaw)
+    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetPost)
     @DELETE("supersets/{id}")
     suspend fun deleteSuperset(@Path("id")id: Int)
 
