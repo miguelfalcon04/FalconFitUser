@@ -20,7 +20,7 @@
         android:paddingStart="6dp">
 
         <TextView
-            android:id="@+id/itemTitle"
+            android:id="@+id/exerciseToLisTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title"
@@ -30,7 +30,7 @@
             android:paddingBottom="4dp" />
 
         <TextView
-            android:id="@+id/itemSubtitle"
+            android:id="@+id/exerciseToListSubtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/subtitle"
