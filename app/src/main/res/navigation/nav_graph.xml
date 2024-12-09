@@ -53,5 +53,6 @@
             android:id="@+id/action_createUpdateSupersetFragment_to_superset"
             app:destination="@id/superset" />
     </fragment>
+    <include app:graph="@navigation/settings" />
 
 </navigation>

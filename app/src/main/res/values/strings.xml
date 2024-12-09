@@ -18,4 +18,8 @@
     <string name="update">Actualizar</string>
     <string name="confirm">Confirmar</string>
     <string name="selectExercises">Seleccionar ejercicios</string>
+    <string name="user">Usuario</string>
+    <string name="darkMode">Modo oscuro</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="change_language">Cambiar Idioma</string>
 </resources>
