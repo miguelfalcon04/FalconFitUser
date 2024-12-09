@@ -1,15 +1,19 @@
 package com.example.falconfituser.ui.superset
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.falconfituser.R
 import com.example.falconfituser.data.superset.Superset
 import com.example.falconfituser.databinding.ItemSupersetBinding
 
 class SupersetListAdapter(
-    private val viewModel: SupersetListViewModel
+    private val viewModel: SupersetListViewModel,
+    private val navController: NavController
 ): ListAdapter<Superset, SupersetListAdapter.SupersetViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SupersetViewHolder {
@@ -18,7 +22,7 @@ class SupersetListAdapter(
             parent,
             false
         )
-        return SupersetViewHolder(binding, viewModel)
+        return SupersetViewHolder(binding, viewModel, navController)
     }
 
     override fun onBindViewHolder(holder: SupersetViewHolder, position: Int) {
@@ -28,7 +32,8 @@ class SupersetListAdapter(
 
     class SupersetViewHolder(
         private val binding: ItemSupersetBinding,
-        private val viewModel: SupersetListViewModel):
+        private val viewModel: SupersetListViewModel,
+        private val navController: NavController):
         RecyclerView.ViewHolder(binding.root){
             fun bind(superset: Superset){
                 binding.supersetTitle.text = superset.title
@@ -37,6 +42,12 @@ class SupersetListAdapter(
 
                 binding.btnDelete.setOnClickListener{
                     viewModel.deleteSuperset(superset.id.toInt())
+                }
+
+                binding.btnUpdate.setOnClickListener{
+                    val supersetId = Bundle();
+                    supersetId.putInt("supersetId", superset.id.toInt())
+                    navController.navigate(R.id.createUpdateSupersetFragment, supersetId)
                 }
             }
     }

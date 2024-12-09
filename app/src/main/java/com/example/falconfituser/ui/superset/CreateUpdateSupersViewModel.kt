@@ -32,12 +32,14 @@ class CreateUpdateSupersViewModel @Inject constructor(
     fun createSuperset(superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.createSuperset(superset)
+            supersetRepository.readAll()
         }
     }
 
     fun updateSuperset(supersetId: Int, superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.updateSuperset(supersetId, superset)
+            supersetRepository.readAll()
         }
     }
 

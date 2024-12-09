@@ -32,7 +32,7 @@ class CreateUpdateSupersetFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = CreateUpdateSupersetAdapter(viewModel)
+        val adapter = CreateUpdateSupersetAdapter()
         binding.exerciseList.adapter = adapter
 
         val btnBackToList = view.findViewById<Button>(R.id.backToSupersetListButton)
@@ -60,7 +60,13 @@ class CreateUpdateSupersetFragment : Fragment() {
                                 exercises = selectedExercisesIds.map { ExercisePost(it) }
                             )
                         )
-                        viewModel.createSuperset(createOrUpdateSuperset)
+
+                        val supersetId = arguments?.getInt("supersetId",-1)?:-1
+                        if(supersetId != -1){
+                            viewModel.updateSuperset(supersetId, createOrUpdateSuperset)
+                        }else{
+                            viewModel.createSuperset(createOrUpdateSuperset)
+                        }
 
                         // Por último navego
                         findNavController().navigate(R.id.action_createUpdateSupersetFragment_to_superset)

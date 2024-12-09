@@ -10,7 +10,6 @@ import com.example.falconfituser.databinding.ItemToListExerciseBinding
 
 
 class CreateUpdateSupersetAdapter(
-    private val viewModel: CreateUpdateSupersViewModel
 ): ListAdapter<Exercise, CreateUpdateSupersetAdapter.CreateUpdateViewHolder>(DiffCallback()) {
 
     val exerToAdd: MutableList<Int> = mutableListOf()
@@ -21,7 +20,7 @@ class CreateUpdateSupersetAdapter(
             parent,
             false
         )
-        return CreateUpdateViewHolder(binding, viewModel, exerToAdd)
+        return CreateUpdateViewHolder(binding, exerToAdd)
     }
 
     override fun onBindViewHolder(holder: CreateUpdateViewHolder, position: Int) {
@@ -31,7 +30,6 @@ class CreateUpdateSupersetAdapter(
 
     class CreateUpdateViewHolder(
         private val binding: ItemToListExerciseBinding,
-        private val viewModel: CreateUpdateSupersViewModel,
         private val exerToAdd: MutableList<Int> ):
         RecyclerView.ViewHolder(binding.root){
             fun bind(exercise: Exercise){

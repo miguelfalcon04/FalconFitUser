@@ -73,6 +73,7 @@ class CreateExerciseFragment : Fragment() {
                 }
 
 
+
                 // Y vuelvo a navegar a la lista
                 findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
             }

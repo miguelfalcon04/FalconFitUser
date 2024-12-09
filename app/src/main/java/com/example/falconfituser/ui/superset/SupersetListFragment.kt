@@ -35,7 +35,7 @@ class SupersetListFragment : Fragment() {
             findNavController().navigate(R.id.createUpdateSupersetFragment)
         }
 
-        val adapter = SupersetListAdapter(viewModel)
+        val adapter = SupersetListAdapter(viewModel, navController = findNavController())
         binding.supersetList.adapter = adapter
 
         lifecycleScope.launch{
