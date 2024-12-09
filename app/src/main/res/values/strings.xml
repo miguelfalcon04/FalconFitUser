@@ -22,4 +22,10 @@
     <string name="darkMode">Modo oscuro</string>
     <string name="logout">Cerrar sesión</string>
     <string name="change_language">Cambiar Idioma</string>
+    <string name="error_invalid_credentials">Alguna de las credenciales es incorrecta</string>
+    <string name="error_delete_exercises">Elimine ejercicios para continuar</string>
+    <string name="error_add_exercises">Añada ejercicios para continuar</string>
+    <string name="error_add_title">Añada un título</string>
+    <string name="error_fill_all">Rellene todos los campos</string>
+    <string name="error_average_error">Algo salió mal revise sus creedenciales</string>
 </resources>

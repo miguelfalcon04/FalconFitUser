@@ -1,6 +1,5 @@
 package com.example.falconfituser.data.api.machine
 
-import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.data.api.IFalconFitApi
 import retrofit2.Response
 import javax.inject.Inject

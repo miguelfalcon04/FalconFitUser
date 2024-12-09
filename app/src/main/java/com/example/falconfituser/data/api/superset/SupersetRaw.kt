@@ -15,7 +15,7 @@ data class SupersetRawAttributes(
 )
 
 data class ExerciseCollection(
-    val data: List<ExerciseRaw> // Aquí está la lista de ejercicios dentro de `data`
+    val data: List<ExerciseRaw> // lista de ejercicios dentro de `data`
 )
 
 data class SupersetPost(

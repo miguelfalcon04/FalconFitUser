@@ -2,7 +2,6 @@ package com.example.falconfituser.ui.exercise
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

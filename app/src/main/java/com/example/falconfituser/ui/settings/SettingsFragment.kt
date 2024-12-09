@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.example.falconfituser.R
+
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
@@ -29,6 +32,11 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toLogin = binding.logoutButton
+        toLogin.setOnClickListener{
+            findNavController().navigate(R.id.loginFragment)
+        }
 
         val switch = binding.darkThemeSwitch
         val languageSwitch = binding.languageSwitch
@@ -68,7 +76,7 @@ class SettingsFragment : Fragment() {
     }
 
     private suspend fun setLanguage(isChecked: Boolean) {
-        withContext(Dispatchers.Main) { // Asegura que se ejecuta en el hilo principal
+        withContext(Dispatchers.Main) { // Para que se ejecute en Application y no de error de 2 DataStore
             val languageTag = if (isChecked) "en" else "es"
             val localeList = LocaleListCompat.forLanguageTags(languageTag)
             AppCompatDelegate.setApplicationLocales(localeList)

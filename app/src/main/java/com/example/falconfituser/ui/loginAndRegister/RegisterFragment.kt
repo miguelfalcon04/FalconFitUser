@@ -43,7 +43,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val email = getEmail.text.toString()
             val password = getPassword.text.toString()
             if (username.isEmpty() && email.isEmpty() && password.isEmpty()){
-                Toast.makeText(context, "Rellene todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_fill_all), Toast.LENGTH_SHORT).show()
             }else{
                 val userToRegister = RegisterRaw(
                     username = username,
@@ -66,7 +66,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                         findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
                     }
                     is RegisterState.Error -> {
-                        Toast.makeText(context, "Algo salió mal. Revise sus creedenciales", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.error_average_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

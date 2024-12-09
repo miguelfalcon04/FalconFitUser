@@ -52,7 +52,7 @@ class CreateExerciseFragment : Fragment() {
 
             // Verifico que los campos estan rellenos
             if (title.isBlank() || subtitle.isBlank() || description.isBlank()) {
-                Toast.makeText(requireContext(),"Rellene todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),getString(R.string.error_fill_all), Toast.LENGTH_SHORT).show()
             }else{
                 // Creo un ExerciseCreateData para pasarselo a la función
                 val createOrUpdateExercise = ExerciseCreateData(
@@ -71,8 +71,6 @@ class CreateExerciseFragment : Fragment() {
                     // Llamo al createExercise() del ViewModel
                     viewModel.createExercise(createOrUpdateExercise)
                 }
-
-
 
                 // Y vuelvo a navegar a la lista
                 findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)

@@ -2,8 +2,6 @@ package com.example.falconfituser.data.superset
 
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
 import com.example.falconfituser.data.api.superset.SupersetPost
-import com.example.falconfituser.data.api.superset.SupersetRaw
-import com.example.falconfituser.data.exercise.Exercise
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

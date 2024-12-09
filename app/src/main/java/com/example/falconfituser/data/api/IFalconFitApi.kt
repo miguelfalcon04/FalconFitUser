@@ -7,7 +7,6 @@ import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
-import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import retrofit2.Response
 import retrofit2.http.Body

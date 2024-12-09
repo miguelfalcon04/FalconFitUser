@@ -50,9 +50,6 @@ class SupersetListViewModel @Inject constructor(
     }
 }
 
-
-
-
 sealed class SupersListUiState(){
     data object Loading: SupersListUiState()
     class Success(val supersList: List<Superset>): SupersListUiState()

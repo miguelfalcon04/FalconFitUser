@@ -39,7 +39,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val email = getEmail.text.toString()
             val password = getPassword.text.toString()
             if (email.isEmpty() && password.isEmpty()){
-                Toast.makeText(context, "Alguna de las credenciales es incorrecta", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.error_invalid_credentials), Toast.LENGTH_SHORT).show()
             }else{
                 val userToLogin = LoginRaw(
                     identifier = email,
@@ -61,7 +61,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         findNavController().navigate(R.id.action_loginFragment_to_machine)
                     }
                     is LoginState.Error -> {
-                        Toast.makeText(context, "Alguna de las credenciales es incorrecta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.error_invalid_credentials), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

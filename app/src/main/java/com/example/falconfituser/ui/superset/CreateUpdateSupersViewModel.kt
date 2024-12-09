@@ -3,12 +3,9 @@ package com.example.falconfituser.ui.superset
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.api.superset.SupersetPost
-import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
-import com.example.falconfituser.data.superset.Superset
-import com.example.falconfituser.ui.exercise.ExercListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

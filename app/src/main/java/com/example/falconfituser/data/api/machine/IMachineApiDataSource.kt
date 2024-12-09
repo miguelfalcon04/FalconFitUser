@@ -1,6 +1,5 @@
 package com.example.falconfituser.data.api.machine
 
-import com.example.falconfituser.data.machine.Machine
 import retrofit2.Response
 
 interface IMachineApiDataSource {

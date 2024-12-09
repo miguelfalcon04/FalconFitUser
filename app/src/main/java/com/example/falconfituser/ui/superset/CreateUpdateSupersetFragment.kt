@@ -47,17 +47,17 @@ class CreateUpdateSupersetFragment : Fragment() {
 
             // Verifico que los campos estan rellenos
                 if (selectedExercisesIds.size > 2) {
-                    Toast.makeText(requireContext(), "Elimine un ejercicio para continuar", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_delete_exercises), Toast.LENGTH_SHORT).show()
                 } else if (selectedExercisesIds.size < 2) {
-                    Toast.makeText(requireContext(), "Añada más ejercicios para continuar", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.error_add_exercises), Toast.LENGTH_SHORT).show()
                 } else {
                     if (title.isBlank()) {
-                        Toast.makeText(requireContext(), "Añada un título", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.error_add_title), Toast.LENGTH_SHORT).show()
                     } else {
                         val createOrUpdateSuperset = SupersetPost(
                             data = SupersetRawPost(
                                 title = title,
-                                exercises = selectedExercisesIds.map { ExercisePost(it) }
+                                exercises = selectedExercisesIds.map { ExercisePost(it) } // Crea ExercisePost con los ids
                             )
                         )
 
