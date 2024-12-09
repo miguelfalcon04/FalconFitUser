@@ -10,10 +10,12 @@
     <string name="login">Inicia sesión</string>
     <string name="register">Registrate</string>
     <string name="username">Nombre de Usuario\n</string>
-    <string name="titleExercise">Título</string>
-    <string name="subtitleExercise">Subtítulo</string>
+    <string name="title">Título</string>
+    <string name="subtitle">Subtítulo</string>
     <string name="execute">Ejecutar</string>
-    <string name="backToExerciseList">Volver</string>
+    <string name="back">Volver</string>
     <string name="delete">Eliminar</string>
     <string name="update">Actualizar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="selectExercises">Seleccionar ejercicios</string>
 </resources>

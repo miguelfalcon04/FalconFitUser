@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         // Ocultar menu segun su ubicaión
         navController.addOnDestinationChangedListener{ _,dest,_ ->
             when(dest.id){
-                R.id.loginFragment, R.id.registerFragment, R.id.createExerciseFragment -> {
+                R.id.loginFragment, R.id.registerFragment, R.id.createExerciseFragment, R.id.createUpdateSupersetFragment -> {
                     bottomNav.visibility = View.GONE
                 }
                 else -> bottomNav.visibility = View.VISIBLE

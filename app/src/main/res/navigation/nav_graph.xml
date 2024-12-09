@@ -45,4 +45,13 @@
             app:destination="@id/exercise" />
     </fragment>
 
+    <fragment
+        android:id="@+id/createUpdateSupersetFragment"
+        android:name="com.example.falconfituser.ui.superset.CreateUpdateSupersetFragment"
+        android:label="CreateUpdateSupersetFragment" >
+        <action
+            android:id="@+id/action_createUpdateSupersetFragment_to_superset"
+            app:destination="@id/superset" />
+    </fragment>
+
 </navigation>

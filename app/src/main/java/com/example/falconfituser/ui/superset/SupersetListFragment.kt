@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentSupersetListBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,6 +29,11 @@ class SupersetListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val btnSupersetCreateUpdate = view.findViewById<FloatingActionButton>(R.id.btnSupersetCreateUpdate)
+        btnSupersetCreateUpdate.setOnClickListener{
+            findNavController().navigate(R.id.createUpdateSupersetFragment)
+        }
 
         val adapter = SupersetListAdapter(viewModel)
         binding.supersetList.adapter = adapter
