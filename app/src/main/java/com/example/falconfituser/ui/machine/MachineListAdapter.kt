@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.databinding.ItemMachineBinding
 
@@ -27,10 +28,12 @@ class MachineListAdapter: ListAdapter<Machine,
 
     class MachineViewHolder(private val binding: ItemMachineBinding):
         RecyclerView.ViewHolder(binding.root){
+        // val imgViewMachine: ImageView = itemView.findViewById(R.id.machine_image)
         fun bind(machine: Machine){
             binding.machineTitle.text = machine.title
             binding.machineSubtitle.text = machine.subtitle
             binding.machineDescription.text = machine.description
+            binding.machineImage.load(machine.photo)
         }
     }
 

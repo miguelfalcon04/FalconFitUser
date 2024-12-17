@@ -10,6 +10,4 @@ class MachineApiDataSource @Inject constructor(
     override suspend fun readAll(): Response<MachineListRaw> {
         return ffApi.getMachines()
     }
-
-
 }
