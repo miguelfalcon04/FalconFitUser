@@ -8,7 +8,8 @@ fun MachineRaw.toExternal(): Machine{
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
         description = this.attributes.description,
-        photo = this.attributes.photo.formats?.small!!.url
+        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url ?: ""
+            //this.attributes.photo.attributes.formats?.small!!.url
     )
 }
 

@@ -14,7 +14,11 @@ data class MachineRawAttributes(
     val title: String,
     val subtitle: String,
     val description: String,
-    val photo: PhotoRawAttributes
+    val photo: PhotoWrapper?
+)
+
+data class PhotoWrapper(
+    val data: List<PhotoRaw>? //Me devuelve la lista de fotos (small, thumbnail, hash)
 )
 
 data class PhotoRawAttributes(
