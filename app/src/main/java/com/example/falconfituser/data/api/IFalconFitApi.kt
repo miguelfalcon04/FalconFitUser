@@ -3,6 +3,7 @@ package com.example.falconfituser.data.api
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseListRaw
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
+import com.example.falconfituser.data.api.loginRegister.LoginResponse
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
@@ -45,5 +46,5 @@ interface IFalconFitApi {
     @POST("auth/local/register")
     suspend fun register(@Body userToRegister: RegisterRaw)
     @POST("auth/local")
-    suspend fun login(@Body userToLogin: LoginRaw)
+    suspend fun login(@Body userToLogin: LoginRaw): Response<LoginResponse>
 }
