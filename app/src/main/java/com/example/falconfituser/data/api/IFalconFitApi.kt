@@ -46,5 +46,5 @@ interface IFalconFitApi {
     @POST("auth/local/register")
     suspend fun register(@Body userToRegister: RegisterRaw)
     @POST("auth/local")
-    suspend fun login(@Body userToLogin: LoginRaw): Response<LoginResponse>
+    suspend fun login(@Body userToLogin: LoginRaw): Result<LoginResponse>
 }
