@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.exercise
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.exercise.Exercise
@@ -16,16 +17,26 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
     private val exerciseRepository: IExerciseRepository,
+    private val sharedPreferences: SharedPreferences
 ): ViewModel() {
     private val _uiState = MutableStateFlow<ExercListUiState>(ExercListUiState.Loading)
     val uiState: StateFlow<ExercListUiState>
         get() = _uiState.asStateFlow()
 
+    fun loadExercises() {
+        viewModelScope.launch {
+            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+            withContext(Dispatchers.IO) {
+                exerciseRepository.readAll(userId)
+            }
+        }
+    }
+
     fun deleteExercise(exerciseId: Int) {
         viewModelScope.launch {
             exerciseRepository.deleteExercise(exerciseId)
             withContext(Dispatchers.IO) {
-                exerciseRepository.readAll()
+                loadExercises()
             }
         }
     }
@@ -44,7 +55,7 @@ class ExerciseListViewModel @Inject constructor(
         }
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                exerciseRepository.readAll()
+                loadExercises()
             }
         }
     }

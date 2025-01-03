@@ -63,6 +63,7 @@ class CreateExerciseFragment : Fragment() {
                     )
                 )
 
+                //TODO () RELACIONAR CON USUARIO
                 // Si exerciseId es != -1 significa que he navegado desde ListAdapter queriendo hacer un update
                 val exerciseId = arguments?.getInt("exerciseId",-1)?: -1
                 if(exerciseId != -1){

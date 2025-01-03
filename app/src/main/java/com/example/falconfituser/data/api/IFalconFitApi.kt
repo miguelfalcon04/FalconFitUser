@@ -10,6 +10,7 @@ import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.exercise.Exercise
 import retrofit2.Response
+import retrofit2.http.Query
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -21,8 +22,8 @@ interface IFalconFitApi {
     @GET("machines/?populate=photo")
     suspend fun getMachines(): Response<MachineListRaw>
 
-    @GET("exercises?filters[userId][id]={id}")
-    suspend fun getExercises(@Path("id")id: Int): Response<ExerciseListRaw>
+    @GET("exercises")
+    suspend fun getExercises(@Query("filters[userId][id]") userId: Int): Response<ExerciseListRaw>
     @GET("exercises/{id}")
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>
     @POST("exercises") // @Body es que lo que ponga en exercise se va a enviar en el cuerpo de la solicitud

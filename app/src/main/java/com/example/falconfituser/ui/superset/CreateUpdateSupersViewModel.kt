@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.superset
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.api.superset.SupersetPost
@@ -18,14 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateUpdateSupersViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
-    private val exerciseRepository: IExerciseRepository
-
+    private val exerciseRepository: IExerciseRepository,
+    private val sharedPreferences: SharedPreferences
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateUpdateSupersUiState>(CreateUpdateSupersUiState.Loading)
     val uiState: StateFlow<CreateUpdateSupersUiState>
         get() = _uiState.asStateFlow()
 
 
+    //TODO() RELACIONAR CON USARIO
     fun createSuperset(superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.createSuperset(superset)
@@ -40,11 +42,13 @@ class CreateUpdateSupersViewModel @Inject constructor(
         }
     }
 
+
     private fun loadExercises() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 try {
-                    val exercises = exerciseRepository.readAll()
+                    val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+                    val exercises = exerciseRepository.readAll(userId)
                     _uiState.value = CreateUpdateSupersUiState.Success(exercises)
                 } catch (e: Exception) {
                     _uiState.value = CreateUpdateSupersUiState.Error(e.message ?: "Error desconocido")
