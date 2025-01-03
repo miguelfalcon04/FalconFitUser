@@ -7,11 +7,11 @@ import javax.inject.Inject
 class LoginRegisterApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi
 ): ILoginRegisterApiDataSource {
-    override suspend fun loginUser(userToLogin: LoginRaw): Result<LoginResponse> {
-        ffApi.login(userToLogin)
+    override suspend fun loginUser(userToLogin: LoginRaw): Response<LoginResponse> {
+        return ffApi.login(userToLogin)
     }
 
-    override suspend fun registerUser(userToRegister: RegisterRaw): Result<LoginResponse> {
-        ffApi.register(userToRegister)
+    override suspend fun registerUser(userToRegister: RegisterRaw): Response<LoginResponse> {
+        return ffApi.register(userToRegister)
     }
 }

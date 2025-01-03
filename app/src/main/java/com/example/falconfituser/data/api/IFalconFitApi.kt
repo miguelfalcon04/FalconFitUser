@@ -44,7 +44,7 @@ interface IFalconFitApi {
     suspend fun deleteSuperset(@Path("id")id: Int)
 
     @POST("auth/local/register")
-    suspend fun register(@Body userToRegister: RegisterRaw)
+    suspend fun register(@Body userToRegister: RegisterRaw): Response<LoginResponse>
     @POST("auth/local")
-    suspend fun login(@Body userToLogin: LoginRaw): Result<LoginResponse>
+    suspend fun login(@Body userToLogin: LoginRaw): Response<LoginResponse>
 }
