@@ -16,8 +16,9 @@ class ExerciseRepository @Inject constructor(
     override val setStream: StateFlow<List<Exercise>>
         get() = _state.asStateFlow()
 
-    override suspend fun readAll(): List<Exercise> {
-        val res = apiData.readAll()
+    // Debemos pasarle el id del usuario
+    override suspend fun readAll(id: Int): List<Exercise> {
+        val res = apiData.readAll(id)
         val exerc = _state.value.toMutableList()
         if(res.isSuccessful){
             val exercList = res.body()?.data?:emptyList()

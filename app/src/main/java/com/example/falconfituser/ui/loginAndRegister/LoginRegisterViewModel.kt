@@ -37,8 +37,9 @@ class LoginRegisterViewModel @Inject constructor(
                     val body = response.body() // Cogemos la respuesta
                     if (body != null) {
                         val jwt = body.jwt // Extraemos el JWT
+                        saveId(body.user.id.toString())
                         saveToken(jwt) // Guardamos el token en SharedPreferences
-                        _loginState.value = LoginState.Success() // Navegamos
+                        _loginState.value = LoginState.Success(jwt) // Navegamos
                     } else {
                         _loginState.value = LoginState.Error("La respuesta del servidor está vacía")
                     }
@@ -73,11 +74,21 @@ class LoginRegisterViewModel @Inject constructor(
     fun getToken(): String? {
         return sharedPreferences.getString("JWT_TOKEN", null)
     }
+
+    fun saveId(id: String){
+        sharedPreferences.edit()
+            .putString("USER_ID",id)
+            .apply()
+    }
+
+    fun getId(): String? {
+        return sharedPreferences.getString("USER_ID", null)
+    }
 }
 
 sealed class LoginState {
     data object Loading: LoginState()
-    class Success() : LoginState()
+    class Success(val message: String) : LoginState()
     class Error(val message: String) : LoginState()
 }
 

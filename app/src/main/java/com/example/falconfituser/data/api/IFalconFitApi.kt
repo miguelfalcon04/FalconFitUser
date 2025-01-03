@@ -21,8 +21,8 @@ interface IFalconFitApi {
     @GET("machines/?populate=photo")
     suspend fun getMachines(): Response<MachineListRaw>
 
-    @GET("exercises")
-    suspend fun getExercises(): Response<ExerciseListRaw>
+    @GET("exercises?filters[userId][id]={id}")
+    suspend fun getExercises(@Path("id")id: Int): Response<ExerciseListRaw>
     @GET("exercises/{id}")
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>
     @POST("exercises") // @Body es que lo que ponga en exercise se va a enviar en el cuerpo de la solicitud

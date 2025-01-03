@@ -8,8 +8,8 @@ import javax.inject.Inject
 class ExerciseApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi
 ): IExerciseApiDataSource {
-    override suspend fun readAll(): Response<ExerciseListRaw> {
-        return ffApi.getExercises()
+    override suspend fun readAll(id: Int): Response<ExerciseListRaw> {
+        return ffApi.getExercises(id)
     }
 
     override suspend fun readOne(id: Int): Response<Exercise> {

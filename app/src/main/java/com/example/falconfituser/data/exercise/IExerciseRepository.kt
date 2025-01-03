@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface IExerciseRepository {
     val setStream: StateFlow<List<Exercise>>
-    suspend fun readAll(): List<Exercise>
+    suspend fun readAll(id: Int): List<Exercise>
     suspend fun readOne(id: Int): Exercise
     suspend fun createExercise(exercise: ExerciseCreateData)
     suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData)
