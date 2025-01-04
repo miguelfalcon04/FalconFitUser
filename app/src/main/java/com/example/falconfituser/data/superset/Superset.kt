@@ -7,5 +7,4 @@ data class Superset (
     val title: String,
     val exerciseOne: Exercise,
     val exercisTwo: Exercise,
-
 )

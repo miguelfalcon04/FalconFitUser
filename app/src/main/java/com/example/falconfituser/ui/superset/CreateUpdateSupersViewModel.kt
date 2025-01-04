@@ -26,22 +26,28 @@ class CreateUpdateSupersViewModel @Inject constructor(
     val uiState: StateFlow<CreateUpdateSupersUiState>
         get() = _uiState.asStateFlow()
 
+    fun loadSupersets(){
+        viewModelScope.launch {
+            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+            withContext(Dispatchers.IO) {
+                supersetRepository.readAll(userId)
+            }
+        }
+    }
 
-    //TODO() RELACIONAR CON USARIO
     fun createSuperset(superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.createSuperset(superset)
-            supersetRepository.readAll()
+            loadSupersets()
         }
     }
 
     fun updateSuperset(supersetId: Int, superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.updateSuperset(supersetId, superset)
-            supersetRepository.readAll()
+            loadSupersets()
         }
     }
-
 
     private fun loadExercises() {
         viewModelScope.launch {

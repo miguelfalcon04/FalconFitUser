@@ -34,7 +34,7 @@ interface IFalconFitApi {
     suspend fun deleteExercise(@Path("id")id: Int)
 
     @GET("supersets/?populate=exercises")
-    suspend fun getSupersets(): Response<SupersetListRaw>
+    suspend fun getSupersets(@Query("filters[userId][id]") userId: Int): Response<SupersetListRaw>
     @GET("supersets/{id}")
     suspend fun getOneSuperset(@Path("id")id: Int): Response<SupersetListRaw>
     @POST("supersets")

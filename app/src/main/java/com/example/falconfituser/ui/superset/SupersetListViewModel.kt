@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.superset
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.superset.ISupersetRepository
@@ -15,17 +16,27 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SupersetListViewModel @Inject constructor(
-    private val supersetRepository: ISupersetRepository
-): ViewModel() {
+    private val supersetRepository: ISupersetRepository,
+    private val sharedPreferences: SharedPreferences
+    ): ViewModel() {
     private val _uiState = MutableStateFlow<SupersListUiState>(SupersListUiState.Loading)
     val uiState: StateFlow<SupersListUiState>
         get() = _uiState.asStateFlow()
+
+    fun loadSupersets(){
+        viewModelScope.launch {
+            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+            withContext(Dispatchers.IO) {
+                supersetRepository.readAll(userId)
+            }
+        }
+    }
 
     fun deleteSuperset(supersetId: Int){
         viewModelScope.launch {
             supersetRepository.deleteSuperset(supersetId)
             withContext(Dispatchers.IO) {
-                supersetRepository.readAll()
+                loadSupersets()
             }
         }
     }
@@ -44,7 +55,7 @@ class SupersetListViewModel @Inject constructor(
         }
         viewModelScope.launch{
             withContext(Dispatchers.IO){
-                supersetRepository.readAll()
+                loadSupersets()
             }
         }
     }

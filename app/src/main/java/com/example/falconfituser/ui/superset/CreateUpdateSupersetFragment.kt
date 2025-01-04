@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.superset
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.falconfituser.R
 import com.example.falconfituser.data.api.superset.ExercisePost
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRawPost
+import com.example.falconfituser.data.api.superset.UserIdRaw
 import com.example.falconfituser.databinding.FragmentCreateUpdateSupersetBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ import kotlinx.coroutines.launch
 class CreateUpdateSupersetFragment : Fragment() {
     private lateinit var binding: FragmentCreateUpdateSupersetBinding
     private val viewModel: CreateUpdateSupersViewModel by viewModels()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?
     ): View? {
@@ -31,6 +34,9 @@ class CreateUpdateSupersetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Inicializa sharedPreferences
+        sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
 
         val adapter = CreateUpdateSupersetAdapter()
         binding.exerciseList.adapter = adapter
@@ -54,10 +60,15 @@ class CreateUpdateSupersetFragment : Fragment() {
                     if (title.isBlank()) {
                         Toast.makeText(requireContext(), getString(R.string.error_add_title), Toast.LENGTH_SHORT).show()
                     } else {
+                        val userId = getUserId()
+
                         val createOrUpdateSuperset = SupersetPost(
                             data = SupersetRawPost(
                                 title = title,
-                                exercises = selectedExercisesIds.map { ExercisePost(it) } // Crea ExercisePost con los ids
+                                exercises = selectedExercisesIds.map { ExercisePost(it) }, // Crea ExercisePost con los ids
+                                userId = UserIdRaw(
+                                    id = userId
+                                )
                             )
                         )
 
@@ -90,4 +101,8 @@ class CreateUpdateSupersetFragment : Fragment() {
             }
         }
     }
+
+    private fun getUserId(): Int {
+        return sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+    }   
 }

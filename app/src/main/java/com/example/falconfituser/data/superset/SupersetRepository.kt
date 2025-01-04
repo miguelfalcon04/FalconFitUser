@@ -15,8 +15,8 @@ class SupersetRepository @Inject constructor(
     override val setStream: StateFlow<List<Superset>>
         get() = _state.asStateFlow()
 
-    override suspend fun readAll(): List<Superset> {
-        val res = apiData.readAll()
+    override suspend fun readAll(id: Int): List<Superset> {
+        val res = apiData.readAll(id)
         val supers = _state.value.toMutableList()
         if(res.isSuccessful){
             val supersetList = res.body()?.data?:emptyList()

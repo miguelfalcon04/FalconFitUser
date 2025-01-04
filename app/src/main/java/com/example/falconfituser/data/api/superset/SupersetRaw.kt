@@ -14,6 +14,10 @@ data class SupersetRawAttributes(
     val exercises: ExerciseCollection
 )
 
+class UserIdRaw(
+    val id: Int
+)
+
 data class ExerciseCollection(
     val data: List<ExerciseRaw> // lista de ejercicios dentro de `data`
 )
@@ -24,7 +28,8 @@ data class SupersetPost(
 
 data class SupersetRawPost(
     val title: String,
-    val exercises: List<ExercisePost>
+    val exercises: List<ExercisePost>,
+    val userId: UserIdRaw
 )
 
 data class ExercisePost(

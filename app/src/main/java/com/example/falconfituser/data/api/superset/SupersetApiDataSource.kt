@@ -7,8 +7,8 @@ import javax.inject.Inject
 class SupersetApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi
 ): ISupersetApiDataSource  {
-    override suspend fun readAll(): Response<SupersetListRaw> {
-        return ffApi.getSupersets()
+    override suspend fun readAll(id: Int): Response<SupersetListRaw> {
+        return ffApi.getSupersets(id)
     }
 
     override suspend fun readOne(id: Int): Response<SupersetListRaw> {
