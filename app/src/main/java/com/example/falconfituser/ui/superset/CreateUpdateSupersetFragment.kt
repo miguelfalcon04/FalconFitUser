@@ -83,8 +83,6 @@ class CreateUpdateSupersetFragment : Fragment() {
                         findNavController().navigate(R.id.action_createUpdateSupersetFragment_to_superset)
                     }
                 }
-
-
         }
 
         lifecycleScope.launch {

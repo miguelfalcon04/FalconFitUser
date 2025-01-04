@@ -11,7 +11,6 @@ import com.example.falconfituser.databinding.ItemToListExerciseBinding
 
 class CreateUpdateSupersetAdapter(
 ): ListAdapter<Exercise, CreateUpdateSupersetAdapter.CreateUpdateViewHolder>(DiffCallback()) {
-
     val exerToAdd: MutableList<Int> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateUpdateViewHolder {
@@ -45,7 +44,6 @@ class CreateUpdateSupersetAdapter(
                 }
             }
         }
-
 
     class DiffCallback : DiffUtil.ItemCallback<Exercise>() {
         override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
