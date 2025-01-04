@@ -58,7 +58,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 when(loginState){
                     LoginState.Loading -> {}
                     is LoginState.Success -> {
-                        Toast.makeText(context, loginState.message.toString(), Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_machine)
                     }
                     is LoginState.Error -> {
