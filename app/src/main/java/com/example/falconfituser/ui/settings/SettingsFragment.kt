@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,6 +22,7 @@ import kotlinx.coroutines.withContext
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,9 +36,12 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Inicializa sharedPreferences
+        sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
+
         val toLogin = binding.logoutButton
         toLogin.setOnClickListener{
-            findNavController().navigate(R.id.loginFragment)
+            logout()
         }
 
         val switch = binding.darkThemeSwitch
@@ -82,6 +88,32 @@ class SettingsFragment : Fragment() {
             AppCompatDelegate.setApplicationLocales(localeList)
         }
         UiModePreferences.saveLanguageToDataStore(requireContext(), isChecked)
+    }
+
+    private fun logout() {
+        // Guardamo el estado del tema y idioma
+        val currentThemeMode = sharedPreferences.getBoolean("ui_mode", false)
+        val currentLanguage = sharedPreferences.getBoolean("language_preference", false)
+
+        // Lo elimino todoo
+        sharedPreferences.edit().clear().apply()
+
+        // Aplico las preferencias de UI
+        sharedPreferences.edit()
+            .putBoolean("ui_mode", currentThemeMode)
+            .putBoolean("language_preference", currentLanguage)
+            .apply()
+
+        // Navegamo al login y elimino los demas fragmentos del back stack con el setPopUpTo
+        findNavController().apply {
+            navigate(R.id.loginFragment, null, NavOptions.Builder()
+                .setPopUpTo(R.id.loginFragment, true)
+                .build())
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 
 }

@@ -36,10 +36,11 @@ class LoginRegisterViewModel @Inject constructor(
                 if (response.isSuccessful) { // Si la respuesta es válida
                     val body = response.body() // Cogemos la respuesta
                     if (body != null) {
-                        val jwt = body.jwt // Extraemos el JWT
+                        clearCredentials() //Limpiamos las antiguas creedenciales antes de añadir las nuevas
+
                         saveId(body.user.id.toString())
-                        saveToken(jwt) // Guardamos el token en SharedPreferences
-                        _loginState.value = LoginState.Success(jwt) // Navegamos
+                        saveToken(body.jwt) // Guardamos el token en SharedPreferences
+                        _loginState.value = LoginState.Success(body.user.id.toString()) // Damos el visto bueno para navegar
                     } else {
                         _loginState.value = LoginState.Error("La respuesta del servidor está vacía")
                     }
@@ -57,18 +58,37 @@ class LoginRegisterViewModel @Inject constructor(
     fun register(register: RegisterRaw){
         viewModelScope.launch{
             try{
-                loginRegisterRepository.register(register)
-                _registerState.value = RegisterState.Success()
+                val response = loginRegisterRepository.register(register)
+
+                if(response.isSuccessful){
+                    clearCredentials()
+                    _registerState.value = RegisterState.Success()
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    _registerState.value = RegisterState.Error(
+                        "Error en el registro: ${response.code()} - $errorBody"
+                    )
+                }
             } catch (e: Exception){
                 _registerState.value = RegisterState.Error("Error desconocido")
             }
         }
     }
 
-    private fun saveToken(token: String){
+    // Limpiamo las credenciales por si hago login, logout y login de nuevo con otro usuario
+    private fun clearCredentials() {
         sharedPreferences.edit()
-            .putString("JWT_TOKEN",token)
+            .remove("JWT_TOKEN")
+            .remove("USER_ID")
             .apply()
+    }
+
+    private fun saveToken(token: String){
+        if (token.isNotBlank()) {
+            sharedPreferences.edit()
+                .putString("JWT_TOKEN", token)
+                .apply()
+        }
     }
 
     fun getToken(): String? {
@@ -76,9 +96,11 @@ class LoginRegisterViewModel @Inject constructor(
     }
 
     fun saveId(id: String){
-        sharedPreferences.edit()
-            .putString("USER_ID",id)
-            .apply()
+        if (id.isNotBlank()) {
+            sharedPreferences.edit()
+                .putString("USER_ID", id)
+                .apply()
+        }
     }
 
     fun getId(): String? {

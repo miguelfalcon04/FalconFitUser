@@ -35,6 +35,8 @@ class ExerciseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.initialize()
+
         val btnCreateAnExercise = view.findViewById<FloatingActionButton>(R.id.createAnExercise)
         btnCreateAnExercise.setOnClickListener{
             findNavController().navigate(R.id.createExerciseFragment)
