@@ -75,7 +75,7 @@ class LoginRegisterViewModel @Inject constructor(
         }
     }
 
-    // Limpiamo las credenciales por si hago login, logout y login de nuevo con otro usuario
+    // Limpio las credenciales por si hago login, logout y login de nuevo con otro usuario
     private fun clearCredentials() {
         sharedPreferences.edit()
             .remove("JWT_TOKEN")
