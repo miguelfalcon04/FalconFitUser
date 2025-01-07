@@ -1,11 +1,11 @@
 package com.example.falconfituser.ui.exercise
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
+import com.example.falconfituser.data.local.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,6 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
     private val exerciseRepository: IExerciseRepository,
+    private val localRepository: LocalRepository,
     private val sharedPreferences: SharedPreferences
 ): ViewModel() {
     private val _uiState = MutableStateFlow<ExercListUiState>(ExercListUiState.Loading)
@@ -31,10 +32,10 @@ class ExerciseListViewModel @Inject constructor(
     private var collectionJob: Job? = null
 
     fun initialize() {
-        // Elimano cualquier job existente
+        // Elimino cualquier job existente
         collectionJob?.cancel()
 
-        // Iniciamo una nueva suscripción
+        // Inicio una nueva suscripción
         collectionJob = viewModelScope.launch {
             launch(Dispatchers.Main) {
                 exerciseRepository.setStream.collect { exercList ->
