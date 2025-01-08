@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
@@ -19,11 +24,35 @@ import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
 
+
+private var PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA,
+                                            Manifest.permission.RECORD_AUDIO)
 @AndroidEntryPoint
 class CreateExerciseFragment: Fragment() {
     private lateinit var binding: FragmentCreateExerciseBinding
     private val viewModel: CreateExerViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
+
+    // Se declara el contrato
+    val contract = ActivityResultContracts.RequestMultiplePermissions()
+
+    // Recorro la lista de permisos y comprueba si han sido concedidos
+    // Si todos han sido concedidos navegamos a la camara, sino de un mensaje de error
+    val launcher = registerForActivityResult(contract){
+        permissions ->
+        var granted = true
+        permissions.entries.forEach{
+            permission ->
+                if(permission.key in PERMISSIONS_REQUIRED && !permission.value){
+                    granted = false
+                }
+        }
+        if(granted){
+            // navigateToCamera()
+        }else{
+            Toast.makeText(requireContext(), "No tiene permisos de camara", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,10 +73,19 @@ class CreateExerciseFragment: Fragment() {
         // Inicializa sharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
 
+        binding.showCamera.setOnClickListener{
+            if(hasCameraPermissions(requireContext())){
+                // navigateToCamera()
+            }else {
+                launcher.launch(PERMISSIONS_REQUIRED)
+            }
+        }
+
         val btnBackToList = view.findViewById<MaterialButton>(R.id.backToExerciseListButton)
         btnBackToList.setOnClickListener{
             findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
         }
+
 
         val btnCreateExer = view.findViewById<Button>(R.id.createExerciseButton)
         btnCreateExer.setOnClickListener{
@@ -87,6 +125,14 @@ class CreateExerciseFragment: Fragment() {
                 // Y vuelvo a navegar a la lista
                 findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
             }
+        }
+    }
+
+    // Comprobar si tenemos permiso
+    private fun hasCameraPermissions(context: Context):Boolean{
+        return PERMISSIONS_REQUIRED.all{
+            permission ->
+            ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
         }
     }
 

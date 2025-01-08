@@ -2,7 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permisos de Internet-->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Permisos de Camara para cualquier tipo (any)-->
+    <uses-feature
+        android:name="android.hardware.camera.any"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Permisos de Audio-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
         android:name=".FalconFitUserApplication"
