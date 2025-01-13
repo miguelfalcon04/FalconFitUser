@@ -57,7 +57,7 @@ class CreateExerciseFragment: Fragment() {
                 }
         }
         if(granted){
-            // navigateToCamera()
+            findNavController().navigate(R.id.action_createExerciseFragment_to_cameraPreviewFragment)
         }else{
             Toast.makeText(requireContext(), "No tiene permisos de camara", Toast.LENGTH_LONG).show()
         }
@@ -83,9 +83,9 @@ class CreateExerciseFragment: Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
 
         binding.showCamera.setOnClickListener{
-            if(hasCameraPermissions(requireContext())){
+            if(hasCameraPermissions(requireContext())){ // Si hay permisos navegamos a la camara
                 findNavController().navigate(R.id.action_createExerciseFragment_to_cameraPreviewFragment)
-            }else {
+            }else { // Si no los hay se piden
                 launcher.launch(PERMISSIONS_REQUIRED)
             }
         }

@@ -77,8 +77,12 @@ class CameraPreviewFragment : Fragment() {
             Executors.newSingleThreadExecutor(),
             object: OnImageSavedCallback{
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    viewModel.onImageCapture(outputFileResults.savedUri)
-                    findNavController().popBackStack()
+                    // Utilizamos requireActivity().runOnUiThread para asegurarnos de que el código
+                    // se ejecuta en el hilo principal
+                    requireActivity().runOnUiThread {
+                        viewModel.onImageCapture(outputFileResults.savedUri)
+                        findNavController().popBackStack()
+                    }
                 }
 
                 override fun onError(exception: ImageCaptureException) {
