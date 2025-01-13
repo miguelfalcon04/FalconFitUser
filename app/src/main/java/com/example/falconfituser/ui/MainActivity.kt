@@ -38,7 +38,8 @@ class MainActivity : AppCompatActivity() {
             // Ocultar menu segun su ubicaión
             when(destination.id) {
                 R.id.loginFragment, R.id.registerFragment,
-                R.id.createExerciseFragment, R.id.createUpdateSupersetFragment -> {
+                R.id.createExerciseFragment, R.id.createUpdateSupersetFragment,
+                R.id.cameraPreviewFragment -> {
                     bottomNav.visibility = View.GONE
                 }
                 else -> bottomNav.visibility = View.VISIBLE

@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_createExerciseFragment_to_exercise"
             app:destination="@id/exercise" />
+        <action
+            android:id="@+id/action_createExerciseFragment_to_cameraPreviewFragment"
+            app:destination="@id/cameraPreviewFragment" />
     </fragment>
 
     <fragment
@@ -54,5 +57,10 @@
             app:destination="@id/superset" />
     </fragment>
     <include app:graph="@navigation/settings" />
+    <fragment
+        android:id="@+id/cameraPreviewFragment"
+        android:name="com.example.falconfituser.ui.exercise.CameraPreviewFragment"
+        android:label="fragment_camera_preview"
+        tools:layout="@layout/fragment_camera_preview" />
 
 </navigation>

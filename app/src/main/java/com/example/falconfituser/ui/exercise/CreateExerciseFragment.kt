@@ -14,7 +14,13 @@ import androidx.navigation.fragment.findNavController
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
@@ -22,6 +28,8 @@ import com.example.falconfituser.data.api.exercise.UserIdRaw
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.getValue
 
 
@@ -32,6 +40,7 @@ class CreateExerciseFragment: Fragment() {
     private lateinit var binding: FragmentCreateExerciseBinding
     private val viewModel: CreateExerViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
+    private val viewModelCamera: IncidentEditViewModel by activityViewModels()
 
     // Se declara el contrato
     val contract = ActivityResultContracts.RequestMultiplePermissions()
@@ -75,9 +84,22 @@ class CreateExerciseFragment: Fragment() {
 
         binding.showCamera.setOnClickListener{
             if(hasCameraPermissions(requireContext())){
-                // navigateToCamera()
+                findNavController().navigate(R.id.action_createExerciseFragment_to_cameraPreviewFragment)
             }else {
                 launcher.launch(PERMISSIONS_REQUIRED)
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModelCamera.photo.collect{
+                    photoUri ->
+                        when(photoUri){
+                            Uri.EMPTY -> {}
+                            else -> {
+                                binding.incidentImage.load(photoUri)
+                            }
+                        }
+                }
             }
         }
 
