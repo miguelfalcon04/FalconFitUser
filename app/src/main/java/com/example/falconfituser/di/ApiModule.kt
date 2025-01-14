@@ -15,7 +15,7 @@ class ApiModule {
     @Provides
     @Singleton
     fun provideIFalconFitApi(): IFalconFitApi{
-        val ffApiUrl = "https://falconfitadmin2version.onrender.com/api/"
+        val ffApiUrl = "https://falconfitrender.onrender.com/api/"
         return Retrofit.Builder()
             .baseUrl(ffApiUrl)
             .addConverterFactory(GsonConverterFactory.create())
