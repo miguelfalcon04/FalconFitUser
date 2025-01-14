@@ -15,6 +15,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.util.Log
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -63,6 +65,18 @@ class CreateExerciseFragment: Fragment() {
         }
     }
 
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModelCamera.onImageCapture(uri)
+            }
+        } else {
+            Log.d("PhotoPicker", "No media selected")
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,6 +117,12 @@ class CreateExerciseFragment: Fragment() {
             }
         }
 
+        // Se abre el desplegable para seleccionar una foto
+        binding.selectPhotoBtn.setOnClickListener{
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+        // Vuelve al listado de fotos
         val btnBackToList = view.findViewById<MaterialButton>(R.id.backToExerciseListButton)
         btnBackToList.setOnClickListener{
             findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
