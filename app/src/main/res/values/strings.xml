@@ -28,4 +28,5 @@
     <string name="error_add_title">Añada un título</string>
     <string name="error_fill_all">Rellene todos los campos</string>
     <string name="error_average_error">Algo salió mal revise sus creedenciales</string>
+    <string name="map">Ubicaciones</string>
 </resources>

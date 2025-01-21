@@ -24,7 +24,7 @@
         android:id="@+id/maps"
         android:enabled="true"
         android:icon="@drawable/ic_map"
-        android:title="@string/user"
+        android:title="@string/map"
         android:visible="true" />
     <item
         android:id="@+id/settings"

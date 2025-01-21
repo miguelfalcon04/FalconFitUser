@@ -22,4 +22,11 @@
     <string name="darkMode">Dark Mode</string>
     <string name="logout">Logout</string>
     <string name="change_language">Change Language</string>
+    <string name="error_invalid_credentials">Some credentials are incorrect</string>
+    <string name="error_delete_exercises">Delete some exercises to continue</string>
+    <string name="error_add_exercises">Add some exercises to continue</string>
+    <string name="error_add_title">Add a title</string>
+    <string name="error_fill_all">Fill all the gaps</string>
+    <string name="error_average_error">Something went wrong</string>
+    <string name="map">Locations</string>
 </resources>
