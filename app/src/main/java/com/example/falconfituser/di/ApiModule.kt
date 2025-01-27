@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
+import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.Retrofit
@@ -32,6 +33,20 @@ class ApiModule {
     @AuthInterceptorOkHttpClient
     fun provideAutenticationInterceptor(authentication: AuthenticationService): Interceptor {
         return AuthenticationInterceptor(authentication)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpClient(@AuthInterceptorOkHttpClient interceptor: Interceptor):OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+
+        return OkHttpClient()
+            .newBuilder()
+            .addInterceptor(interceptor)
+            .addInterceptor(loggingInterceptor)
+            .build()
     }
 
     @Provides

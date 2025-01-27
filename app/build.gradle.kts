@@ -46,6 +46,9 @@ android {
 }
 
 dependencies {
+    //Interceptor para Bearer Token en el Header
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
+
     // Maps SDK for Android
     implementation ("com.google.android.gms:play-services-maps:18.2.0")
 
