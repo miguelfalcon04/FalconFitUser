@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.R
+import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.loginRegister.LoginRegisterRepository
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginRegisterViewModel @Inject constructor(
     private val loginRegisterRepository: LoginRegisterRepository,
-    private val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences,
+    private val authenticationService: AuthenticationService
 ): ViewModel() {
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Loading)
     val loginState: StateFlow<LoginState>
@@ -39,7 +41,8 @@ class LoginRegisterViewModel @Inject constructor(
                         clearCredentials() //Limpiamos las antiguas creedenciales antes de añadir las nuevas
 
                         saveId(body.user.id.toString())
-                        saveToken(body.jwt) // Guardamos el token en SharedPreferences
+                        authenticationService.saveJwtToken(body.jwt) // Guardamos el token en SharedPreferences
+                        //saveToken(body.jwt)
                         _loginState.value = LoginState.Success(body.user.id.toString()) // Damos el visto bueno para navegar
                     } else {
                         _loginState.value = LoginState.Error("La respuesta del servidor está vacía")

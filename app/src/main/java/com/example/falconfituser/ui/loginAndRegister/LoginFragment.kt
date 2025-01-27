@@ -62,7 +62,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         findNavController().navigate(R.id.action_loginFragment_to_machine)
                     }
                     is LoginState.Error -> {
-                        Toast.makeText(context, loginState.message.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, loginState.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
