@@ -19,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginRegisterViewModel @Inject constructor(
     private val loginRegisterRepository: LoginRegisterRepository,
-    private val sharedPreferences: SharedPreferences,
     private val authenticationService: AuthenticationService
 ): ViewModel() {
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Loading)
@@ -38,12 +37,15 @@ class LoginRegisterViewModel @Inject constructor(
                 if (response.isSuccessful) { // Si la respuesta es válida
                     val body = response.body() // Cogemos la respuesta
                     if (body != null) {
-                        clearCredentials() //Limpiamos las antiguas creedenciales antes de añadir las nuevas
+                        //Limpiamos las antiguas creedenciales antes de añadir las nuevas
+                        authenticationService.clearCredentials()
 
-                        saveId(body.user.id.toString())
-                        authenticationService.saveJwtToken(body.jwt) // Guardamos el token en SharedPreferences
-                        //saveToken(body.jwt)
-                        _loginState.value = LoginState.Success(body.user.id.toString()) // Damos el visto bueno para navegar
+                        // Guardamos el Token y el Id en SharedPreferences
+                        authenticationService.saveId(body.user.id.toString())
+                        authenticationService.saveJwtToken(body.jwt)
+
+                        // Damos el visto bueno para navegar
+                        _loginState.value = LoginState.Success(body.user.id.toString())
                     } else {
                         _loginState.value = LoginState.Error("La respuesta del servidor está vacía")
                     }
@@ -64,7 +66,7 @@ class LoginRegisterViewModel @Inject constructor(
                 val response = loginRegisterRepository.register(register)
 
                 if(response.isSuccessful){
-                    clearCredentials()
+                    authenticationService.clearCredentials()
                     _registerState.value = RegisterState.Success()
                 } else {
                     val errorBody = response.errorBody()?.string()
@@ -76,38 +78,6 @@ class LoginRegisterViewModel @Inject constructor(
                 _registerState.value = RegisterState.Error("Error desconocido")
             }
         }
-    }
-
-    // Limpio las credenciales por si hago login, logout y login de nuevo con otro usuario
-    private fun clearCredentials() {
-        sharedPreferences.edit()
-            .remove("JWT_TOKEN")
-            .remove("USER_ID")
-            .apply()
-    }
-
-    private fun saveToken(token: String){
-        if (token.isNotBlank()) {
-            sharedPreferences.edit()
-                .putString("JWT_TOKEN", token)
-                .apply()
-        }
-    }
-
-    fun getToken(): String? {
-        return sharedPreferences.getString("JWT_TOKEN", null)
-    }
-
-    fun saveId(id: String){
-        if (id.isNotBlank()) {
-            sharedPreferences.edit()
-                .putString("USER_ID", id)
-                .apply()
-        }
-    }
-
-    fun getId(): String? {
-        return sharedPreferences.getString("USER_ID", null)
     }
 }
 

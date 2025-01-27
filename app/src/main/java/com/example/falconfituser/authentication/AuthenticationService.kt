@@ -24,7 +24,18 @@ class AuthenticationService @Inject constructor(
         sharedPreferences.edit().putString(JWT_KEY, token).apply()
     }
 
-    fun clearJwtToken() {
-        sharedPreferences.edit().remove(JWT_KEY).apply()
+    fun clearCredentials() {
+        sharedPreferences.edit().
+        remove(JWT_KEY)
+        .remove("USER_ID")
+        .apply()
+    }
+
+    fun saveId(id: String){
+        if (id.isNotBlank()) {
+            sharedPreferences.edit()
+                .putString("USER_ID", id)
+                .apply()
+        }
     }
 }
