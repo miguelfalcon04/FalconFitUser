@@ -7,7 +7,8 @@ fun ExerciseRaw.toExternal(): Exercise {
         id = this.id.toString(),
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
-        description = this.attributes.description
+        description = this.attributes.description,
+        photo = null
     )
 }
 

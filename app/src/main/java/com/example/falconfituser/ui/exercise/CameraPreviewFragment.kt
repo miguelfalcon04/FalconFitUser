@@ -16,19 +16,18 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.view.LifecycleCameraController
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentCameraPreviewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
-import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
 @AndroidEntryPoint
 class CameraPreviewFragment : Fragment() {
     private lateinit var binding: FragmentCameraPreviewBinding
     private lateinit var cameraController: LifecycleCameraController
-    private val viewModel: IncidentEditViewModel by activityViewModels() // Se usa para que viva tanto tiempo como el Activity en el que esta siendo usado
+    // Se usa activityViewModels para que viva tanto tiempo como el Activity en el que esta siendo usado
+    private val viewModel: CameraEditViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,8 +47,10 @@ class CameraPreviewFragment : Fragment() {
 
         val preview = binding.incidentPreview
         cameraController = LifecycleCameraController(requireContext())
-        cameraController.bindToLifecycle(this) // Se asocia su vida a este fragmento
-        cameraController.cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA // Abre predeterminadamente la camara trasera
+        // Se asocia su vida a este fragmento
+        cameraController.bindToLifecycle(this)
+        // Abre predeterminadamente la camara trasera
+        cameraController.cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
         preview.controller = cameraController
 
         binding.captureIncidentBtn.setOnClickListener(){

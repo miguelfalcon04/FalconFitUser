@@ -52,13 +52,15 @@ data class SupersetWithExercisesEntity(
                 id = exerciseOneId,
                 title = exerciseOneTitle,
                 subtitle = exerciseOneSubtitle,
-                description = exerciseOneDescription
+                description = exerciseOneDescription,
+                photo = null
             ),
             exercisTwo = Exercise(
                 id = exerciseTwoId,
                 title = exerciseTwoTitle,
                 subtitle = exerciseTwoSubtitle,
-                description = exerciseTwoDescription
+                description = exerciseTwoDescription,
+                photo = null
             )
         )
     }

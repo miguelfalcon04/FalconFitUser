@@ -27,7 +27,7 @@ class ExerciseListViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     // Añado Job para manejar la subscripción y poder eliminarla cuando quiera
-    // Así al cerrar sesión e inicar de nuevocon otro usuario, no se mostrará los datos del otro
+    // Así al cerrar sesión e inicar de nuevo con otro usuario, no se mostrará los datos del otro
     // Debido a que volverá subscribirse. Si no, la subscripción permanecería y no haría el init
     private var collectionJob: Job? = null
 

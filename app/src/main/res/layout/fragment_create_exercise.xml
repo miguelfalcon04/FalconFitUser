@@ -134,7 +134,7 @@
         android:layout_marginEnd="24dp"/>
 
     <ImageView
-        android:id="@+id/incident_image"
+        android:id="@+id/exercise_image"
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:contentDescription="Imagen Ejercicio"

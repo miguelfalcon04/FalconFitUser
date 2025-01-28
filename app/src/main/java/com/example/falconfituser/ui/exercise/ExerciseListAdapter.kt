@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.ItemExerciseBinding
@@ -45,6 +46,11 @@ class ExerciseListAdapter(
             binding.exerciseTitle.text = exercise.title
             binding.exerciseSubtitle.text = exercise.subtitle
             binding.exerciseDescription.text = exercise.description
+            if(exercise.photo!=null){
+                binding.exerciseImage.load(exercise.photo)
+            }else{
+                binding.exerciseImage.load(R.drawable.help)
+            }
 
             binding.btnDelete.setOnClickListener{
                 viewModel.deleteExercise(exercise.id.toInt())

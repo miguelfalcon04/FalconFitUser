@@ -31,7 +31,17 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Press militar"
+                    android:layout_marginBottom="8dp"
                     android:textAppearance="?attr/textAppearanceTitleMedium" />
+
+                <ImageView
+                    android:id="@+id/exercise_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Imagen de el ejercicio"
+                    tools:srcCompat="@tools:sample/avatars"
+                    />
 
                 <TextView
                     android:id="@+id/exercise_subtitle"
@@ -92,6 +102,7 @@
                     app:cornerRadius="28dp"
                     app:icon="@drawable/ic_share"
                     app:iconTint="@color/white"
+                    android:text="@string/share"
                     android:padding="15dp"/>
 
             </GridLayout>

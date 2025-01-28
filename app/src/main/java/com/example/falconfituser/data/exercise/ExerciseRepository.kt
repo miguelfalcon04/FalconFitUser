@@ -31,7 +31,7 @@ class ExerciseRepository @Inject constructor(
     override suspend fun readOne(id: Int): Exercise {
         val res = apiData.readOne(id)
         return if(res.isSuccessful)res.body()!!
-        else Exercise("0","fuera","no","furula")
+        else Exercise("0","fuera","no","furula", null)
     }
 
     override suspend fun createExercise(exercise: ExerciseCreateData) {

@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.api
 
+import com.example.falconfituser.data.api.exercise.CreatedMediaItemResponse
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseListRaw
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
@@ -9,6 +10,8 @@ import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.exercise.Exercise
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Query
 import retrofit2.http.Body
@@ -17,6 +20,8 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 
 interface IFalconFitApi {
@@ -51,6 +56,7 @@ interface IFalconFitApi {
     suspend fun login(@Body userToLogin: LoginRaw): Response<LoginResponse>
 
     @Multipart
-    @POST("api/upload")
-    suspend fun uploadImage()
+    @POST("/api/upload")
+    suspend fun addExercisePhoto(@PartMap partMap: MutableMap<String, RequestBody>,
+                                    @Part files: MultipartBody.Part ):Response<List<CreatedMediaItemResponse>>
 }
