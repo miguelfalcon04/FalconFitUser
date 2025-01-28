@@ -1,7 +1,10 @@
 package com.example.falconfituser.data.api.exercise
 
+import android.net.Uri
 import com.example.falconfituser.data.api.IFalconFitApi
 import com.example.falconfituser.data.exercise.Exercise
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -27,4 +30,12 @@ class ExerciseApiDataSource @Inject constructor(
     override suspend fun deleteExercise(exerciseId: Int) {
         return ffApi.deleteExercise(exerciseId)
     }
+
+    override suspend fun addExercisePhoto(
+        partMap: MutableMap<String, RequestBody>,
+        files: MultipartBody.Part
+    ): Response<List<CreatedMediaItemResponse>> {
+        return ffApi.addExercisePhoto(partMap, files)
+    }
+
 }
