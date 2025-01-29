@@ -14,6 +14,13 @@ data class ExerciseRawAttributes(
     val subtitle: String,
     val description: String,
     val userId: UserIdRaw,
+)
+
+data class ExerciseRawAttributesMedia(
+    val title: String,
+    val subtitle: String,
+    val description: String,
+    val userId: UserIdRaw,
     val photo: Media?
 )
 

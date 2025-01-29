@@ -45,24 +45,23 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula", null)
     }
 
-    override suspend fun createExercise(exercise: ExerciseCreateData): Result<Exercise> {
+    override suspend fun createExercise(exercise: ExerciseCreateData, photo: Uri) {
         val response = apiData.createExercise(exercise)
-
         if(response.isSuccessful){
-            var uploadedExercise
+            var uploadedExercise = response.body()
 
-            exercise.data.photo?.let { uri ->
-                val imageUploaded = uploadExercisePhoto(uri,response.body()!!.data.id)
+            photo?.let { uri ->
+                val imageUploaded = uploadExercisePhoto(uri,response.body()!!.id.toInt())
+                /*
                 // Si ha subido obtenemos la Uri
-                if( imageUploaded.isSuccess) {
+                if(imageUploaded.isSuccess) {
                     val uploadedUri = imageUploaded.getOrNull()!!
                     uploadedExercise = uploadedExercise.copy(
                         photoUri = uploadedUri
                     )
                 }
+                */
             }
-
-
         }
     }
 

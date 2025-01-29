@@ -143,25 +143,24 @@ class CreateExerciseFragment: Fragment() {
                 val userId = getUserId()
 
                 // Creo un ExerciseCreateData para pasarselo a la función
-                val createOrUpdateExercise = ExerciseCreateData(
+                val exerciseToSend = ExerciseCreateData(
                     data = ExerciseRawAttributes(
                         title = title,
                         subtitle = subtitle,
                         description = description,
                         userId = UserIdRaw(
                             id = userId
-                        ),
-                        photo = null,
+                        )
                     )
                 )
 
                 // Si exerciseId es != -1 significa que he navegado desde ListAdapter queriendo hacer un update
                 val exerciseId = arguments?.getInt("exerciseId",-1)?: -1
                 if(exerciseId != -1){
-                    viewModel.updateExercise(exerciseId, createOrUpdateExercise)
+                    viewModel.updateExercise(exerciseId, exerciseToSend)
                 }else{
                     // Llamo al createExercise() del ViewModel
-                    viewModel.createExercise(createOrUpdateExercise)
+                    viewModel.createExercise(exerciseToSend)
                 }
 
                 // Y vuelvo a navegar a la lista
