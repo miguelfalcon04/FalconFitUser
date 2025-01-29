@@ -28,7 +28,7 @@ interface IFalconFitApi {
     @GET("machines/?populate=photo")
     suspend fun getMachines(): Response<MachineListRaw>
 
-    @GET("exercises")
+    @GET("exercises/?populate=photo")
     suspend fun getExercises(@Query("filters[userId][id]") userId: Int): Response<ExerciseListRaw>
     @GET("exercises/{id}")
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>

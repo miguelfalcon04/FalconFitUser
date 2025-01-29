@@ -45,13 +45,15 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula", null)
     }
 
-    override suspend fun createExercise(exercise: ExerciseCreateData, photo: Uri) {
+    override suspend fun createExercise(exercise: ExerciseCreateData, photo: Uri?) {
         val response = apiData.createExercise(exercise)
         if(response.isSuccessful){
             var uploadedExercise = response.body()
 
+            //TODO Coger el id real del ejercicio
             photo?.let { uri ->
-                val imageUploaded = uploadExercisePhoto(uri,response.body()!!.id.toInt())
+                // val imageUploaded = uploadExercisePhoto(uri,response.body()!!.id.toInt())
+                val imageUploaded = uploadExercisePhoto(uri,18)
                 /*
                 // Si ha subido obtenemos la Uri
                 if(imageUploaded.isSuccess) {
@@ -97,12 +99,11 @@ class ExerciseRepository @Inject constructor(
             val partMap: MutableMap<String, RequestBody> = mutableMapOf()
 
             // Referencia
-            partMap["ref"] = "api::incident.incident".toRequestBody("text/plain".toMediaType())
+            partMap["ref"] = "api::exercise.exercise".toRequestBody("text/plain".toMediaType())
             // Id del incidente
-
             partMap["refId"] = exerciseId.toString().toRequestBody("text/plain".toMediaType())
             // Campo de la colección
-            partMap["field"] = "evidence".toRequestBody("text/plain".toMediaType())
+            partMap["field"] = "photo".toRequestBody("text/plain".toMediaType())
 
             // Subimos el fichero
             val imageResponse = apiData.addExercisePhoto(

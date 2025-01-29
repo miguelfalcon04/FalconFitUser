@@ -38,6 +38,7 @@ private var PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA,
                                             Manifest.permission.RECORD_AUDIO)
 @AndroidEntryPoint
 class CreateExerciseFragment: Fragment() {
+    private var _photoUri:Uri? = null
     private lateinit var binding: FragmentCreateExerciseBinding
     private val viewModel: CreateExerViewModel by viewModels()
     private lateinit var sharedPreferences: SharedPreferences
@@ -69,7 +70,7 @@ class CreateExerciseFragment: Fragment() {
         // photo picker.
         if (uri != null) {
             viewLifecycleOwner.lifecycleScope.launch {
-                viewModelCamera.onImageCapture(uri)
+                loadPhoto(uri)
             }
         } else {
             Log.d("PhotoPicker", "No media selected")
@@ -160,13 +161,18 @@ class CreateExerciseFragment: Fragment() {
                     viewModel.updateExercise(exerciseId, exerciseToSend)
                 }else{
                     // Llamo al createExercise() del ViewModel
-                    viewModel.createExercise(exerciseToSend)
+                    viewModel.createExercise(exerciseToSend, _photoUri)
                 }
 
                 // Y vuelvo a navegar a la lista
                 findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
             }
         }
+    }
+
+    private fun loadPhoto(uri:Uri?) {
+        binding.exerciseImage.load(uri)
+        _photoUri = uri
     }
 
     // Comprobar si tenemos permiso

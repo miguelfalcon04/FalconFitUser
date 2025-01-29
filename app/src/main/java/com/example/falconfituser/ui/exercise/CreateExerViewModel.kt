@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.exercise
 
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
@@ -20,9 +21,9 @@ class CreateExerViewModel @Inject constructor(
     val uiState: StateFlow<CreateExerUiState>
         get() = _uiState.asStateFlow()
 
-    fun createExercise(exercise: ExerciseCreateData){
+    fun createExercise(exercise: ExerciseCreateData, photo: Uri?){
         viewModelScope.launch{
-            exerciseRepository.createExercise(exercise)
+            exerciseRepository.createExercise(exercise, photo)
         }
     }
 
