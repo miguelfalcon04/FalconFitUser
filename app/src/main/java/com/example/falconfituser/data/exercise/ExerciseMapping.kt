@@ -8,7 +8,7 @@ fun ExerciseRaw.toExternal(): Exercise {
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
         description = this.attributes.description,
-        photo = null
+        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url ?: null
     )
 }
 

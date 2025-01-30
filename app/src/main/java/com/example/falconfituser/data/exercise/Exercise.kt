@@ -7,5 +7,5 @@ data class Exercise (
     val title: String,
     val subtitle: String,
     val description: String,
-    val photo: Uri?
+    val photo: String?
 )
