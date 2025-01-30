@@ -1,5 +1,9 @@
 package com.example.falconfituser.data.api.exercise
 
+data class StrapiResponse<T>(
+    val data: T
+)
+
 class ExerciseRaw (
     val id: Int,
     val attributes: ExerciseRawAttributesMedia

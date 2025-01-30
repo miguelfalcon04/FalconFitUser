@@ -52,8 +52,8 @@ class ExerciseRepository @Inject constructor(
 
             //TODO Coger el id real del ejercicio
             photo?.let { uri ->
-                // val imageUploaded = uploadExercisePhoto(uri,response.body()!!.id.toInt())
-                val imageUploaded = uploadExercisePhoto(uri,18)
+                val imageUploaded = uploadExercisePhoto(uri, uploadedExercise!!.data.id)
+                // val imageUploaded = uploadExercisePhoto(uri,22) Añadir id a mano para test
                 /*
                 // Si ha subido obtenemos la Uri
                 if(imageUploaded.isSuccess) {

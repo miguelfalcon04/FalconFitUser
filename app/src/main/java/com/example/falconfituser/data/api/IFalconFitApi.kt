@@ -3,6 +3,8 @@ package com.example.falconfituser.data.api
 import com.example.falconfituser.data.api.exercise.CreatedMediaItemResponse
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseListRaw
+import com.example.falconfituser.data.api.exercise.ExerciseRaw
+import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.LoginResponse
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
@@ -33,7 +35,7 @@ interface IFalconFitApi {
     @GET("exercises/{id}")
     suspend fun getOneExercise(@Path("id")id: Int): Response<Exercise>
     @POST("exercises") // @Body es que lo que ponga en exercise se va a enviar en el cuerpo de la solicitud
-    suspend fun createExercise(@Body exercise: ExerciseCreateData): Response<Exercise>
+    suspend fun createExercise(@Body exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
     @PUT("exercises/{id}") // Hace el update
     suspend fun updateExercise(@Path("id")id: Int, @Body exercise: ExerciseCreateData)
     @DELETE("exercises/{id}")
