@@ -110,7 +110,7 @@ class CreateExerciseFragment: Fragment() {
                         when(photoUri){
                             Uri.EMPTY -> {}
                             else -> {
-                                binding.exerciseImage.load(photoUri)
+                                loadPhoto(photoUri)
                             }
                         }
                 }
