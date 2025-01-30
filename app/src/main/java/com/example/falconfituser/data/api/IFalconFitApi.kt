@@ -37,7 +37,8 @@ interface IFalconFitApi {
     @POST("exercises") // @Body es que lo que ponga en exercise se va a enviar en el cuerpo de la solicitud
     suspend fun createExercise(@Body exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
     @PUT("exercises/{id}") // Hace el update
-    suspend fun updateExercise(@Path("id")id: Int, @Body exercise: ExerciseCreateData)
+    suspend fun updateExercise(@Path("id")id: Int,
+                               @Body exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
     @DELETE("exercises/{id}")
     suspend fun deleteExercise(@Path("id")id: Int)
 

@@ -27,9 +27,9 @@ class CreateExerViewModel @Inject constructor(
         }
     }
 
-    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData){
+    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?){
         viewModelScope.launch{
-            exerciseRepository.updateExercise(exerciseId, exercise)
+            exerciseRepository.updateExercise(exerciseId, exercise, photo)
         }
     }
 }

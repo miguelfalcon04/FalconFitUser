@@ -10,7 +10,7 @@ interface IExerciseRepository {
     suspend fun readAll(id: Int): List<Exercise>
     suspend fun readOne(id: Int): Exercise
     suspend fun createExercise(exercise: ExerciseCreateData, photo: Uri?)
-    suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData)
+    suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?)
     suspend fun deleteExercise(exerciseId: Int)
     fun observeAll(): Flow<List<Exercise>>
     suspend fun uploadExercisePhoto(uri: Uri, exerciseId: Int): Result<Uri>

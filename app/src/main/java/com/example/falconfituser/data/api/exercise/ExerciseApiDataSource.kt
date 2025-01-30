@@ -23,7 +23,8 @@ class ExerciseApiDataSource @Inject constructor(
         return ffApi.createExercise(exercise)
     }
 
-    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
+    override suspend fun updateExercise(exerciseId: Int,
+                                        exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>> {
         return ffApi.updateExercise(exerciseId, exercise)
     }
 

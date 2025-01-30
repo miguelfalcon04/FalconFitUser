@@ -50,25 +50,21 @@ class ExerciseRepository @Inject constructor(
         if(response.isSuccessful){
             var uploadedExercise = response.body()
 
-            //TODO Coger el id real del ejercicio
             photo?.let { uri ->
-                val imageUploaded = uploadExercisePhoto(uri, uploadedExercise!!.data.id)
-                // val imageUploaded = uploadExercisePhoto(uri,22) Añadir id a mano para test
-                /*
-                // Si ha subido obtenemos la Uri
-                if(imageUploaded.isSuccess) {
-                    val uploadedUri = imageUploaded.getOrNull()!!
-                    uploadedExercise = uploadedExercise.copy(
-                        photoUri = uploadedUri
-                    )
-                }
-                */
+                uploadExercisePhoto(uri, uploadedExercise!!.data.id)
             }
         }
     }
 
-    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData) {
-        apiData.updateExercise(exerciseId, exercise)
+    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?) {
+        val response = apiData.updateExercise(exerciseId, exercise)
+        if(response.isSuccessful){
+            var uploadedExercise = response.body()
+
+            photo?.let { uri ->
+                uploadExercisePhoto(uri, uploadedExercise!!.data.id)
+            }
+        }
     }
 
     override suspend fun deleteExercise(exerciseId: Int) {

@@ -158,7 +158,7 @@ class CreateExerciseFragment: Fragment() {
                 // Si exerciseId es != -1 significa que he navegado desde ListAdapter queriendo hacer un update
                 val exerciseId = arguments?.getInt("exerciseId",-1)?: -1
                 if(exerciseId != -1){
-                    viewModel.updateExercise(exerciseId, exerciseToSend)
+                    viewModel.updateExercise(exerciseId, exerciseToSend, _photoUri)
                 }else{
                     // Llamo al createExercise() del ViewModel
                     viewModel.createExercise(exerciseToSend, _photoUri)
