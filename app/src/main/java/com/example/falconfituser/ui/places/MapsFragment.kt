@@ -1,4 +1,4 @@
-package com.example.falconfituser.ui.maps
+package com.example.falconfituser.ui.places
 
 import androidx.fragment.app.Fragment
 
@@ -10,7 +10,6 @@ import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentMapsBinding
 
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng

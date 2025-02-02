@@ -9,6 +9,7 @@ import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.LoginResponse
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.api.machine.MachineListRaw
+import com.example.falconfituser.data.api.places.PlaceListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.exercise.Exercise
@@ -29,6 +30,9 @@ import retrofit2.http.Path
 interface IFalconFitApi {
     @GET("machines/?populate=photo")
     suspend fun getMachines(): Response<MachineListRaw>
+
+    @GET("places")
+    suspend fun getPlaces(): Response<PlaceListRaw>
 
     @GET("exercises/?populate=photo")
     suspend fun getExercises(@Query("filters[userId][id]") userId: Int): Response<ExerciseListRaw>
