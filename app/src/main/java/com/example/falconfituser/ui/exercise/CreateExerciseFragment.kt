@@ -18,6 +18,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
+import androidx.core.text.set
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +28,7 @@ import com.example.falconfituser.R
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
 import com.example.falconfituser.data.api.exercise.UserIdRaw
+import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -93,6 +95,9 @@ class CreateExerciseFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Rellena los campos con el ejercicio
+        setFields()
+
         // Inicializa sharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
 
@@ -138,7 +143,8 @@ class CreateExerciseFragment: Fragment() {
 
             // Verifico que los campos estan rellenos
             if (title.isBlank() || subtitle.isBlank() || description.isBlank()) {
-                Toast.makeText(requireContext(),getString(R.string.error_fill_all), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(),getString(R.string.error_fill_all),
+                    Toast.LENGTH_SHORT).show()
             }else{
                 // Obtengo el userId
                 val userId = getUserId()
@@ -155,7 +161,8 @@ class CreateExerciseFragment: Fragment() {
                     )
                 )
 
-                // Si exerciseId es != -1 significa que he navegado desde ListAdapter queriendo hacer un update
+                // Si exerciseId es != -1 significa que he navegado desde ListAdapter
+                // queriendo hacer un update
                 val exerciseId = arguments?.getInt("exerciseId",-1)?: -1
                 if(exerciseId != -1){
                     viewModel.updateExercise(exerciseId, exerciseToSend, _photoUri)
@@ -185,5 +192,22 @@ class CreateExerciseFragment: Fragment() {
 
     private fun getUserId(): Int {
         return sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+    }
+
+    private fun setFields(){
+        // Recuperamos todos los datos del Bundle
+        arguments?.let { bundle ->
+            // Solo rellenamos si existe un exerciseId (significa que venimos para actualizar)
+            if (bundle.getInt("exerciseId", -1) != -1) {
+                binding.titleEditText.setText(bundle.getString("exerciseTitle"))
+                binding.subtitleEditText.setText(bundle.getString("exerciseSubtitle"))
+                binding.descriptionEditText.setText(bundle.getString("exerciseDescription"))
+
+                // Si hay una foto, la cargamos
+                bundle.getString("exercisePhoto")?.let { photoUrl ->
+                    binding.exerciseImage.load(photoUrl)
+                }
+            }
+        }
     }
 }

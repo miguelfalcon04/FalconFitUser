@@ -21,7 +21,6 @@ class ExerciseListAdapter(
 ): ListAdapter<Exercise,
         ExerciseListAdapter.ExerciseViewHolder>(DiffCallback()) {
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
         val binding = ItemExerciseBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -57,13 +56,26 @@ class ExerciseListAdapter(
             }
 
             // PARA DAVID -> No se si has explicado lo de Bundle, lo he sacado de stack over flow
-            binding.btnUpdate.setOnClickListener{ // Si pulsamos este boton obtenemos el id del ejercicio en especifico y navegamos al createExerciseFragment, recogemos el id y si es != null entonces hacemos un update, si es == null entonces unicamente hace un post
-                val exerciseId = Bundle();
-                exerciseId.putInt("exerciseId", exercise.id.toInt())
-                navController.navigate(R.id.createExerciseFragment, exerciseId)
+            // Si pulsamos este boton obtenemos el id del ejercicio en especifico y navegamos al
+            // createExerciseFragment, recogemos el id y si es != null entonces hacemos un update,
+            // si es == null entonces unicamente hace un post
+            binding.btnUpdate.setOnClickListener {
+                val exerciseData = Bundle().apply {
+                    putInt("exerciseId", exercise.id.toInt())
+                    putString("exerciseTitle", exercise.title)
+                    putString("exerciseSubtitle", exercise.subtitle)
+                    putString("exerciseDescription", exercise.description)
+                    putString("exercisePhoto", exercise.photo)
+                }
+                navController.navigate(R.id.createExerciseFragment, exerciseData)
             }
-            binding.btnShare.setOnClickListener{ // Realizado con la documentación de https://developer.android.com/guide/components/intents-filters?hl=es-419#Building
-                val textMessage = "¡Mira este ejercicio! ${exercise.title} - ${exercise.subtitle}: ${exercise.description}"
+
+            // Realizado con la documentación de
+            // https://developer.android.com/guide/components/intents-filters?hl=es-419#Building
+            binding.btnShare.setOnClickListener{
+                val textMessage = "¡Mira este ejercicio! ${exercise.title} - " +
+                        "${exercise.subtitle}: ${exercise.description}"
+
                 val sendIntent = Intent().apply{
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, textMessage)
@@ -71,9 +83,11 @@ class ExerciseListAdapter(
                 }
 
                 try{
-                    binding.root.context.startActivity(Intent.createChooser(sendIntent, "Compartir usando"))
+                    binding.root.context.startActivity(Intent.createChooser
+                        (sendIntent, "Compartir usando"))
                 }catch (e: Exception){
-                    Toast.makeText(binding.root.context,"Se produjo algún error, intentelo mas tarde", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding.root.context,"Se produjo algún error, intentelo " +
+                            "mas tarde", Toast.LENGTH_SHORT).show()
                 }
             }
         }
