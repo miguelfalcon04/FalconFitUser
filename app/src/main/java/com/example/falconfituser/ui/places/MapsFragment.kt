@@ -20,8 +20,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.HttpException
 
+@AndroidEntryPoint
 class MapsFragment : Fragment() {
     private lateinit var binding: FragmentMapsBinding
     private val viewModel: PlacesListViewModel by viewModels()

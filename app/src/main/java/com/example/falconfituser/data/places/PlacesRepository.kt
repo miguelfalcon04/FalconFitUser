@@ -20,8 +20,8 @@ class PlacesRepository @Inject constructor(
         val res = apiData.readAll()
         val place = _state.value.toMutableList()
         if(res.isSuccessful){
-            val mchnList = res.body()?.data?:emptyList()
-            _state.value = mchnList.toExternal()
+            val placeList = res.body()?.data?:emptyList()
+            _state.value = placeList.toExternal()
         }
         else _state.value = place
         return place

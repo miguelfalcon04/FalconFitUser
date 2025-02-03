@@ -10,6 +10,7 @@ class PlaceApiDataSource @Inject constructor(
     private val ffApi: IFalconFitApi
 ): IPlaceApiDataSource {
     override suspend fun readAll(): Response<PlaceListRaw> {
-        return ffApi.getPlaces()
+        val res = ffApi.getPlaces()
+        return res
     }
 }
