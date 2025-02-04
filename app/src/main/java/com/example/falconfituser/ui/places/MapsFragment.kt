@@ -61,9 +61,7 @@ class MapsFragment : Fragment() {
                     for (place in places){
                         addMarker(place)
                     }
-
                 }
-
 
             } catch (e: HttpException) {
                 Log.e("MapsFragment", "Error HTTP: ${e.message}")

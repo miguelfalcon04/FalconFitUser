@@ -13,6 +13,6 @@ data class PlaceListRaw(
 data class PlaceRawAttributes(
     val title: String,
     val description: String,
-    val latitud: Float,
-    val longitud: Float,
+    val latitud: Double,
+    val longitud: Double,
 )

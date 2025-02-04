@@ -6,8 +6,8 @@ fun PlaceRaw.toExternal(): Places{
     return Places(
         id = this.id.toString(),
         title = this.attributes.title,
-        latitude = this.attributes.latitud.toDouble(),
-        longitude = this.attributes.longitud.toDouble(),
+        latitude = this.attributes.latitud,
+        longitude = this.attributes.longitud,
     )
 }
 
