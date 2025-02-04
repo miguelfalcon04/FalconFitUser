@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
+import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class CreateUpdateSupersViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
     private val exerciseRepository: IExerciseRepository,
+    private val localRepository: LocalRepository,
     private val sharedPreferences: SharedPreferences
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateUpdateSupersUiState>(CreateUpdateSupersUiState.Loading)
@@ -37,6 +39,7 @@ class CreateUpdateSupersViewModel @Inject constructor(
 
     fun createSuperset(superset: SupersetPost){
         viewModelScope.launch{
+            localRepository.createSuperset(superset)
             supersetRepository.createSuperset(superset)
             loadSupersets()
         }

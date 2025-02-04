@@ -9,6 +9,7 @@ import com.example.falconfituser.data.local.dao.SupersetDao
 import com.example.falconfituser.data.local.entities.ExerciseEntity
 import com.example.falconfituser.data.local.entities.MachineEntity
 import com.example.falconfituser.data.local.entities.SupersetEntity
+import com.example.falconfituser.data.superset.Superset
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -48,17 +49,11 @@ class LocalRepository @Inject constructor(
 
     // Superseries
     // Usamos SupersetWithExercisesEntity para tener la información completa
-    @WorkerThread
-    suspend fun insertSupersets(listSupersetEntity: List<SupersetEntity>) {
-        Log.d(TAG, "Inserting supersets...")
-        supersetDao.createSuperset(listSupersetEntity)
-        Log.d(TAG, "Supersets inserted")
-    }
 
     @WorkerThread
-    suspend fun insertSingleSuperset(supersetEntity: SupersetEntity) {
+    suspend fun createSuperset(supersetEntity: Superset) {
         Log.d(TAG, "Inserting single superset...")
-        supersetDao.createSuperset(supersetEntity)
+        supersetDao.createSuperset()
         Log.d(TAG, "Superset inserted")
     }
 
