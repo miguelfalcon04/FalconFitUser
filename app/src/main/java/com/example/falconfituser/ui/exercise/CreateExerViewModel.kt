@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
+import com.example.falconfituser.data.exercise.toLocal
+import com.example.falconfituser.data.local.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateExerViewModel @Inject constructor(
-    private val exerciseRepository: IExerciseRepository
+    private val exerciseRepository: IExerciseRepository,
+    private val localRepository: LocalRepository
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateExerUiState>(CreateExerUiState.Loading)
     val uiState: StateFlow<CreateExerUiState>
@@ -23,7 +26,12 @@ class CreateExerViewModel @Inject constructor(
 
     fun createExercise(exercise: ExerciseCreateData, photo: Uri?){
         viewModelScope.launch{
-            exerciseRepository.createExercise(exercise, photo)
+            val res = exerciseRepository.createExercise(exercise, photo)
+
+            if(res.isSuccessful){
+                val id = res.body()!!.data!!.id.toString()
+                localRepository.createExercise(exercise.toLocal(id))
+            }
         }
     }
 

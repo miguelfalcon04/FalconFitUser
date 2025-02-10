@@ -4,7 +4,9 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
+import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
+import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.di.ApiModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +18,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Response
 import javax.inject.Inject
 
 class ExerciseRepository @Inject constructor(
@@ -45,7 +48,8 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula", null)
     }
 
-    override suspend fun createExercise(exercise: ExerciseCreateData, photo: Uri?) {
+    override suspend fun createExercise(exercise: ExerciseCreateData,
+                                        photo: Uri?): Response<StrapiResponse<ExerciseRaw>> {
         val response = apiData.createExercise(exercise)
         if(response.isSuccessful){
             var uploadedExercise = response.body()
@@ -54,6 +58,7 @@ class ExerciseRepository @Inject constructor(
                 uploadExercisePhoto(uri, uploadedExercise!!.data.id)
             }
         }
+        return response
     }
 
     override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?) {

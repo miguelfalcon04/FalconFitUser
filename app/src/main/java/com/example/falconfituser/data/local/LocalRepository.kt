@@ -51,9 +51,9 @@ class LocalRepository @Inject constructor(
     // Usamos SupersetWithExercisesEntity para tener la información completa
 
     @WorkerThread
-    suspend fun createSuperset(supersetEntity: Superset) {
+    suspend fun createSuperset(supersetEntity: SupersetEntity) {
         Log.d(TAG, "Inserting single superset...")
-        supersetDao.createSuperset()
+        supersetDao.createSuperset(supersetEntity)
         Log.d(TAG, "Superset inserted")
     }
 

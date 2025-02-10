@@ -39,7 +39,7 @@ class CreateUpdateSupersViewModel @Inject constructor(
 
     fun createSuperset(superset: SupersetPost){
         viewModelScope.launch{
-            localRepository.createSuperset(superset)
+            // localRepository.createSuperset(superset.toEntity())
             supersetRepository.createSuperset(superset)
             loadSupersets()
         }

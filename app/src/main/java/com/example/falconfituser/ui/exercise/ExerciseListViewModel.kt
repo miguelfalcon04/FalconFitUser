@@ -52,7 +52,7 @@ class ExerciseListViewModel @Inject constructor(
         }
     }
 
-    fun loadExercises() {
+    private fun loadExercises() {
         viewModelScope.launch {
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
             withContext(Dispatchers.IO) {

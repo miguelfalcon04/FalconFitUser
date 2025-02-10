@@ -31,9 +31,6 @@ interface IFalconFitApi {
     @GET("machines/?populate=photo")
     suspend fun getMachines(): Response<MachineListRaw>
 
-    @GET("places")
-    suspend fun getPlaces(): Response<PlaceListRaw>
-
     @GET("exercises/?populate=photo")
     suspend fun getExercises(@Query("filters[userId][id]") userId: Int): Response<ExerciseListRaw>
     @GET("exercises/{id}")
@@ -61,6 +58,9 @@ interface IFalconFitApi {
     suspend fun register(@Body userToRegister: RegisterRaw): Response<LoginResponse>
     @POST("auth/local")
     suspend fun login(@Body userToLogin: LoginRaw): Response<LoginResponse>
+
+    @GET("places")
+    suspend fun getPlaces(): Response<PlaceListRaw>
 
     @Multipart
     @POST("/api/upload")

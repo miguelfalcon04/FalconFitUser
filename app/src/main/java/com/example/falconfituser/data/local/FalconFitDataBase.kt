@@ -15,7 +15,6 @@ import com.example.falconfituser.data.local.entities.SupersetEntity
                       ExerciseEntity::class,
                       SupersetEntity::class],
                       version = 1)
-
 abstract class FalconFitDataBase(): RoomDatabase() {
 
     abstract fun machineDao(): MachineDao
