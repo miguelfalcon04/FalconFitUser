@@ -3,6 +3,7 @@ package com.example.falconfituser.data.superset
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.toExternal
+import com.example.falconfituser.data.local.entities.SupersetEntity
 
 fun SupersetRaw.toExternal(): Superset{
     // En caso de que se borre un ejercicio asociado a un superset para que no de error
@@ -16,5 +17,7 @@ fun SupersetRaw.toExternal(): Superset{
         exercisTwo = exerciseTwo
     )
 }
+
+
 
 fun List<SupersetRaw>.toExternal():List<Superset> = map ( SupersetRaw::toExternal )

@@ -12,13 +12,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SupersetDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun createSuperset(listSupersetEntity: List<SupersetEntity>)
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createSuperset(supersetEntity: SupersetEntity)
-
-    @Upsert
-    suspend fun updateSuperset(supersetEntity: SupersetEntity)
 
     @Delete
     suspend fun deleteSuperset(supersetEntity: SupersetEntity)
