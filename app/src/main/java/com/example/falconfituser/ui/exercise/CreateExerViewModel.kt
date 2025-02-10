@@ -29,7 +29,7 @@ class CreateExerViewModel @Inject constructor(
             val res = exerciseRepository.createExercise(exercise, photo)
 
             if(res.isSuccessful){
-                val id = res.body()!!.data!!.id.toString()
+                val id = res.body()!!.data.id.toString()
                 localRepository.createExercise(exercise.toLocal(id))
             }
         }

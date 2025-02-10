@@ -14,14 +14,27 @@ fun ExerciseRaw.toExternal(): Exercise {
     )
 }
 
+fun List<ExerciseRaw>.toExternal():List<Exercise> = map(ExerciseRaw::toExternal)
+
 fun ExerciseCreateData.toLocal(id: String): ExerciseEntity{
     return ExerciseEntity(
         id = id,
         title = this.data.title,
         subtitle = this.data.subtitle,
-        description = this.data.subtitle,
+        description = this.data.description,
         userId = this.data.userId.id
     )
 }
 
-fun List<ExerciseRaw>.toExternal():List<Exercise> = map(ExerciseRaw::toExternal)
+fun ExerciseEntity.toExternal(): Exercise {
+    return Exercise(
+        id = this.id,
+        title = this.title,
+        subtitle = this.subtitle,
+        description = this.description,
+        photo = null  // O puedes asignar una URL por defecto si tienes almacenado ese dato
+    )
+}
+
+fun List<ExerciseEntity>.toExternalEntities(): List<Exercise> = map { it.toExternal() }
+
