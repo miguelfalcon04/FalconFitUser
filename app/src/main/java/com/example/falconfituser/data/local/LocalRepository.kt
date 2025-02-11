@@ -27,52 +27,32 @@ class LocalRepository @Inject constructor(
 
     val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
-
-    // Ejercicios
-    // Flow de ejercicios que se actualizará automáticamente
-    var exercises: Flow<List<ExerciseEntity>> = exerciseDao.getExerciseByUser(userId)
-
-
-    @WorkerThread
-    suspend fun createExercise(exerciseEntity: ExerciseEntity) {
-        Log.d(TAG, "Inserting single exercise...")
-        exerciseDao.createExercise(exerciseEntity)
-        Log.d(TAG, "Exercise inserted")
-    }
-
+    // Exercise
     fun getExercisesByUser(userId: Int): Flow<List<ExerciseEntity>> {
         return exerciseDao.getExerciseByUser(userId)
     }
 
-    // Máquinas
-    var machines: Flow<List<MachineEntity>> = machineDao.getAllMachine()
-
-    // Superseries
-    // Usamos SupersetWithExercisesEntity para tener la información completa
+    @WorkerThread
+    suspend fun createExercise(exerciseEntity: ExerciseEntity) {
+        exerciseDao.createExercise(exerciseEntity)
+    }
 
     @WorkerThread
-    suspend fun createSuperset(supersetEntity: SupersetEntity) {
-        Log.d(TAG, "Inserting single superset...")
-        supersetDao.createSuperset(supersetEntity)
-        Log.d(TAG, "Superset inserted")
+    suspend fun deleteExercise(exerciseEntity: ExerciseEntity) {
+        exerciseDao.deleteExercise(exerciseEntity)
     }
+
+    // Máquinas
 
     fun getSupersetsByUser(userId: Int): Flow<List<SupersetEntity>> {
         return supersetDao.getSupersetByUser(userId)
     }
 
     @WorkerThread
-    suspend fun updateSuperset(supersetEntity: SupersetEntity) {
-        Log.d(TAG, "Updating superset...")
-        supersetDao.updateSuperset(supersetEntity)
-        Log.d(TAG, "Superset updated")
-    }
-
-    @WorkerThread
-    suspend fun deleteExercise(exerciseEntity: ExerciseEntity) {
-        Log.d(TAG, "Deleting exercise...")
-        exerciseDao.deleteExercise(exerciseEntity)
-        Log.d(TAG, "Exercise deleted")
+    suspend fun createSuperset(supersetEntity: SupersetEntity) {
+        Log.d(TAG, "Inserting single superset...")
+        supersetDao.createSuperset(supersetEntity)
+        Log.d(TAG, "Superset inserted")
     }
 
     @WorkerThread

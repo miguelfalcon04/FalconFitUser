@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.superset
 
+import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.toExternal
@@ -18,6 +19,14 @@ fun SupersetRaw.toExternal(): Superset{
     )
 }
 
-
+fun SupersetPost.toLocal(id: String): SupersetEntity{
+    return SupersetEntity(
+        id = id,
+        title = this.data.title,
+        exerciseOneId = this.data.exercises.toString(),
+        exerciseTwoId = this.data.exercises.toString(),
+        userId = this.data.userId.id
+    )
+}
 
 fun List<SupersetRaw>.toExternal():List<Superset> = map ( SupersetRaw::toExternal )

@@ -12,6 +12,7 @@ import com.example.falconfituser.data.api.machine.MachineListRaw
 import com.example.falconfituser.data.api.places.PlaceListRaw
 import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
+import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.exercise.Exercise
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,9 +49,9 @@ interface IFalconFitApi {
     @GET("supersets/{id}")
     suspend fun getOneSuperset(@Path("id")id: Int): Response<SupersetListRaw>
     @POST("supersets")
-    suspend fun createSuperset(@Body superset: SupersetPost)
+    suspend fun createSuperset(@Body superset: SupersetPost): Response<SupersetRaw>
     @PUT("supersets/{id}")
-    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetPost)
+    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetPost): Response<SupersetListRaw>
     @DELETE("supersets/{id}")
     suspend fun deleteSuperset(@Path("id")id: Int)
 
