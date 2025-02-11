@@ -7,9 +7,7 @@ import com.example.falconfituser.data.local.dao.ExerciseDao
 import com.example.falconfituser.data.local.dao.MachineDao
 import com.example.falconfituser.data.local.dao.SupersetDao
 import com.example.falconfituser.data.local.entities.ExerciseEntity
-import com.example.falconfituser.data.local.entities.MachineEntity
 import com.example.falconfituser.data.local.entities.SupersetEntity
-import com.example.falconfituser.data.superset.Superset
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
