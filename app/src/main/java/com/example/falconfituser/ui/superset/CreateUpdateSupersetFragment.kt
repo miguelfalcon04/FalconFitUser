@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.superset.ExercisePost
 import com.example.falconfituser.data.api.superset.SupersetPost
@@ -34,6 +35,8 @@ class CreateUpdateSupersetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setFields()
 
         // Inicializa sharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
@@ -102,5 +105,13 @@ class CreateUpdateSupersetFragment : Fragment() {
 
     private fun getUserId(): Int {
         return sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-    }   
+    }
+
+    private fun setFields(){
+        arguments?.let { bundle ->
+            if (bundle.getInt("supersetId", -1) != -1) {
+                binding.addSupersetTitle.setText(bundle.getString("supersetTitle"))
+            }
+        }
+    }
 }

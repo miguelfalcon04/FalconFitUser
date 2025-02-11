@@ -5,6 +5,6 @@ import com.example.falconfituser.data.exercise.Exercise
 data class Superset (
     val id: String,
     val title: String,
-    val exerciseOne: Exercise,
-    val exercisTwo: Exercise,
+    val exerciseOne: Exercise?,
+    val exercisTwo: Exercise?,
 )

@@ -3,8 +3,10 @@ package com.example.falconfituser.ui.superset
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
 import com.example.falconfituser.data.superset.Superset
+import com.example.falconfituser.data.superset.toExternal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SupersetListViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
+    private val localRepository: LocalRepository,
     private val sharedPreferences: SharedPreferences
     ): ViewModel() {
     private val _uiState = MutableStateFlow<SupersListUiState>(SupersListUiState.Loading)
@@ -45,7 +48,7 @@ class SupersetListViewModel @Inject constructor(
                 withContext(Dispatchers.IO) {
                     val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull()
                     if (userId != null) {
-                        supersetRepository.readAll(userId)
+                        loadSupersets()
                     } else {
                         _uiState.value = SupersListUiState.Error("ID de usuario no encontrado")
                     }
@@ -59,8 +62,26 @@ class SupersetListViewModel @Inject constructor(
     fun loadSupersets(){
         viewModelScope.launch {
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-            withContext(Dispatchers.IO) {
-                supersetRepository.readAll(userId)
+
+            val remoteSuperset: List<Superset> =
+                try {
+                    withContext(Dispatchers.IO) {
+                        supersetRepository.readAll(userId)
+                    }
+                }catch (e: Exception){
+                    emptyList()
+                }
+
+            if(remoteSuperset.isNotEmpty()){
+                _uiState.value = SupersListUiState.Success(remoteSuperset)
+            } else {
+                withContext(Dispatchers.IO){
+                    localRepository.getSupersetsByUser(userId).collect{ localSupersetEntity ->
+                        _uiState.value = SupersListUiState.Success(
+                            localSupersetEntity.map { it.toExternal() }
+                        )
+                    }
+                }
             }
         }
     }

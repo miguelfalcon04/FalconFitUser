@@ -29,4 +29,13 @@ fun SupersetPost.toLocal(id: String): SupersetEntity{
     )
 }
 
+fun SupersetEntity.toExternal(): Superset{
+    return Superset(
+        id = this.id,
+        title = this.title,
+        exerciseOne = null,
+        exercisTwo = null
+    )
+}
+
 fun List<SupersetRaw>.toExternal():List<Superset> = map ( SupersetRaw::toExternal )

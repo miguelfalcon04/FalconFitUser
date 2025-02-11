@@ -37,16 +37,19 @@ class SupersetListAdapter(
         RecyclerView.ViewHolder(binding.root){
             fun bind(superset: Superset){
                 binding.supersetTitle.text = superset.title
-                binding.supersetFirstEx.text = superset.exerciseOne.title
-                binding.supersetSecondEx.text = superset.exercisTwo.title
+                binding.supersetFirstEx.text = superset.exerciseOne?.title ?: "nulo"
+                binding.supersetSecondEx.text = superset.exercisTwo?.title ?: "nulo"
 
                 binding.btnDelete.setOnClickListener{
                     viewModel.deleteSuperset(superset.id.toInt())
                 }
 
                 binding.btnUpdate.setOnClickListener{
-                    val supersetId = Bundle();
-                    supersetId.putInt("supersetId", superset.id.toInt())
+                    val supersetId = Bundle().apply {
+                        putInt("supersetId", superset.id.toInt())
+                        putString("supersetTitle", superset.title)
+                    }
+
                     navController.navigate(R.id.createUpdateSupersetFragment, supersetId)
                 }
             }

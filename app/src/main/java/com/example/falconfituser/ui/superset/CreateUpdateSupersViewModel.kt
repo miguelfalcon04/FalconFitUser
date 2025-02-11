@@ -40,23 +40,12 @@ class CreateUpdateSupersViewModel @Inject constructor(
                 val id = res.body()!!.id.toString()
                 localRepository.createSuperset(superset.toLocal(id))
             }
-            loadSupersets()
         }
     }
 
     fun updateSuperset(supersetId: Int, superset: SupersetPost){
         viewModelScope.launch{
             supersetRepository.updateSuperset(supersetId, superset)
-            loadSupersets()
-        }
-    }
-
-    private fun loadSupersets(){
-        viewModelScope.launch {
-            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-            withContext(Dispatchers.IO) {
-                supersetRepository.readAll(userId)
-            }
         }
     }
 

@@ -1,7 +1,5 @@
 package com.example.falconfituser.data.exercise
 
-import android.net.Uri
-
 data class Exercise (
     val id: String,
     val title: String,
