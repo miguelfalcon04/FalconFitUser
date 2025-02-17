@@ -7,6 +7,7 @@ import com.example.falconfituser.data.local.dao.ExerciseDao
 import com.example.falconfituser.data.local.dao.MachineDao
 import com.example.falconfituser.data.local.dao.SupersetDao
 import com.example.falconfituser.data.local.entities.ExerciseEntity
+import com.example.falconfituser.data.local.entities.MachineEntity
 import com.example.falconfituser.data.local.entities.SupersetEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -25,6 +26,16 @@ class LocalRepository @Inject constructor(
 
     val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
+    // Machines
+    fun getMachines(): Flow<List<MachineEntity>>{
+        return machineDao.getAllMachine()
+    }
+
+    @WorkerThread
+    suspend fun createMachine(machineEntity: MachineEntity){
+        machineDao.createMachine(machineEntity)
+    }
+
     // Exercise
     fun getExercisesByUser(userId: Int): Flow<List<ExerciseEntity>> {
         return exerciseDao.getExerciseByUser(userId)
@@ -40,8 +51,7 @@ class LocalRepository @Inject constructor(
         exerciseDao.deleteExercise(exerciseId)
     }
 
-    // Máquinas
-
+    // Supersets
     fun getSupersetsByUser(userId: Int): Flow<List<SupersetEntity>> {
         return supersetDao.getSupersetByUser(userId)
     }

@@ -1,6 +1,7 @@
 package com.example.falconfituser.data.machine
 
 import com.example.falconfituser.data.api.machine.MachineRaw
+import com.example.falconfituser.data.local.entities.MachineEntity
 
 fun MachineRaw.toExternal(): Machine{
     return Machine(
@@ -13,4 +14,13 @@ fun MachineRaw.toExternal(): Machine{
     )
 }
 
+fun Machine.toLocal(): MachineEntity{
+    return MachineEntity(
+        id = this.id,
+        title = this.title,
+        subtitle = this.subtitle,
+        description = this.description,
+        photo = this.photo
+    )
+}
 fun List<MachineRaw>.toExternal():List<Machine> = map(MachineRaw::toExternal)
