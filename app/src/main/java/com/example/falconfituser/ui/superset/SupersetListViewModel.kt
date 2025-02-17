@@ -1,6 +1,7 @@
 package com.example.falconfituser.ui.superset
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.local.LocalRepository
@@ -88,9 +89,19 @@ class SupersetListViewModel @Inject constructor(
 
     fun deleteSuperset(supersetId: Int){
         viewModelScope.launch {
-            supersetRepository.deleteSuperset(supersetId)
-            withContext(Dispatchers.IO) {
-                loadSupersets()
+            try {
+                val res = supersetRepository.deleteSuperset(supersetId)
+                if (res.isSuccessful) {
+                    localRepository.deleteSuperset(supersetId)
+                }
+
+                Log.d("ExerciseListViewModel", "Antes de loadSupersets")
+                withContext(Dispatchers.IO) {
+                    loadSupersets()
+                    Log.d("ExerciseListViewModel", "Después de loadSupersets")
+                }
+            } catch (e: Exception) {
+                Log.e("ExerciseListViewModel", "Error en deleteSuperset: ${e.message}")
             }
         }
     }

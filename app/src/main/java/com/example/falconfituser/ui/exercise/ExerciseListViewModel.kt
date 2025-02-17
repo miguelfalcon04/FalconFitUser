@@ -84,7 +84,11 @@ class ExerciseListViewModel @Inject constructor(
 
     fun deleteExercise(exerciseId: Int) {
         viewModelScope.launch {
-            exerciseRepository.deleteExercise(exerciseId)
+            val res = exerciseRepository.deleteExercise(exerciseId)
+
+            if(res.isSuccessful){
+                localRepository.deleteExercise(exerciseId)
+            }
             withContext(Dispatchers.IO) {
                 loadExercises()
             }

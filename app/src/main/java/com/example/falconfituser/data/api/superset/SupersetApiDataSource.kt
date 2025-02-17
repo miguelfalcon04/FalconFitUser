@@ -24,7 +24,7 @@ class SupersetApiDataSource @Inject constructor(
         return ffApi.updateSuperset(supersetId, superset)
     }
 
-    override suspend fun deleteSuperset(supersetId: Int) {
+    override suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw> {
         return ffApi.deleteSuperset(supersetId)
     }
 }

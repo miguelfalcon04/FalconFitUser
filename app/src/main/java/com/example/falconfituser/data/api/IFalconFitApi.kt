@@ -42,7 +42,7 @@ interface IFalconFitApi {
     suspend fun updateExercise(@Path("id")id: Int,
                                @Body exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
     @DELETE("exercises/{id}")
-    suspend fun deleteExercise(@Path("id")id: Int)
+    suspend fun deleteExercise(@Path("id")id: Int): Response<StrapiResponse<ExerciseRaw>>
 
     @GET("supersets/?populate=exercises")
     suspend fun getSupersets(@Query("filters[userId][id]") userId: Int): Response<SupersetListRaw>
@@ -53,7 +53,7 @@ interface IFalconFitApi {
     @PUT("supersets/{id}")
     suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetPost): Response<SupersetListRaw>
     @DELETE("supersets/{id}")
-    suspend fun deleteSuperset(@Path("id")id: Int)
+    suspend fun deleteSuperset(@Path("id")id: Int): Response<SupersetRaw>
 
     @POST("auth/local/register")
     suspend fun register(@Body userToRegister: RegisterRaw): Response<LoginResponse>

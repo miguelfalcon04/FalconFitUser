@@ -7,5 +7,5 @@ interface ISupersetApiDataSource {
     suspend fun readOne(id:Int): Response<SupersetListRaw>
     suspend fun createSuperset(superset: SupersetPost): Response<SupersetRaw>
     suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<SupersetListRaw>
-    suspend fun deleteSuperset(supersetId: Int)
+    suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw>
 }

@@ -1,7 +1,6 @@
 package com.example.falconfituser.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,8 +12,8 @@ interface ExerciseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createExercise(exerciseEntity: ExerciseEntity)
 
-    @Delete
-    suspend fun deleteExercise(exerciseEntity: ExerciseEntity)
+    @Query("DELETE FROM exercise WHERE id = :exerciseId")
+    suspend fun deleteExercise(exerciseId: Int)
 
     @Query("SELECT * FROM exercise WHERE userId = :id")
     fun getExerciseByUser(id: Int): Flow<List<ExerciseEntity>>

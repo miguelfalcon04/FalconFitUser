@@ -72,8 +72,8 @@ class ExerciseRepository @Inject constructor(
         }
     }
 
-    override suspend fun deleteExercise(exerciseId: Int) {
-        apiData.deleteExercise(exerciseId)
+    override suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>> {
+        return apiData.deleteExercise(exerciseId)
     }
 
     override suspend fun uploadExercisePhoto(

@@ -53,7 +53,7 @@ class SupersetRepository @Inject constructor(
         return apiData.updateSuperset(supersetId, superset)
     }
 
-    override suspend fun deleteSuperset(supersetId: Int) {
+    override suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw> {
         return apiData.deleteSuperset(supersetId)
     }
 

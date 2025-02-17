@@ -16,7 +16,7 @@ interface IExerciseRepository {
                                photo: Uri?): Response<StrapiResponse<ExerciseRaw>>
 
     suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?)
-    suspend fun deleteExercise(exerciseId: Int)
+    suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>>
     fun observeAll(): Flow<List<Exercise>>
     suspend fun uploadExercisePhoto(uri: Uri, exerciseId: Int): Result<Uri>
 }

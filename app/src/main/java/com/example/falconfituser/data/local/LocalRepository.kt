@@ -36,8 +36,8 @@ class LocalRepository @Inject constructor(
     }
 
     @WorkerThread
-    suspend fun deleteExercise(exerciseEntity: ExerciseEntity) {
-        exerciseDao.deleteExercise(exerciseEntity)
+    suspend fun deleteExercise(exerciseId: Int) {
+        exerciseDao.deleteExercise(exerciseId)
     }
 
     // Máquinas
@@ -48,15 +48,11 @@ class LocalRepository @Inject constructor(
 
     @WorkerThread
     suspend fun createSuperset(supersetEntity: SupersetEntity) {
-        Log.d(TAG, "Inserting single superset...")
         supersetDao.createSuperset(supersetEntity)
-        Log.d(TAG, "Superset inserted")
     }
 
     @WorkerThread
-    suspend fun deleteSuperset(supersetEntity: SupersetEntity) {
-        Log.d(TAG, "Deleting superset...")
-        supersetDao.deleteSuperset(supersetEntity)
-        Log.d(TAG, "Superset deleted")
+    suspend fun deleteSuperset(supersetId: Int) {
+        supersetDao.deleteSuperset(supersetId)
     }
 }

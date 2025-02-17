@@ -11,7 +11,7 @@ interface IExerciseApiDataSource {
     suspend fun createExercise(exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
     suspend fun updateExercise(exerciseId: Int,
                                exercise: ExerciseCreateData): Response<StrapiResponse<ExerciseRaw>>
-    suspend fun deleteExercise(exerciseId: Int)
+    suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>>
     suspend fun addExercisePhoto(partMap: MutableMap<String, RequestBody>,
                                  files: MultipartBody.Part): Response<List<CreatedMediaItemResponse>>
 }
