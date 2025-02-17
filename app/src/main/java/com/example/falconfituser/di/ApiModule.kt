@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class ApiModule {
     companion object {
-        const val STRAPI = "https://falconfitrender.onrender.com/api/"
+        const val STRAPI = "https://falconfitrenderv2.onrender.com/api/"
     }
 
     /**
