@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentExerciseListBinding
@@ -35,8 +37,6 @@ class ExerciseListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initialize()
-
         val btnCreateAnExercise = view.findViewById<FloatingActionButton>(R.id.createAnExercise)
         btnCreateAnExercise.setOnClickListener{
             findNavController().navigate(R.id.createExerciseFragment)
@@ -45,15 +45,17 @@ class ExerciseListFragment : Fragment() {
         val adapter = ExerciseListAdapter(viewModel, navController = findNavController())
         binding.exerciseList.adapter = adapter
 
-        lifecycleScope.launch{
-            viewModel.uiState.collect{uiState ->
-                when(uiState){
-                    ExercListUiState.Loading -> {
-                    }
-                    is ExercListUiState.Success -> {
-                        adapter.submitList(uiState.exrcList)
-                    }
-                    is ExercListUiState.Error -> {
+        viewLifecycleOwner.lifecycleScope.launch{
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.uiState.collect{uiState ->
+                    when(uiState){
+                        ExercListUiState.Loading -> {
+                        }
+                        is ExercListUiState.Success -> {
+                            adapter.submitList(uiState.exrcList)
+                        }
+                        is ExercListUiState.Error -> {
+                        }
                     }
                 }
             }

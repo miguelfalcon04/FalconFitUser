@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
 import com.example.falconfituser.data.exercise.toExternal
+import com.example.falconfituser.data.exercise.toLocal
 import com.example.falconfituser.data.local.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -32,13 +33,14 @@ class ExerciseListViewModel @Inject constructor(
     // Debido a que volverá subscribirse. Si no, la subscripción permanecería y no haría el init
     private var collectionJob: Job? = null
 
-    fun initialize() {
+    init {
+        loadExercises()
         // Elimino cualquier job existente
         collectionJob?.cancel()
 
         // Inicio una nueva suscripción
         collectionJob = viewModelScope.launch {
-            launch(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 exerciseRepository.setStream.collect { exercList ->
                     if (exercList.isEmpty()) {
                         _uiState.value = ExercListUiState.Loading
@@ -48,8 +50,6 @@ class ExerciseListViewModel @Inject constructor(
                 }
             }
 
-            // Cargo los ejercicios
-            loadExercises()
         }
     }
 
@@ -57,41 +57,19 @@ class ExerciseListViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
-            // Tomo los valores del remoto. Si da error devuelvo una emptyList()
-            val remoteExercises: List<Exercise> = try {
-                withContext(Dispatchers.IO) {
-                    exerciseRepository.readAll(userId)
-                }
-            } catch (e: Exception) {
-                emptyList()
-            }
+            val res = exerciseRepository.readAll(userId)
+            ExercListUiState.Success(res)
 
-            if (remoteExercises.isNotEmpty()) {
-                // Si el remoto devolve datos los mostramos
-                _uiState.value = ExercListUiState.Success(remoteExercises)
-            } else {
-                // Si no hay datos remotos cargo los datos locales
-                withContext(Dispatchers.IO) {
-                    localRepository.getExercisesByUser(userId).collect { localExercisesEntity ->
-                        _uiState.value = ExercListUiState.Success(
-                            localExercisesEntity.map { it.toExternal() }
-                        )
-                    }
-                }
+            for (exercise in res){
+                localRepository.createExercise(exercise.toLocal(userId))
             }
         }
     }
 
     fun deleteExercise(exerciseId: Int) {
         viewModelScope.launch {
-            val res = exerciseRepository.deleteExercise(exerciseId)
-
-            if(res.isSuccessful){
-                localRepository.deleteExercise(exerciseId)
-            }
-            withContext(Dispatchers.IO) {
-                loadExercises()
-            }
+            exerciseRepository.deleteExercise(exerciseId)
+            loadExercises()
         }
     }
 

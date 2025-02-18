@@ -36,5 +36,15 @@ fun ExerciseEntity.toExternal(): Exercise {
     )
 }
 
+fun Exercise.toLocal(userId: Int): ExerciseEntity{
+    return ExerciseEntity(
+        id = this.id,
+        title = this.title,
+        subtitle = this.subtitle,
+        description = this.description,
+        userId = userId
+    )
+}
+
 fun List<ExerciseEntity>.toExternalEntities(): List<Exercise> = map { it.toExternal() }
 
