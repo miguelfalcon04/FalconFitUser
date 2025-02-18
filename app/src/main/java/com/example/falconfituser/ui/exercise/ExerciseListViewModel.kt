@@ -58,7 +58,7 @@ class ExerciseListViewModel @Inject constructor(
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
             val res = exerciseRepository.readAll(userId)
-            ExercListUiState.Success(res)
+            _uiState.value = ExercListUiState.Success(res)
 
             for (exercise in res){
                 localRepository.createExercise(exercise.toLocal(userId))
@@ -69,6 +69,7 @@ class ExerciseListViewModel @Inject constructor(
     fun deleteExercise(exerciseId: Int) {
         viewModelScope.launch {
             exerciseRepository.deleteExercise(exerciseId)
+            localRepository.deleteExercise(exerciseId)
             loadExercises()
         }
     }
