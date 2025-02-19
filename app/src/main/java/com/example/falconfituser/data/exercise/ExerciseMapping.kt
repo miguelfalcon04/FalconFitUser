@@ -3,6 +3,7 @@ package com.example.falconfituser.data.exercise
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.local.entities.ExerciseEntity
+import kotlinx.coroutines.flow.Flow
 
 fun ExerciseRaw.toExternal(): Exercise {
     return Exercise(

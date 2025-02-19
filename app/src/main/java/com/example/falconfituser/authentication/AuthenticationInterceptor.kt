@@ -9,9 +9,10 @@ class AuthenticationInterceptor @Inject constructor(
     private val authenticationService: AuthenticationService
 ):Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
+        val currentPath = chain.request().url.encodedPath
 
-        if(chain.request().method == "POST" && (chain.request().url.encodedPath == "api/auth/local" ||
-                                                chain.request().url.encodedPath == "api/auth/local/register")
+        if(chain.request().method == "POST" && (currentPath.endsWith("/auth/local") ||
+                                                currentPath.endsWith("/auth/local/register"))
         ){
             return chain.proceed(chain.request())
         }

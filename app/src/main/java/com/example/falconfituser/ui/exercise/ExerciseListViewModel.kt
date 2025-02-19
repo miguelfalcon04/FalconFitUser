@@ -49,7 +49,6 @@ class ExerciseListViewModel @Inject constructor(
                     }
                 }
             }
-
         }
     }
 
@@ -58,11 +57,21 @@ class ExerciseListViewModel @Inject constructor(
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
             val res = exerciseRepository.readAll(userId)
-            _uiState.value = ExercListUiState.Success(res)
+            if(res.isNotEmpty()){
+                _uiState.value = ExercListUiState.Success(res)
 
-            for (exercise in res){
-                localRepository.createExercise(exercise.toLocal(userId))
+                for (exercise in res){
+                    localRepository.createExercise(exercise.toLocal(userId))
+                }
+            }else{
+                localRepository.getExercisesByUser(userId).collect{
+                    localExercise ->
+                    _uiState.value = ExercListUiState.Success(
+                        localExercise.map { it.toExternal() }
+                    )
+                }
             }
+
         }
     }
 
