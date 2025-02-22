@@ -27,11 +27,6 @@ class CreateExerViewModel @Inject constructor(
     fun createExercise(exercise: ExerciseCreateData, photo: Uri?){
         viewModelScope.launch{
             val res = exerciseRepository.createExercise(exercise, photo)
-
-            if(res.isSuccessful){
-                val id = res.body()!!.data.id.toString()
-                localRepository.createExercise(exercise.toLocal(id))
-            }
         }
     }
 

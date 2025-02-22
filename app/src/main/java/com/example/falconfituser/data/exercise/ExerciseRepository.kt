@@ -7,6 +7,7 @@ import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import com.example.falconfituser.data.api.exercise.StrapiResponse
+import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +25,7 @@ import javax.inject.Inject
 class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apiData: IExerciseApiDataSource,
+    private val localRepository: LocalRepository,
 ): IExerciseRepository {
 
     private val _state = MutableStateFlow<List<Exercise>>(listOf())
@@ -34,8 +36,9 @@ class ExerciseRepository @Inject constructor(
     override suspend fun readAll(id: Int): List<Exercise> {
         val res = apiData.readAll(id)
         val exerc = _state.value.toMutableList()
+
         if(res.isSuccessful){
-            val exercList = res.body()?.data?:emptyList()
+            val exercList = res.body()!!.data
             _state.value = exercList.toExternal()
         }
         else _state.value = exerc
@@ -53,7 +56,9 @@ class ExerciseRepository @Inject constructor(
         val response = apiData.createExercise(exercise)
         if(response.isSuccessful){
             var uploadedExercise = response.body()
+            val id = response.body()!!.data.id.toString()
 
+            localRepository.createExercise(exercise.toLocal(id))
             photo?.let { uri ->
                 uploadExercisePhoto(uri, uploadedExercise!!.data.id)
             }
