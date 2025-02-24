@@ -32,7 +32,7 @@ class MachineListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = MachineListAdapter()
+        val adapter = MachineListAdapter(viewModel)
         binding.machineList.adapter = adapter
 
         lifecycleScope.launch{

@@ -1,14 +1,17 @@
 package com.example.falconfituser.data.machine
 
 import com.example.falconfituser.data.api.machine.IMachineApiDataSource
+import com.example.falconfituser.data.local.LocalRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class MachineRepository @Inject constructor(
     private val apiData: IMachineApiDataSource,
+    private val localRepository: LocalRepository
 ): IMachineRepository {
 
     private val _state = MutableStateFlow<List<Machine>>(listOf())
@@ -16,14 +19,28 @@ class MachineRepository @Inject constructor(
         get() = _state.asStateFlow()
 
     override suspend fun readAll(): List<Machine> {
-        val res = apiData.readAll()
-        val machin = _state.value.toMutableList()
-        if(res.isSuccessful){
-            val mchnList = res.body()?.data?:emptyList()
-            _state.value = mchnList.toExternal()
+        try {
+            val res = apiData.readAll()
+
+            if(res.isSuccessful){
+                val mchnList = res.body()?.data!!.toExternal()
+                _state.value = mchnList
+
+                for (machine in mchnList){
+                    localRepository.createMachine(machine.toLocal())
+                }
+
+                return mchnList
+            }
+        }catch (e: Exception){
+            val localMachines = localRepository.getMachines()
+                .first()
+                .map { it.toExternal() }
+
+            _state.value = localMachines
         }
-        else _state.value = machin
-        return machin
+
+        return _state.value
     }
 
     override fun observeAll(): Flow<List<Machine>> {

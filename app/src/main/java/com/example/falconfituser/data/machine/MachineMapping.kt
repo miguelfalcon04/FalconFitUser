@@ -9,8 +9,18 @@ fun MachineRaw.toExternal(): Machine{
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
         description = this.attributes.description,
-        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url ?: ""
+        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url
             //this.attributes.photo.attributes.formats?.small!!.url
+    )
+}
+
+fun MachineEntity.toExternal(): Machine{
+    return Machine(
+        id = this.id,
+        title = this.title,
+        subtitle = this.subtitle,
+        description = this.description,
+        photo = null // No quiero mostrar las fotos para que se vea cuando cambia a local
     )
 }
 

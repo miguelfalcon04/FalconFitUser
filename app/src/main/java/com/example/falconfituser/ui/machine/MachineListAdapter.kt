@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.example.falconfituser.R
 import com.example.falconfituser.data.machine.Machine
 import com.example.falconfituser.databinding.ItemMachineBinding
 
-class MachineListAdapter: ListAdapter<Machine,
+class MachineListAdapter(
+    private val viewModel: MachineListViewModel
+): ListAdapter<Machine,
         MachineListAdapter.MachineViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MachineViewHolder {
@@ -18,7 +21,7 @@ class MachineListAdapter: ListAdapter<Machine,
             parent,
             false
         )
-        return MachineViewHolder(binding)
+        return MachineViewHolder(binding, viewModel)
     }
 
     override fun onBindViewHolder(holder: MachineViewHolder,position: Int){
@@ -26,14 +29,23 @@ class MachineListAdapter: ListAdapter<Machine,
         holder.bind(machine)
     }
 
-    class MachineViewHolder(private val binding: ItemMachineBinding):
+    class MachineViewHolder(
+        private val binding: ItemMachineBinding,
+        private val viewModel: MachineListViewModel):
         RecyclerView.ViewHolder(binding.root){
-        // val imgViewMachine: ImageView = itemView.findViewById(R.id.machine_image)
         fun bind(machine: Machine){
             binding.machineTitle.text = machine.title
             binding.machineSubtitle.text = machine.subtitle
             binding.machineDescription.text = machine.description
-            binding.machineImage.load(machine.photo)
+            if(machine.photo != null){
+                binding.machineImage.load(machine.photo)
+            }else{
+                binding.machineImage.load(R.drawable.help)
+            }
+
+            binding.machineButton.setOnClickListener{
+                viewModel.loadMachines()
+            }
         }
     }
 
