@@ -56,29 +56,19 @@ class ExerciseListViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
-            val res = exerciseRepository.readAll(userId)
-            if(res.isNotEmpty()){
-                _uiState.value = ExercListUiState.Success(res)
+            val exercises = exerciseRepository.readAll(userId)
 
-                for (exercise in res){
-                    localRepository.createExercise(exercise.toLocal(userId))
-                }
-            }else{
-                localRepository.getExercisesByUser(userId).collect{
-                    localExercise ->
-                    _uiState.value = ExercListUiState.Success(
-                        localExercise.map { it.toExternal() }
-                    )
-                }
+            _uiState.value = if (exercises.isNotEmpty()) {
+                ExercListUiState.Success(exercises)
+            } else {
+                ExercListUiState.Error("Error al obtener los ejercicios")
             }
-
         }
     }
 
     fun deleteExercise(exerciseId: Int) {
         viewModelScope.launch {
             exerciseRepository.deleteExercise(exerciseId)
-            localRepository.deleteExercise(exerciseId)
             loadExercises()
         }
     }

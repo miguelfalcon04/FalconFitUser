@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -34,15 +35,30 @@ class ExerciseRepository @Inject constructor(
 
     // Debemos pasarle el id del usuario
     override suspend fun readAll(id: Int): List<Exercise> {
-        val res = apiData.readAll(id)
-        val exerc = _state.value.toMutableList()
+        try {
+            val res = apiData.readAll(id)
 
-        if(res.isSuccessful){
-            val exercList = res.body()!!.data
-            _state.value = exercList.toExternal()
+            if(res.isSuccessful){
+                val execList = res.body()!!.data.toExternal()
+                _state.value = execList
+
+                for (exercise in execList) {
+                    localRepository.createExercise(exercise.toLocal(id))
+                }
+
+                return execList
+            }
+        }catch (e: Exception){
+            // Como devuelve un Flow tengo que mapear uno por uno los ejercicios
+            val localExercises = localRepository.getExercisesByUser(id)
+                .first() // Cojo el primer valor del Flow
+                .map { it.toExternal() } // Mapeo de ExerciseEntity a Exercise
+
+            _state.value = localExercises
+            return localExercises
         }
-        else _state.value = exerc
-        return exerc
+
+        return _state.value
     }
 
     override suspend fun readOne(id: Int): Exercise {
@@ -78,6 +94,7 @@ class ExerciseRepository @Inject constructor(
     }
 
     override suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>> {
+        localRepository.deleteExercise(exerciseId)
         return apiData.deleteExercise(exerciseId)
     }
 

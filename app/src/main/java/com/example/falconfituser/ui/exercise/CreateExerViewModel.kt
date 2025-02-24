@@ -18,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateExerViewModel @Inject constructor(
     private val exerciseRepository: IExerciseRepository,
-    private val localRepository: LocalRepository
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateExerUiState>(CreateExerUiState.Loading)
     val uiState: StateFlow<CreateExerUiState>
@@ -26,7 +25,7 @@ class CreateExerViewModel @Inject constructor(
 
     fun createExercise(exercise: ExerciseCreateData, photo: Uri?){
         viewModelScope.launch{
-            val res = exerciseRepository.createExercise(exercise, photo)
+            exerciseRepository.createExercise(exercise, photo)
         }
     }
 
