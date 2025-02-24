@@ -23,9 +23,19 @@ fun SupersetPost.toLocal(id: String): SupersetEntity{
     return SupersetEntity(
         id = id,
         title = this.data.title,
-        exerciseOneId = this.data.exercises.toString(),
-        exerciseTwoId = this.data.exercises.toString(),
+        exerciseOneTitle = this.data.exercises.toString(),
+        exerciseTwoTitle = this.data.exercises.toString(),
         userId = this.data.userId.id
+    )
+}
+
+fun Superset.toLocal(userId: Int): SupersetEntity{
+    return SupersetEntity(
+        id = this.id,
+        title = this.title+" Sin Conexión",
+        exerciseOneTitle = this.exerciseOne!!.title,
+        exerciseTwoTitle = this.exercisTwo!!.title,
+        userId = userId
     )
 }
 
@@ -33,8 +43,8 @@ fun SupersetEntity.toExternal(): Superset{
     return Superset(
         id = this.id,
         title = this.title,
-        exerciseOne = null,
-        exercisTwo = null
+        exerciseOne = Exercise("0", exerciseOneTitle, "Ninguno", "Nada", null),
+        exercisTwo = Exercise("0", exerciseTwoTitle, "Ninguno", "Nada", null)
     )
 }
 

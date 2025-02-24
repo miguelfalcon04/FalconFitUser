@@ -14,7 +14,7 @@ import com.example.falconfituser.data.local.entities.SupersetEntity
 @Database(entities = [MachineEntity::class,
                       ExerciseEntity::class,
                       SupersetEntity::class],
-                      version = 1)
+                      version = 2)
 abstract class FalconFitDataBase(): RoomDatabase() {
 
     abstract fun machineDao(): MachineDao
@@ -37,7 +37,9 @@ abstract class FalconFitDataBase(): RoomDatabase() {
                 context.applicationContext,
                 FalconFitDataBase::class.java,
                 "falconfit_db"
-            ).build()
+            )
+            .fallbackToDestructiveMigration()
+            .build()
         }
 
     }

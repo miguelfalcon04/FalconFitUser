@@ -1,7 +1,10 @@
 package com.example.falconfituser.data.api.superset
 
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
-import com.example.falconfituser.data.exercise.Exercise
+
+data class StrapiResponse<T>(
+    val data: T
+)
 
 // Al hacer un GET Bruno me devuelve
 data class SupersetRaw(

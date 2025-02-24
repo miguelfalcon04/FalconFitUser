@@ -1,6 +1,7 @@
 package com.example.falconfituser.data.api.superset
 
 import com.example.falconfituser.data.api.IFalconFitApi
+import com.example.falconfituser.data.api.exercise.StrapiResponse
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class SupersetApiDataSource @Inject constructor(
         return ffApi.getOneSuperset(id)
     }
 
-    override suspend fun createSuperset(superset: SupersetPost): Response<SupersetRaw> {
+    override suspend fun createSuperset(superset: SupersetPost): Response<StrapiResponse<SupersetRaw>> {
         return ffApi.createSuperset(superset)
     }
 

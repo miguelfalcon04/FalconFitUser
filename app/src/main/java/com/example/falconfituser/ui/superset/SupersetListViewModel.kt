@@ -1,13 +1,11 @@
 package com.example.falconfituser.ui.superset
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
 import com.example.falconfituser.data.superset.Superset
-import com.example.falconfituser.data.superset.toExternal
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -21,7 +19,6 @@ import javax.inject.Inject
 @HiltViewModel
 class SupersetListViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
-    private val localRepository: LocalRepository,
     private val sharedPreferences: SharedPreferences
     ): ViewModel() {
     private val _uiState = MutableStateFlow<SupersListUiState>(SupersListUiState.Loading)
@@ -31,31 +28,20 @@ class SupersetListViewModel @Inject constructor(
     // Explicación en ExerciseListViewModel
     private var collectionJob: Job? = null
 
-    fun initialize() {
+    init{
+        loadSupersets()
+
         collectionJob?.cancel()
 
-        collectionJob = viewModelScope.launch(Dispatchers.Main) {  // Cambiamos el dispatcher aquí
-            try {
-                launch {
-                    supersetRepository.setStream.collect { supersList ->
-                        if (supersList.isEmpty()) {
-                            _uiState.value = SupersListUiState.Loading
-                        } else {
-                            _uiState.value = SupersListUiState.Success(supersList)
-                        }
+        collectionJob = viewModelScope.launch {
+            withContext(Dispatchers.Main){
+                supersetRepository.setStream.collect{ supersList ->
+                    if(supersList.isEmpty()){
+                        _uiState.value = SupersListUiState.Loading
+                    }else{
+                        _uiState.value = SupersListUiState.Success(supersList)
                     }
                 }
-
-                withContext(Dispatchers.IO) {
-                    val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull()
-                    if (userId != null) {
-                        loadSupersets()
-                    } else {
-                        _uiState.value = SupersListUiState.Error("ID de usuario no encontrado")
-                    }
-                }
-            } catch (e: Exception) {
-                _uiState.value = SupersListUiState.Error("Error al cargar los supersets: ${e.message}")
             }
         }
     }
@@ -64,45 +50,20 @@ class SupersetListViewModel @Inject constructor(
         viewModelScope.launch {
             val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
-            val remoteSuperset: List<Superset> =
-                try {
-                    withContext(Dispatchers.IO) {
-                        supersetRepository.readAll(userId)
-                    }
-                }catch (e: Exception){
-                    emptyList()
-                }
+            val supersets = supersetRepository.readAll(userId)
 
-            if(remoteSuperset.isNotEmpty()){
-                _uiState.value = SupersListUiState.Success(remoteSuperset)
-            } else {
-                withContext(Dispatchers.IO){
-                    localRepository.getSupersetsByUser(userId).collect{ localSupersetEntity ->
-                        _uiState.value = SupersListUiState.Success(
-                            localSupersetEntity.map { it.toExternal() }
-                        )
-                    }
-                }
+            if(supersets.isNotEmpty()){
+                SupersListUiState.Success(supersets)
+            }else{
+                SupersListUiState.Error("Error al obtener los supersets")
             }
         }
     }
 
     fun deleteSuperset(supersetId: Int){
         viewModelScope.launch {
-            try {
-                val res = supersetRepository.deleteSuperset(supersetId)
-                if (res.isSuccessful) {
-                    localRepository.deleteSuperset(supersetId)
-                }
-
-                Log.d("ExerciseListViewModel", "Antes de loadSupersets")
-                withContext(Dispatchers.IO) {
-                    loadSupersets()
-                    Log.d("ExerciseListViewModel", "Después de loadSupersets")
-                }
-            } catch (e: Exception) {
-                Log.e("ExerciseListViewModel", "Error en deleteSuperset: ${e.message}")
-            }
+            supersetRepository.deleteSuperset(supersetId)
+            loadSupersets()
         }
     }
 

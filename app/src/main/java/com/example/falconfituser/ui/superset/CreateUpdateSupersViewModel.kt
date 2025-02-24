@@ -11,6 +11,7 @@ import com.example.falconfituser.data.exercise.IExerciseRepository
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
 import com.example.falconfituser.data.superset.toLocal
+import com.example.falconfituser.ui.exercise.ExercListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,6 @@ import javax.inject.Inject
 class CreateUpdateSupersViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
     private val exerciseRepository: IExerciseRepository,
-    private val localRepository: LocalRepository,
     private val sharedPreferences: SharedPreferences
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateUpdateSupersUiState>(CreateUpdateSupersUiState.Loading)
@@ -34,12 +34,7 @@ class CreateUpdateSupersViewModel @Inject constructor(
 
     fun createSuperset(superset: SupersetPost) {
         viewModelScope.launch{
-            val res = supersetRepository.createSuperset(superset)
-
-            if (res.isSuccessful){
-                val id = res.body()!!.id.toString()
-                localRepository.createSuperset(superset.toLocal(id))
-            }
+            supersetRepository.createSuperset(superset)
         }
     }
 
@@ -51,14 +46,14 @@ class CreateUpdateSupersViewModel @Inject constructor(
 
     private fun loadExercises() {
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
-                    val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-                    val exercises = exerciseRepository.readAll(userId)
-                    _uiState.value = CreateUpdateSupersUiState.Success(exercises)
-                } catch (e: Exception) {
-                    _uiState.value = CreateUpdateSupersUiState.Error(e.message ?: "Error desconocido")
-                }
+            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
+
+            val exercises = exerciseRepository.readAll(userId)
+
+            _uiState.value = if (exercises.isNotEmpty()) {
+                CreateUpdateSupersUiState.Success(exercises)
+            } else {
+                CreateUpdateSupersUiState.Error("Error al obtener los ejercicios")
             }
         }
     }

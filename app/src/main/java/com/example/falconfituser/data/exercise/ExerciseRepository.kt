@@ -71,12 +71,11 @@ class ExerciseRepository @Inject constructor(
                                         photo: Uri?): Response<StrapiResponse<ExerciseRaw>> {
         val response = apiData.createExercise(exercise)
         if(response.isSuccessful){
-            var uploadedExercise = response.body()
-            val id = response.body()!!.data.id.toString()
+            val id = response.body()!!.data.id
 
-            localRepository.createExercise(exercise.toLocal(id))
+            localRepository.createExercise(exercise.toLocal(id.toString()))
             photo?.let { uri ->
-                uploadExercisePhoto(uri, uploadedExercise!!.data.id)
+                uploadExercisePhoto(uri, id)
             }
         }
         return response

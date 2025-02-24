@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 data class SupersetEntity(
     @PrimaryKey val id: String,
     val title: String,
-    val exerciseOneId: String,
-    val exerciseTwoId: String,
+    val exerciseOneTitle: String,
+    val exerciseTwoTitle: String,
     val userId: Int
 )
 
