@@ -13,7 +13,7 @@ interface ISupersetRepository {
     suspend fun readAll(id: Int): List<Superset>
     suspend fun readOne(id: Int): Superset
     suspend fun createSuperset(superset: SupersetPost): Response<StrapiResponse<SupersetRaw>>
-    suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<SupersetListRaw>
+    suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<StrapiResponse<SupersetRaw>>
     suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw>
     fun observeAll(): Flow<List<Superset>>
 }

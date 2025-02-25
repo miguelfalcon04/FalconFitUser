@@ -51,7 +51,8 @@ interface IFalconFitApi {
     @POST("supersets")
     suspend fun createSuperset(@Body superset: SupersetPost): Response<StrapiResponse<SupersetRaw>>
     @PUT("supersets/{id}")
-    suspend fun updateSuperset(@Path("id")id: Int, @Body superset: SupersetPost): Response<SupersetListRaw>
+    suspend fun updateSuperset(@Path("id")id: Int,
+                               @Body superset: SupersetPost): Response<StrapiResponse<SupersetRaw>>
     @DELETE("supersets/{id}")
     suspend fun deleteSuperset(@Path("id")id: Int): Response<SupersetRaw>
 

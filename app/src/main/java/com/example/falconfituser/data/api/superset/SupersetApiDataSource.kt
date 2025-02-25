@@ -21,7 +21,7 @@ class SupersetApiDataSource @Inject constructor(
     }
 
     override suspend fun updateSuperset(supersetId: Int,
-                                        superset: SupersetPost): Response<SupersetListRaw> {
+                                        superset: SupersetPost): Response<StrapiResponse<SupersetRaw>> {
         return ffApi.updateSuperset(supersetId, superset)
     }
 

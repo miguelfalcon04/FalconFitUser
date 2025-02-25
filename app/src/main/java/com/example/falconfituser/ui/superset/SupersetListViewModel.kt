@@ -3,7 +3,6 @@ package com.example.falconfituser.ui.superset
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
 import com.example.falconfituser.data.superset.Superset
 import dagger.hilt.android.lifecycle.HiltViewModel

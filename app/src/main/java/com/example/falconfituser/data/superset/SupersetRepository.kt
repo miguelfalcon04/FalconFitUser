@@ -74,7 +74,7 @@ class SupersetRepository @Inject constructor(
         return response
     }
 
-    override suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<SupersetListRaw> {
+    override suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<StrapiResponse<SupersetRaw>> {
         return apiData.updateSuperset(supersetId, superset)
     }
 
