@@ -52,6 +52,7 @@ dependencies {
     // Worker Manager
     implementation("androidx.work:work-runtime-ktx:2.10.0")
     implementation("androidx.hilt:hilt-work:1.2.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     //Interceptor para Bearer Token en el Header
     implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11")
