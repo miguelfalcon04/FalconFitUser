@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.places
 
+import androidx.core.app.AppLaunchChecker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.places.IPlacesRepository
@@ -23,9 +24,10 @@ class PlacesListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch{
+            loadPlaces()
+
             withContext(Dispatchers.Main){
-                placesRepository.setStream.collect{
-                        placeList ->
+                placesRepository.setStream.collect{ placeList ->
                     if(placeList.isEmpty()){
                         _uiState.value = PlacesListUiState.Loading
                     }else{
@@ -34,17 +36,10 @@ class PlacesListViewModel @Inject constructor(
                 }
             }
         }
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                placesRepository.readAll()
-            }
-        }
     }
 
     suspend fun loadPlaces(): List<Places> {
-        return withContext(Dispatchers.IO) {
-            placesRepository.readAll()
-        }
+        return placesRepository.readAll()
     }
 }
 

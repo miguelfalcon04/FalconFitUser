@@ -6,20 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.falconfituser.data.local.dao.ExerciseDao
 import com.example.falconfituser.data.local.dao.MachineDao
+import com.example.falconfituser.data.local.dao.PlacesDao
 import com.example.falconfituser.data.local.dao.SupersetDao
 import com.example.falconfituser.data.local.entities.ExerciseEntity
 import com.example.falconfituser.data.local.entities.MachineEntity
+import com.example.falconfituser.data.local.entities.PlacesEntity
 import com.example.falconfituser.data.local.entities.SupersetEntity
 
 @Database(entities = [MachineEntity::class,
                       ExerciseEntity::class,
-                      SupersetEntity::class],
-                      version = 2)
+                      SupersetEntity::class,
+                      PlacesEntity::class],
+                      version = 3)
 abstract class FalconFitDataBase(): RoomDatabase() {
 
     abstract fun machineDao(): MachineDao
     abstract fun exerciseDao(): ExerciseDao
     abstract fun supersetDao(): SupersetDao
+    abstract fun placestDao(): PlacesDao
 
     companion object{
         @Volatile

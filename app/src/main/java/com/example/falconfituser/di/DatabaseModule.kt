@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.falconfituser.data.local.FalconFitDataBase
 import com.example.falconfituser.data.local.dao.ExerciseDao
 import com.example.falconfituser.data.local.dao.MachineDao
+import com.example.falconfituser.data.local.dao.PlacesDao
 import com.example.falconfituser.data.local.dao.SupersetDao
 import dagger.Module
 import dagger.Provides
@@ -38,5 +39,11 @@ object DatabaseModule {
     @Provides
     fun provideSupersetDao(database: FalconFitDataBase): SupersetDao {
         return database.supersetDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providePlacesDao(database: FalconFitDataBase): PlacesDao {
+        return database.placestDao()
     }
 }
