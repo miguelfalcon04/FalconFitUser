@@ -14,7 +14,6 @@ import javax.inject.Inject
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.example.falconfituser.data.worker.WorkManagerHelper
-import java.util.concurrent.TimeUnit
 
 @HiltAndroidApp
 class FalconFitUserApplication : Application(), Configuration.Provider {
@@ -56,7 +55,7 @@ class FalconFitUserApplication : Application(), Configuration.Provider {
     }
 
     private fun setupTrainingReminders() {
-        WorkManagerHelper.setupTrainingReminders(this, 30) // Notificación cada hora
+        WorkManagerHelper.setupTrainingReminders(this, 1) // Notificación cada hora
     }
 }
 

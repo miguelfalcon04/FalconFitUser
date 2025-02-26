@@ -1,6 +1,5 @@
 package com.example.falconfituser.data.api.exercise
 
-import android.net.Uri
 import com.example.falconfituser.data.api.IFalconFitApi
 import com.example.falconfituser.data.exercise.Exercise
 import okhttp3.MultipartBody

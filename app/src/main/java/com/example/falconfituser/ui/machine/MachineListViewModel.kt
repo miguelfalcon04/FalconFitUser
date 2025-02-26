@@ -2,7 +2,6 @@ package com.example.falconfituser.ui.machine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.data.machine.IMachineRepository
 import com.example.falconfituser.data.machine.Machine
 import dagger.hilt.android.lifecycle.HiltViewModel

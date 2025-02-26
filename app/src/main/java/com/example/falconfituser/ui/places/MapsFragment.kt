@@ -16,7 +16,6 @@ import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentMapsBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.data.places.Places
 import com.google.android.gms.maps.CameraUpdateFactory
 import kotlinx.coroutines.launch

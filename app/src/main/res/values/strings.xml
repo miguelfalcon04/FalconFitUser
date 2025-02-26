@@ -30,4 +30,6 @@
     <string name="error_average_error">Algo salió mal revise sus creedenciales</string>
     <string name="map">Ubicaciones</string>
     <string name="share">Compartir</string>
+    <string name="camera">Cámara</string>
+    <string name="gallery">Galería</string>
 </resources>

@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.superset.ExercisePost
 import com.example.falconfituser.data.api.superset.SupersetPost

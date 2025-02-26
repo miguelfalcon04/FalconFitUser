@@ -1,10 +1,7 @@
 package com.example.falconfituser.ui.loginAndRegister
 
-import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.falconfituser.R
 import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw

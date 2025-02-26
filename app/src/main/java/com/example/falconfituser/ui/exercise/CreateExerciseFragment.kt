@@ -18,7 +18,6 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.core.content.ContextCompat
-import androidx.core.text.set
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -28,7 +27,6 @@ import com.example.falconfituser.R
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
 import com.example.falconfituser.data.api.exercise.UserIdRaw
-import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint

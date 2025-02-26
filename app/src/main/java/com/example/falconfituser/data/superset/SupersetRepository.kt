@@ -2,7 +2,6 @@ package com.example.falconfituser.data.superset
 
 import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
-import com.example.falconfituser.data.api.superset.SupersetListRaw
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.local.LocalRepository

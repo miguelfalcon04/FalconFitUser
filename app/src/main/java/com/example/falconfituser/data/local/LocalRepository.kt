@@ -1,7 +1,6 @@
 package com.example.falconfituser.data.local
 
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.annotation.WorkerThread
 import com.example.falconfituser.data.local.dao.ExerciseDao
 import com.example.falconfituser.data.local.dao.MachineDao
@@ -23,10 +22,6 @@ class LocalRepository @Inject constructor(
     private val placesDao: PlacesDao,
     private val sharedPreferences: SharedPreferences
 ) {
-    companion object {
-        private const val TAG = "LocalRepository"
-    }
-
     val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
 
     // Machines

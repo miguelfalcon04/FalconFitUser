@@ -1,6 +1,5 @@
 package com.example.falconfituser.ui.places
 
-import androidx.core.app.AppLaunchChecker
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.places.IPlacesRepository

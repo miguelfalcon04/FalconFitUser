@@ -30,4 +30,6 @@
     <string name="error_average_error">Something went wrong</string>
     <string name="map">Locations</string>
     <string name="share">Share</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
 </resources>
