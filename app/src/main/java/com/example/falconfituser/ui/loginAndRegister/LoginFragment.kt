@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
+import com.example.falconfituser.data.worker.WorkManagerHelper
 import com.example.falconfituser.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -50,6 +51,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         toRegister.setOnClickListener{
+            WorkManagerHelper.testNotificationNow(requireContext())
+            Toast.makeText(
+                requireContext(),
+                "Notificación programada para 5 segundos",
+                Toast.LENGTH_SHORT
+            ).show()
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
@@ -58,7 +65,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 when(loginState){
                     LoginState.Loading -> {}
                     is LoginState.Success -> {
-                        // Toast.makeText(context, loginState.message.toString(), Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_loginFragment_to_machine)
                     }
                     is LoginState.Error -> {
