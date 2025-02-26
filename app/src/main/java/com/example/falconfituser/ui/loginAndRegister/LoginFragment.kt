@@ -1,5 +1,8 @@
 package com.example.falconfituser.ui.loginAndRegister
 
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,10 +23,28 @@ import com.example.falconfituser.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+private var PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.POST_NOTIFICATIONS)
+
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginRegisterViewModel by viewModels()
+
+    val contract = ActivityResultContracts.RequestMultiplePermissions()
+    val launcher = registerForActivityResult(contract){
+        permissions ->
+        var granted = true
+        permissions.entries.forEach{
+            permission ->
+                if(permission.key in PERMISSIONS_REQUIRED && !permission.value){
+                    granted = false
+                }
+        }
+
+        if(!granted){
+            Toast.makeText(requireContext(), "No se enviaran notificaciones", Toast.LENGTH_LONG).show()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -35,6 +58,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val getEmail = view.findViewById<EditText>(R.id.emailEditText)
         val getPassword = view.findViewById<EditText>(R.id.passwordEditText)
         val toRegister = view.findViewById<Button>(R.id.registerButton)
+
+        if (!hasNotisPermissions(requireContext())){
+            launcher.launch(PERMISSIONS_REQUIRED)
+        }
 
         btnLogin.setOnClickListener {
             val email = getEmail.text.toString()
@@ -77,5 +104,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    // Comprobar si tenemos permiso
+    private fun hasNotisPermissions(context: Context):Boolean{
+        return PERMISSIONS_REQUIRED.all{
+                permission ->
+            ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+        }
     }
 }
