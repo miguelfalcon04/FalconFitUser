@@ -27,7 +27,7 @@ Este README contiene el desarrollo realizado, los desafíos encontrados, las sol
    - Integración de Retrofit para comunicación con la API de Strapi.
    - Uso de Hilt para inyección de dependencias.
      
-5. ** Avances del segundo trimestre:**
+5. **Avances del segundo trimestre:**
    - Implementar AuthenticationInterceptor para añadir a los post en la cabecera el bearer token
    - Rellenar campos automaticamente al pulsar actualizar
    - Implementación de ubicaciones con la Api de Google Maps
