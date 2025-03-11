@@ -26,6 +26,14 @@ Este README contiene el desarrollo realizado, los desafíos encontrados, las sol
 4. **Persistencia y Comunicación con la API:**
    - Integración de Retrofit para comunicación con la API de Strapi.
    - Uso de Hilt para inyección de dependencias.
+     
+5. **Avances del segundo trimestre:**
+   - Implementar AuthenticationInterceptor para añadir a los post en la cabecera el bearer token
+   - Rellenar campos automaticamente al pulsar actualizar
+   - Implementación de ubicaciones con la Api de Google Maps
+   - Uso de camara para tomar fotos
+   - Work Manager para enviar notificaciones cada hora.
+   - Base de datos local en Room.
 
 ---
 
@@ -54,3 +62,6 @@ El cambio de idioma representó un reto para mantener la consistencia de los tex
 ### Uso de Material Design
 Todas las pantallas siguen los principios de **Material Design** para garantizar una interfaz moderna, consistente y accesible. 
 Se priorizaron elementos como botones, listas y switches estilizados para mejorar la experiencia del usuario.
+
+## Render
+https://falconfitrenderv2.onrender.com/ 
