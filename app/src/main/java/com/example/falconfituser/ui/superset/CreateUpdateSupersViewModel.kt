@@ -1,12 +1,12 @@
 package com.example.falconfituser.ui.superset
 
-import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.falconfituser.data.api.superset.SupersetPost
+import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
 import com.example.falconfituser.data.superset.ISupersetRepository
+import com.example.falconfituser.data.superset.Superset
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,19 +18,21 @@ import javax.inject.Inject
 class CreateUpdateSupersViewModel @Inject constructor(
     private val supersetRepository: ISupersetRepository,
     private val exerciseRepository: IExerciseRepository,
-    private val sharedPreferences: SharedPreferences
+    private val authenticationService: AuthenticationService,
 ): ViewModel(){
     private val _uiState = MutableStateFlow<CreateUpdateSupersUiState>(CreateUpdateSupersUiState.Loading)
     val uiState: StateFlow<CreateUpdateSupersUiState>
         get() = _uiState.asStateFlow()
 
-    fun createSuperset(superset: SupersetPost) {
+    val userId = authenticationService.getId().toInt()
+
+    fun createSuperset(superset: Superset) {
         viewModelScope.launch{
             supersetRepository.createSuperset(superset)
         }
     }
 
-    fun updateSuperset(supersetId: Int, superset: SupersetPost){
+    fun updateSuperset(supersetId: Int, superset: Superset){
         viewModelScope.launch{
             supersetRepository.updateSuperset(supersetId, superset)
         }
@@ -38,8 +40,6 @@ class CreateUpdateSupersViewModel @Inject constructor(
 
     private fun loadExercises() {
         viewModelScope.launch {
-            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-
             val exercises = exerciseRepository.readAll(userId)
 
             _uiState.value = if (exercises.isNotEmpty()) {

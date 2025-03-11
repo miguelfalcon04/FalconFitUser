@@ -1,7 +1,10 @@
 package com.example.falconfituser.data.superset
 
+import com.example.falconfituser.data.api.superset.ExercisePost
 import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
+import com.example.falconfituser.data.api.superset.SupersetRawPost
+import com.example.falconfituser.data.api.superset.UserIdRaw
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.toExternal
 import com.example.falconfituser.data.local.entities.SupersetEntity
@@ -16,6 +19,28 @@ fun SupersetRaw.toExternal(): Superset{
         title = this.attributes.title,
         exerciseOne = exerciseOne,
         exercisTwo = exerciseTwo
+    )
+}
+
+fun Superset.toStrapi(userId: Int): SupersetPost{
+    val exercisesList = mutableListOf<ExercisePost>()
+
+    exerciseOne?.id?.toIntOrNull()?.let { exerciseId ->
+        exercisesList.add(ExercisePost(id = exerciseId))
+    }
+
+    exercisTwo?.id?.toIntOrNull()?.let { exerciseId ->
+        exercisesList.add(ExercisePost(id = exerciseId))
+    }
+
+    return SupersetPost(
+        data = SupersetRawPost(
+            title = this.title,
+            exercises = exercisesList,
+            userId = UserIdRaw(
+                id = userId
+            )
+        )
     )
 }
 

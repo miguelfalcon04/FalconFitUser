@@ -1,8 +1,8 @@
 package com.example.falconfituser.data.superset
 
+import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
-import com.example.falconfituser.data.api.superset.SupersetPost
 import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.local.LocalRepository
 import kotlinx.coroutines.flow.Flow
@@ -15,11 +15,14 @@ import javax.inject.Inject
 
 class SupersetRepository @Inject constructor(
     private val apiData: ISupersetApiDataSource,
-    private val localRepository: LocalRepository
+    private val localRepository: LocalRepository,
+    private val authenticationService: AuthenticationService
 ): ISupersetRepository{
     private val _state = MutableStateFlow<List<Superset>>(listOf())
     override val setStream: StateFlow<List<Superset>>
         get() = _state.asStateFlow()
+
+    val userId = authenticationService.getId().toInt()
 
     override suspend fun readAll(id: Int): List<Superset> {
         try {
@@ -62,19 +65,19 @@ class SupersetRepository @Inject constructor(
     }
 
 
-    override suspend fun createSuperset(superset: SupersetPost): Response<StrapiResponse<SupersetRaw>> {
-        val response = apiData.createSuperset(superset)
+    override suspend fun createSuperset(superset: Superset): Response<StrapiResponse<SupersetRaw>> {
+        val response = apiData.createSuperset(superset.toStrapi(userId))
 
         if(response.isSuccessful){
-            val id = response.body()!!.data.id.toString()
+            val id = response.body()!!.data.id
             localRepository.createSuperset(superset.toLocal(id))
         }
 
         return response
     }
 
-    override suspend fun updateSuperset(supersetId: Int, superset: SupersetPost): Response<StrapiResponse<SupersetRaw>> {
-        return apiData.updateSuperset(supersetId, superset)
+    override suspend fun updateSuperset(supersetId: Int, superset: Superset): Response<StrapiResponse<SupersetRaw>> {
+        return apiData.updateSuperset(supersetId, superset.toStrapi(userId))
     }
 
     override suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw> {
