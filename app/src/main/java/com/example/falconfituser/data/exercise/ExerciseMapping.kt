@@ -2,7 +2,22 @@ package com.example.falconfituser.data.exercise
 
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
+import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
+import com.example.falconfituser.data.api.exercise.UserIdRaw
 import com.example.falconfituser.data.local.entities.ExerciseEntity
+
+fun Exercise.toStrapi(userId: String): ExerciseCreateData{
+    return ExerciseCreateData(
+        data = ExerciseRawAttributes(
+            title = this.title,
+            subtitle = this.subtitle,
+            description = this.description,
+            userId = UserIdRaw(
+                id = userId.toInt()
+            )
+        )
+    )
+}
 
 fun ExerciseRaw.toExternal(): Exercise {
     return Exercise(
@@ -10,21 +25,11 @@ fun ExerciseRaw.toExternal(): Exercise {
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
         description = this.attributes.description,
-        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url ?: null
+        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url
     )
 }
 
 fun List<ExerciseRaw>.toExternal():List<Exercise> = map(ExerciseRaw::toExternal)
-
-fun ExerciseCreateData.toLocal(id: String): ExerciseEntity{
-    return ExerciseEntity(
-        id = id,
-        title = this.data.title,
-        subtitle = this.data.subtitle,
-        description = this.data.description,
-        userId = this.data.userId.id
-    )
-}
 
 fun ExerciseEntity.toExternal(): Exercise {
     return Exercise(
@@ -45,6 +50,3 @@ fun Exercise.toLocal(userId: Int): ExerciseEntity{
         userId = userId
     )
 }
-
-fun List<ExerciseEntity>.toExternalEntities(): List<Exercise> = map { it.toExternal() }
-

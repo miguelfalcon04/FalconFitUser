@@ -3,6 +3,7 @@ package com.example.falconfituser.data.exercise
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
+import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
@@ -27,11 +28,14 @@ class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apiData: IExerciseApiDataSource,
     private val localRepository: LocalRepository,
+    private val authenticationService: AuthenticationService
 ): IExerciseRepository {
 
     private val _state = MutableStateFlow<List<Exercise>>(listOf())
     override val setStream: StateFlow<List<Exercise>>
         get() = _state.asStateFlow()
+
+    val userId = authenticationService.getId()
 
     // Debemos pasarle el id del usuario
     override suspend fun readAll(id: Int): List<Exercise> {
@@ -67,13 +71,13 @@ class ExerciseRepository @Inject constructor(
         else Exercise("0","fuera","no","furula", null)
     }
 
-    override suspend fun createExercise(exercise: ExerciseCreateData,
+    override suspend fun createExercise(exercise: Exercise,
                                         photo: Uri?): Response<StrapiResponse<ExerciseRaw>> {
-        val response = apiData.createExercise(exercise)
+        val response = apiData.createExercise(exercise.toStrapi(userId))
         if(response.isSuccessful){
             val id = response.body()!!.data.id
 
-            localRepository.createExercise(exercise.toLocal(id.toString()))
+            localRepository.createExercise(exercise.toLocal(id))
             photo?.let { uri ->
                 uploadExercisePhoto(uri, id)
             }
@@ -81,8 +85,8 @@ class ExerciseRepository @Inject constructor(
         return response
     }
 
-    override suspend fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?) {
-        val response = apiData.updateExercise(exerciseId, exercise)
+    override suspend fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?) {
+        val response = apiData.updateExercise(exerciseId, exercise.toStrapi(userId))
         if(response.isSuccessful){
             var uploadedExercise = response.body()
 

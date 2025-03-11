@@ -38,4 +38,8 @@ class AuthenticationService @Inject constructor(
                 .apply()
         }
     }
+
+    fun getId(): String {
+        return sharedPreferences.getString("USER_ID", "0").toString()
+    }
 }

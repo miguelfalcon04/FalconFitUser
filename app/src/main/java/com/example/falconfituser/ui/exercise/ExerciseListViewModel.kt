@@ -1,11 +1,10 @@
 package com.example.falconfituser.ui.exercise
 
-import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.exercise.IExerciseRepository
-import com.example.falconfituser.data.local.LocalRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,12 +18,13 @@ import javax.inject.Inject
 @HiltViewModel
 class ExerciseListViewModel @Inject constructor(
     private val exerciseRepository: IExerciseRepository,
-    private val localRepository: LocalRepository,
-    private val sharedPreferences: SharedPreferences
+    private val authenticationService: AuthenticationService
 ): ViewModel() {
     private val _uiState = MutableStateFlow<ExercListUiState>(ExercListUiState.Loading)
     val uiState: StateFlow<ExercListUiState>
         get() = _uiState.asStateFlow()
+
+    val userId = authenticationService.getId().toInt()
 
     // Añado Job para manejar la subscripción y poder eliminarla cuando quiera
     // Así al cerrar sesión e inicar de nuevo con otro usuario, no se mostrará los datos del otro
@@ -52,8 +52,6 @@ class ExerciseListViewModel @Inject constructor(
 
     private fun loadExercises() {
         viewModelScope.launch {
-            val userId = sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-
             val exercises = exerciseRepository.readAll(userId)
 
             _uiState.value = if (exercises.isNotEmpty()) {

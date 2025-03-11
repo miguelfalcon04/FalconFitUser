@@ -21,13 +21,13 @@ class CreateExerViewModel @Inject constructor(
     val uiState: StateFlow<CreateExerUiState>
         get() = _uiState.asStateFlow()
 
-    fun createExercise(exercise: ExerciseCreateData, photo: Uri?){
+    fun createExercise(exercise: Exercise, photo: Uri?){
         viewModelScope.launch{
             exerciseRepository.createExercise(exercise, photo)
         }
     }
 
-    fun updateExercise(exerciseId: Int, exercise: ExerciseCreateData, photo: Uri?){
+    fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?){
         viewModelScope.launch{
             exerciseRepository.updateExercise(exerciseId, exercise, photo)
         }

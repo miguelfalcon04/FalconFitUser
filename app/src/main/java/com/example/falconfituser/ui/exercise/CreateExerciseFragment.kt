@@ -24,9 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.falconfituser.R
-import com.example.falconfituser.data.api.exercise.ExerciseCreateData
-import com.example.falconfituser.data.api.exercise.ExerciseRawAttributes
-import com.example.falconfituser.data.api.exercise.UserIdRaw
+import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
@@ -147,16 +145,13 @@ class CreateExerciseFragment: Fragment() {
                 // Obtengo el userId
                 val userId = getUserId()
 
-                // Creo un ExerciseCreateData para pasarselo a la función
-                val exerciseToSend = ExerciseCreateData(
-                    data = ExerciseRawAttributes(
-                        title = title,
-                        subtitle = subtitle,
-                        description = description,
-                        userId = UserIdRaw(
-                            id = userId
-                        )
-                    )
+                // Creo un Exercise para pasarselo a la función
+                val exerciseToSend = Exercise(
+                    id = "NADA",
+                    title = title,
+                    subtitle = subtitle,
+                    description = description,
+                    photo = "NADA"
                 )
 
                 // Si exerciseId es != -1 significa que he navegado desde ListAdapter
