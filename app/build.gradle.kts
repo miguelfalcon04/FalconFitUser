@@ -6,7 +6,10 @@ plugins {
     id("com.google.dagger.hilt.android")
 
     //Plugin Maps
-    id ("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+
+    // Firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -46,6 +49,11 @@ android {
 }
 
 dependencies {
+    // Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+    // Add the dependency for the Firebase SDK for Google Analytics
+    implementation("com.google.firebase:firebase-analytics")
+
     // Notificaciones
     implementation("androidx.core:core-ktx")
 

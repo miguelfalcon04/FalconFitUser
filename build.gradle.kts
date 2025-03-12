@@ -4,6 +4,9 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     id("com.google.dagger.hilt.android") version "2.51.1" apply false
     alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin) apply false
+
+    // Complemento de google para firebase
+    id("com.google.gms.google-services") version "4.4.2" apply false
 }
 
 buildscript {
