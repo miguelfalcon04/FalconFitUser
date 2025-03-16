@@ -54,6 +54,15 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation("com.google.firebase:firebase-analytics")
 
+    // Firebase Firestore
+    implementation("com.google.firebase:firebase-firestore")
+
+    // Firebase Storage (para almacenar fotos)
+    implementation("com.google.firebase:firebase-storage")
+
+    // Firebase Authentication (opcional)
+    implementation("com.google.firebase:firebase-auth")
+
     // Notificaciones
     implementation("androidx.core:core-ktx")
 

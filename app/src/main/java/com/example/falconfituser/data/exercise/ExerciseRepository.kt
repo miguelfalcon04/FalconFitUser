@@ -10,6 +10,8 @@ import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,6 +36,9 @@ class ExerciseRepository @Inject constructor(
     private val _state = MutableStateFlow<List<Exercise>>(listOf())
     override val setStream: StateFlow<List<Exercise>>
         get() = _state.asStateFlow()
+
+    private val firestore = FirebaseFirestore.getInstance()
+    private val exercisesCollection = firestore.collection("exercises")
 
     val userId = authenticationService.getId()
 
@@ -76,6 +81,9 @@ class ExerciseRepository @Inject constructor(
         val response = apiData.createExercise(exercise.toStrapi(userId))
         if(response.isSuccessful){
             val id = response.body()!!.data.id
+
+            // Sube el documento con el nombre del id, y añade los campos del ejercicio
+            exercisesCollection.document(id.toString()).set(exercise)
 
             localRepository.createExercise(exercise.toLocal(id))
             photo?.let { uri ->

@@ -14,6 +14,7 @@ import javax.inject.Inject
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import com.example.falconfituser.data.worker.WorkManagerHelper
+import com.google.firebase.FirebaseApp
 
 @HiltAndroidApp
 class FalconFitUserApplication : Application(), Configuration.Provider {
@@ -26,6 +27,9 @@ class FalconFitUserApplication : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
+
+        // Inicializo Firebase
+        FirebaseApp.initializeApp(this)
 
         // Para cuando inicie obtener el tema directamente sin tener que navegar al fragmento
         CoroutineScope(Dispatchers.IO).launch {
