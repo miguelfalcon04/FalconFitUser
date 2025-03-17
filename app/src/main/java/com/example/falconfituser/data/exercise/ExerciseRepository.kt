@@ -4,14 +4,12 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import com.example.falconfituser.authentication.AuthenticationService
-import com.example.falconfituser.data.api.exercise.ExerciseCreateData
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import com.example.falconfituser.data.api.exercise.StrapiResponse
+import com.example.falconfituser.data.firebase.exercise.ExerciseFirebase
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
-import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +27,7 @@ import javax.inject.Inject
 class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apiData: IExerciseApiDataSource,
+    private val fb: ExerciseFirebase,
     private val localRepository: LocalRepository,
     private val authenticationService: AuthenticationService
 ): IExerciseRepository {
@@ -36,9 +35,6 @@ class ExerciseRepository @Inject constructor(
     private val _state = MutableStateFlow<List<Exercise>>(listOf())
     override val setStream: StateFlow<List<Exercise>>
         get() = _state.asStateFlow()
-
-    private val firestore = FirebaseFirestore.getInstance()
-    private val exercisesCollection = firestore.collection("exercises")
 
     val userId = authenticationService.getId()
 
@@ -82,8 +78,8 @@ class ExerciseRepository @Inject constructor(
         if(response.isSuccessful){
             val id = response.body()!!.data.id
 
-            // Sube el documento con el nombre del id, y añade los campos del ejercicio
-            exercisesCollection.document(id.toString()).set(exercise)
+            // Crea un documento, y añade los campos del ejercicio
+            fb.createExercise(exercise)
 
             localRepository.createExercise(exercise.toLocal(id))
             photo?.let { uri ->
