@@ -40,13 +40,11 @@ class ExerciseRepository @Inject constructor(
 
     // Debemos pasarle el id del usuario
     override suspend fun readAll(id: Int): List<Exercise> {
+        val res = fb.getAllExercises(id)
+
         try {
             // val res = apiData.readAll(id)
-            val res = fb.getAllExercises(id)
-
-            if(res.isNotEmpty()){
-
-            }
+            // val res = fb.getAllExercises(id)
 
             //if(res.isSuccessful){
             //    val execList = res.body()!!.data.toExternal()
@@ -68,7 +66,8 @@ class ExerciseRepository @Inject constructor(
             return localExercises
         }
 
-        return _state.value
+        // return _state.value
+        return res
     }
 
     override suspend fun readOne(id: Int): Exercise {
