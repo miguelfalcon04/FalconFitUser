@@ -41,18 +41,23 @@ class ExerciseRepository @Inject constructor(
     // Debemos pasarle el id del usuario
     override suspend fun readAll(id: Int): List<Exercise> {
         try {
-            val res = apiData.readAll(id)
+            // val res = apiData.readAll(id)
+            val res = fb.getAllExercises(id)
 
-            if(res.isSuccessful){
-                val execList = res.body()!!.data.toExternal()
-                _state.value = execList
+            if(res.isNotEmpty()){
 
-                for (exercise in execList) {
-                    localRepository.createExercise(exercise.toLocal(id))
-                }
-
-                return execList
             }
+
+            //if(res.isSuccessful){
+            //    val execList = res.body()!!.data.toExternal()
+            //    _state.value = execList
+
+            //   for (exercise in execList) {
+            //        localRepository.createExercise(exercise.toLocal(id))
+            //    }
+
+            //    return execList
+            //}
         }catch (e: Exception){
             // Como devuelve un Flow tengo que mapear uno por uno los ejercicios
             val localExercises = localRepository.getExercisesByUser(id)
