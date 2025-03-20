@@ -1,5 +1,6 @@
 package com.example.falconfituser.data.firebase.exercise
 
+import android.util.Log
 import com.example.falconfituser.data.exercise.Exercise
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -15,13 +16,18 @@ class ExerciseFirebase @Inject constructor() : IExerciseFirebase {
     }
 
     override suspend fun getAllExercises(userId: Int): List<Exercise> {
-        val exercises = exercisesCollection
-                        .whereEqualTo("userId", userId)
-                        .get()
-                        .await()
+        return try {
+            val exercises = exercisesCollection
+                .whereEqualTo("userId", userId)
+                .get()
+                .await()
 
-        return exercises.documents.mapNotNull { document ->
-            document.toObject(Exercise::class.java)
+            exercises.documents.mapNotNull { document ->
+                document.toObject(Exercise::class.java)
+            }
+        } catch (e: Exception) {
+            Log.e("FirebaseRepository", "Error getting exercises: ${e.message}", e)
+            emptyList()
         }
     }
 
