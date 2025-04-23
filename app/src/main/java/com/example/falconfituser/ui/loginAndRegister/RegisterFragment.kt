@@ -1,5 +1,7 @@
 package com.example.falconfituser.ui.loginAndRegister
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.databinding.FragmentRegisterBinding
+import com.example.falconfituser.ui.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -24,8 +28,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: LoginRegisterViewModel by viewModels()
 
+    private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        firebaseAuth = FirebaseAuth.getInstance()
         return binding.root
     }
 
@@ -50,7 +57,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     email = email,
                     password = password
                 )
-                viewModel.register(userToRegister)
+                register(email, password)
+                // viewModel.register(userToRegister)
             }
         }
 
@@ -75,5 +83,34 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    private fun register(email:String, password:String){
+        if (email.isNotEmpty() && password.isNotEmpty()){
+            firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
+                if (it.isSuccessful){
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }else{
+                    showAlert()
+                }
+            }
+        }else{
+            showToast("Error")
+        }
+    }
+
+    private fun showAlert(){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Error")
+        builder.setMessage("Se ha producido un error al loguear un usuario")
+        builder.setPositiveButton("Aceptar", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
