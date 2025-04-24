@@ -12,11 +12,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import android.util.Log
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 @HiltViewModel
 class LoginRegisterViewModel @Inject constructor(
     private val loginRegisterRepository: LoginRegisterRepository,
-    private val authenticationService: AuthenticationService
+    private val authenticationService: AuthenticationService,
 ): ViewModel() {
     private val _loginState = MutableStateFlow<LoginState>(LoginState.Loading)
     val loginState: StateFlow<LoginState>
@@ -25,6 +28,39 @@ class LoginRegisterViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Loading)
     val registerState: StateFlow<RegisterState>
         get() = _registerState.asStateFlow()
+
+
+    fun loginFirebase(email: String, password: String) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            val auth = Firebase.auth
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    _loginState.value = LoginState.Success("Usuario Registrido en Firebase")
+                } else {
+                    _loginState.value = LoginState.Error("No se ha completado el login")
+                }
+            }
+        } else {
+            _loginState.value = LoginState.Error("Faltan credenciales para completar el login")
+        }
+    }
+
+    fun registerFirebase(email:String, password:String){
+        if (email.isNotEmpty() && password.isNotEmpty()){
+            val auth = Firebase.auth
+
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
+                if (it.isSuccessful){
+                    authenticationService.clearCredentials()
+                    _registerState.value = RegisterState.Success()
+                }else{
+                    _registerState.value = RegisterState.Error("Usuario mal creado")
+                }
+            }
+        }else{
+            _registerState.value = RegisterState.Error("Error falta creedenciales")
+        }
+    }
 
     fun login(login: LoginRaw){
         viewModelScope.launch{
@@ -76,6 +112,7 @@ class LoginRegisterViewModel @Inject constructor(
             }
         }
     }
+
 }
 
 sealed class LoginState {

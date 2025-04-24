@@ -17,7 +17,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
-import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.databinding.FragmentLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -68,11 +67,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (email.isEmpty() && password.isEmpty()){
                 Toast.makeText(context, getString(R.string.error_invalid_credentials), Toast.LENGTH_SHORT).show()
             }else{
-                val userToLogin = LoginRaw(
-                    identifier = email,
-                    password = password
-                )
-                viewModel.login(userToLogin)
+                viewModel.loginFirebase(email, password)
             }
         }
 
