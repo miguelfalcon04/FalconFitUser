@@ -36,7 +36,7 @@ class CreateUpdateSupersetAdapter(
                 binding.exerciseToListSubtitle.text = exercise.subtitle
 
                 binding.itemCheckbox.setOnClickListener{
-                    if (exerToAdd.contains(exercise.id.toInt())) {
+                    if (exerToAdd.contains(exercise.id!!.toInt())) {
                         exerToAdd.remove(exercise.id.toInt())
                     } else {
                         exerToAdd.add(exercise.id.toInt())

@@ -58,8 +58,8 @@ fun Superset.toLocal(userId: Int): SupersetEntity{
     return SupersetEntity(
         id = this.id,
         title = this.title+" Sin Conexión",
-        exerciseOneTitle = this.exerciseOne!!.title,
-        exerciseTwoTitle = this.exercisTwo!!.title,
+        exerciseOneTitle = this.exerciseOne!!.title!!,
+        exerciseTwoTitle = this.exercisTwo!!.title!!,
         userId = userId
     )
 }

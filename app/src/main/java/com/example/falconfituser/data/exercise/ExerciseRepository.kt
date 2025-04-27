@@ -4,12 +4,15 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.net.toUri
 import com.example.falconfituser.authentication.AuthenticationService
+import com.example.falconfituser.data.Constants.Companion.BACKEND
+import com.example.falconfituser.data.Constants.Companion.EXERCISEFB
 import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import com.example.falconfituser.data.api.exercise.StrapiResponse
 import com.example.falconfituser.data.firebase.exercise.ExerciseFirebase
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
+import com.example.falconfituser.di.FirestoreSigleton
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,37 +40,52 @@ class ExerciseRepository @Inject constructor(
         get() = _state.asStateFlow()
 
     val userId = authenticationService.getId()
+    private val firestore = FirestoreSigleton.getInstance()
+    private val exercisesCollection = firestore.collection(EXERCISEFB)
+
 
     // Debemos pasarle el id del usuario
     override suspend fun readAll(id: Int): List<Exercise> {
-        val res = fb.getAllExercises(id)
 
-        try {
-            // val res = apiData.readAll(id)
-            // val res = fb.getAllExercises(id)
+        if(BACKEND === "strapi"){
+            try {
+                val res = apiData.readAll(id)
 
-            //if(res.isSuccessful){
-            //    val execList = res.body()!!.data.toExternal()
-            //    _state.value = execList
+                if(res.isSuccessful){
+                    val execList = res.body()!!.data.toExternal()
+                    _state.value = execList
 
-            //   for (exercise in execList) {
-            //        localRepository.createExercise(exercise.toLocal(id))
-            //    }
+                    for (exercise in execList) {
+                        localRepository.createExercise(exercise.toLocal(id))
+                    }
 
-            //    return execList
-            //}
-        }catch (e: Exception){
-            // Como devuelve un Flow tengo que mapear uno por uno los ejercicios
-            val localExercises = localRepository.getExercisesByUser(id)
-                .first() // Cojo el primer valor del Flow
-                .map { it.toExternal() } // Mapeo de ExerciseEntity a Exercise
+                    return execList
+                }
+            }catch (e: Exception){
+                // Como devuelve un Flow tengo que mapear uno por uno los ejercicios
+                val localExercises = localRepository.getExercisesByUser(id)
+                    .first() // Cojo el primer valor del Flow
+                    .map { it.toExternal() } // Mapeo de ExerciseEntity a Exercise
 
-            _state.value = localExercises
-            return localExercises
+                _state.value = localExercises
+                return localExercises
+            }
+        }else if(BACKEND === "firebase"){
+            firestore.collection(EXERCISEFB).get().addOnSuccessListener { querySnapshot ->
+                val exerciseList = mutableListOf<Exercise>()
+                for (document in querySnapshot.documents){
+                    val exercise = document.toObject(Exercise::class.java)
+
+                    exercise?.let {
+                        exerciseList.add(it)
+                    }
+
+                }
+                _state.value = exerciseList.toList()
+            }
         }
 
-        // return _state.value
-        return res
+        return _state.value
     }
 
     override suspend fun readOne(id: Int): Exercise {
@@ -77,20 +95,21 @@ class ExerciseRepository @Inject constructor(
     }
 
     override suspend fun createExercise(exercise: Exercise,
-                                        photo: Uri?): Response<StrapiResponse<ExerciseRaw>> {
-        val response = apiData.createExercise(exercise.toStrapi(userId))
-        if(response.isSuccessful){
-            val id = response.body()!!.data.id
+                                        photo: Uri?) {
+        if(BACKEND === "strapi"){
+            val response = apiData.createExercise(exercise.toStrapi(userId))
+            if(response.isSuccessful){
+                val id = response.body()!!.data.id
 
-            // Crea un documento, y añade los campos del ejercicio
-            fb.createExercise(exercise)
-
-            localRepository.createExercise(exercise.toLocal(id))
-            photo?.let { uri ->
-                uploadExercisePhoto(uri, id)
+                localRepository.createExercise(exercise.toLocal(id))
+                photo?.let { uri ->
+                    uploadExercisePhoto(uri, id)
+                }
             }
+        }else if(BACKEND === "firebase"){
+            exercisesCollection.document().set(exercise)
         }
-        return response
+
     }
 
     override suspend fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?) {
@@ -104,9 +123,9 @@ class ExerciseRepository @Inject constructor(
         }
     }
 
-    override suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>> {
+    override suspend fun deleteExercise(exerciseId: Int) {
         localRepository.deleteExercise(exerciseId)
-        return apiData.deleteExercise(exerciseId)
+        apiData.deleteExercise(exerciseId)
     }
 
     override suspend fun uploadExercisePhoto(

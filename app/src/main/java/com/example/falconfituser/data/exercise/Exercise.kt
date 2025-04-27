@@ -1,9 +1,13 @@
 package com.example.falconfituser.data.exercise
 
+import com.google.firebase.database.IgnoreExtraProperties
+import java.io.Serializable
+
+@IgnoreExtraProperties
 data class Exercise (
-    val id: String,
-    val title: String,
-    val subtitle: String,
-    val description: String,
-    val photo: String?
-)
+    val id: String? = null,
+    val title: String? = null,
+    val subtitle: String? = null,
+    val description: String? = null,
+    val photo: String? = null
+): Serializable

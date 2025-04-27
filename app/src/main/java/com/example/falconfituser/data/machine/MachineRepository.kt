@@ -1,7 +1,10 @@
 package com.example.falconfituser.data.machine
 
+import com.example.falconfituser.data.Constants.Companion.BACKEND
+import com.example.falconfituser.data.Constants.Companion.MACHINEFB
 import com.example.falconfituser.data.api.machine.IMachineApiDataSource
 import com.example.falconfituser.data.local.LocalRepository
+import com.example.falconfituser.di.FirestoreSigleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,26 +21,43 @@ class MachineRepository @Inject constructor(
     override val setStream: StateFlow<List<Machine>>
         get() = _state.asStateFlow()
 
+    val firestore = FirestoreSigleton.getInstance()
+
     override suspend fun readAll(): List<Machine> {
-        try {
-            val res = apiData.readAll()
+        if(BACKEND === "strapi"){
+            try {
+                val res = apiData.readAll()
 
-            if(res.isSuccessful){
-                val mchnList = res.body()?.data!!.toExternal()
-                _state.value = mchnList
+                if(res.isSuccessful){
+                    val mchnList = res.body()?.data!!.toExternal()
+                    _state.value = mchnList
 
-                for (machine in mchnList){
-                    localRepository.createMachine(machine.toLocal())
+                    for (machine in mchnList){
+                        localRepository.createMachine(machine.toLocal())
+                    }
+
+                    return mchnList
                 }
+            }catch (e: Exception){
+                val localMachines = localRepository.getMachines()
+                    .first()
+                    .map { it.toExternal() }
 
-                return mchnList
+                _state.value = localMachines
             }
-        }catch (e: Exception){
-            val localMachines = localRepository.getMachines()
-                .first()
-                .map { it.toExternal() }
+        }else if(BACKEND === "firebase"){
+            firestore.collection(MACHINEFB).get().addOnSuccessListener { querySnapshot ->
+                val machineList = mutableListOf<Machine>()
+                for (document in querySnapshot.documents){
+                    val machine = document.toObject(Machine::class.java)
 
-            _state.value = localMachines
+                    machine?.let {
+                        machineList.add(it)
+                    }
+
+                }
+                _state.value = machineList.toList()
+            }
         }
 
         return _state.value

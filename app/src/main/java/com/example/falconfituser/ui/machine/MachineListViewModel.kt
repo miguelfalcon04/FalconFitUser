@@ -23,7 +23,7 @@ class MachineListViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        loadMachinesFirebase()
+        loadMachines()
 
         viewModelScope.launch{
             withContext(Dispatchers.Main){
@@ -43,9 +43,9 @@ class MachineListViewModel @Inject constructor(
             val res = machineRepository.readAll()
 
             if(res.isNotEmpty()){
-                MchnListUiState.Success(res)
+                _uiState.value = MchnListUiState.Success(res)
             }else{
-                MchnListUiState.Error("Error al obtener las máquinas")
+                _uiState.value = MchnListUiState.Error("Error al obtener las máquinas")
             }
         }
     }

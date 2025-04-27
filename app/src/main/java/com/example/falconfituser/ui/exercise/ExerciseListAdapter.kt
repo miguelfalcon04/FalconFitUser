@@ -52,7 +52,7 @@ class ExerciseListAdapter(
             }
 
             binding.btnDelete.setOnClickListener{
-                viewModel.deleteExercise(exercise.id.toInt())
+                viewModel.deleteExercise(exercise.id!!.toInt())
             }
 
             // PARA DAVID -> No se si has explicado lo de Bundle, lo he sacado de stack over flow
@@ -61,7 +61,7 @@ class ExerciseListAdapter(
             // si es == null entonces unicamente hace un post
             binding.btnUpdate.setOnClickListener {
                 val exerciseData = Bundle().apply {
-                    putInt("exerciseId", exercise.id.toInt())
+                    putInt("exerciseId", exercise.id!!.toInt())
                     putString("exerciseTitle", exercise.title)
                     putString("exerciseSubtitle", exercise.subtitle)
                     putString("exerciseDescription", exercise.description)

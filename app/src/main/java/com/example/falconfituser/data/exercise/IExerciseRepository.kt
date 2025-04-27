@@ -13,10 +13,10 @@ interface IExerciseRepository {
     suspend fun readAll(id: Int): List<Exercise>
     suspend fun readOne(id: Int): Exercise
     suspend fun createExercise(exercise: Exercise,
-                               photo: Uri?): Response<StrapiResponse<ExerciseRaw>>
+                               photo: Uri?)
 
     suspend fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?)
-    suspend fun deleteExercise(exerciseId: Int): Response<StrapiResponse<ExerciseRaw>>
+    suspend fun deleteExercise(exerciseId: Int)
     fun observeAll(): Flow<List<Exercise>>
     suspend fun uploadExercisePhoto(uri: Uri, exerciseId: Int): Result<Uri>
 }

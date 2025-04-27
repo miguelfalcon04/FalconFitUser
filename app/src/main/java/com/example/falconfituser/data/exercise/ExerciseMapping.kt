@@ -9,9 +9,9 @@ import com.example.falconfituser.data.local.entities.ExerciseEntity
 fun Exercise.toStrapi(userId: String): ExerciseCreateData{
     return ExerciseCreateData(
         data = ExerciseRawAttributes(
-            title = this.title,
-            subtitle = this.subtitle,
-            description = this.description,
+            title = this.title!!,
+            subtitle = this.subtitle!!,
+            description = this.description!!,
             userId = UserIdRaw(
                 id = userId.toInt()
             )
@@ -43,10 +43,10 @@ fun ExerciseEntity.toExternal(): Exercise {
 
 fun Exercise.toLocal(userId: Int): ExerciseEntity{
     return ExerciseEntity(
-        id = this.id,
-        title = this.title,
-        subtitle = this.subtitle,
-        description = this.description,
+        id = this.id!!,
+        title = this.title!!,
+        subtitle = this.subtitle!!,
+        description = this.description!!,
         userId = userId
     )
 }
