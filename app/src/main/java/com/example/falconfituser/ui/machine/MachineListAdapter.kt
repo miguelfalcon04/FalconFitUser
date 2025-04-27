@@ -37,8 +37,8 @@ class MachineListAdapter(
             binding.machineTitle.text = machine.title
             binding.machineSubtitle.text = machine.subtitle
             binding.machineDescription.text = machine.description
-            if(machine.photo != null){
-                binding.machineImage.load(machine.photo)
+            if(machine.picture != null){
+                binding.machineImage.load(machine.picture)
             }else{
                 binding.machineImage.load(R.drawable.help)
             }

@@ -9,7 +9,7 @@ fun MachineRaw.toExternal(): Machine{
         title = this.attributes.title,
         subtitle = this.attributes.subtitle,
         description = this.attributes.description,
-        photo = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url
+        picture = this.attributes.photo?.data?.firstOrNull()?.attributes?.formats?.small?.url
             //this.attributes.photo.attributes.formats?.small!!.url
     )
 }
@@ -20,17 +20,17 @@ fun MachineEntity.toExternal(): Machine{
         title = this.title,
         subtitle = this.subtitle,
         description = this.description,
-        photo = null // No quiero mostrar las fotos para que se vea cuando cambia a local
+        picture = null // No quiero mostrar las fotos para que se vea cuando cambia a local
     )
 }
 
 fun Machine.toLocal(): MachineEntity{
     return MachineEntity(
-        id = this.id,
-        title = this.title,
-        subtitle = this.subtitle,
-        description = this.description,
-        photo = this.photo
+        id = this.id!!,
+        title = this.title!!,
+        subtitle = this.subtitle!!,
+        description = this.description!!,
+        photo = this.picture
     )
 }
 fun List<MachineRaw>.toExternal():List<Machine> = map(MachineRaw::toExternal)

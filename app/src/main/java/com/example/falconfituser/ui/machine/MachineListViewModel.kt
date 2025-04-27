@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.machine.IMachineRepository
 import com.example.falconfituser.data.machine.Machine
+import com.example.falconfituser.di.FirestoreSigleton
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class MachineListViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        loadMachines()
+        loadMachinesFirebase()
 
         viewModelScope.launch{
             withContext(Dispatchers.Main){
@@ -46,6 +47,22 @@ class MachineListViewModel @Inject constructor(
             }else{
                 MchnListUiState.Error("Error al obtener las máquinas")
             }
+        }
+    }
+
+    fun loadMachinesFirebase(){
+        val firestore = FirestoreSigleton.getInstance()
+
+        firestore.collection("machines").get().addOnSuccessListener { querySnapshot ->
+            val machineList = mutableListOf<Machine>()
+            for (document in querySnapshot.documents){
+                val machine = document.toObject(Machine::class.java)
+
+                machine?.let {
+                    machineList.add(it)
+                }
+            }
+            _uiState.value = MchnListUiState.Success(machineList.toList())
         }
     }
 
