@@ -9,5 +9,6 @@ data class Exercise (
     val title: String? = null,
     val subtitle: String? = null,
     val description: String? = null,
-    val photo: String? = null
+    val photo: String? = null,
+    val document: String? = null
 ): Serializable

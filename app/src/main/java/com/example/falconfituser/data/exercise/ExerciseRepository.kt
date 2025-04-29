@@ -2,6 +2,7 @@ package com.example.falconfituser.data.exercise
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.core.net.toUri
 import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.Constants.Companion.BACKEND
@@ -74,12 +75,17 @@ class ExerciseRepository @Inject constructor(
                 return localExercises
             }
         }else if(BACKEND === "firebase"){
-            firestore.collection(EXERCISEFB).get().addOnSuccessListener { querySnapshot ->
+            exercisesCollection.get().addOnSuccessListener { querySnapshot ->
                 val exerciseList = mutableListOf<Exercise>()
                 for (document in querySnapshot.documents){
                     val exercise = document.toObject(Exercise::class.java)
 
-                    exercise?.let {
+                    // Lee la referencia del documento y la guarda localmente en cada Ejercicio.
+                    // Por eso al verlo en Firebase la variable document es null pero realmente la
+                    // tomo aquí
+                    val exerciseWithDocId = exercise!!.copy(document = document.id)
+
+                    exerciseWithDocId.let {
                         exerciseList.add(it)
                     }
 
@@ -110,6 +116,8 @@ class ExerciseRepository @Inject constructor(
                 }
             }
         }else if(BACKEND === "firebase"){
+            // Se sube el document vacio ya que no puedo asiganrle el valor antes de haberse creado
+            // Por eso al hacer el readAll debo tomar el id del documento y guardarlo en el ejercicio
             val exerciseWithPhoto = uploadPhotoAndPostFirebase(exercise, photo)
             exercisesCollection.document().set(exerciseWithPhoto)
         }
@@ -126,20 +134,37 @@ class ExerciseRepository @Inject constructor(
                     uploadExercisePhoto(uri, uploadedExercise!!.data.id)
                 }
             }
-        } else if (BACKEND === "firebase" ){
+        } else if (BACKEND === "firebase" ) {
+            if (exercise.document != null) {
+                val docRef = exercisesCollection.document(exercise.document)
 
+                // Convierto el Exercise a un Map para la actualización
+                // Aqui si que guardo el document, por tenerlo mas a mano
+                val exerciseMap = exercise.toMap()
+
+                // Actualizo el documento
+                docRef.update(exerciseMap)
+                    .addOnSuccessListener {
+                        Log.d("Firestore", "Documento actualizado con éxito")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("Firestore", "Error al actualizar documento", e)
+                    }
+            } else {
+                // Manejo del caso donde no hay ID de documento
+                Log.e("Firestore", "No se puede actualizar: ID de documento nulo")
+
+            }
         }
-
     }
 
-    override suspend fun deleteExercise(exerciseId: Int) {
+    override suspend fun deleteExercise(exerciseId: Int, docReference: String) {
         if (BACKEND === "strapi"){
             localRepository.deleteExercise(exerciseId)
             apiData.deleteExercise(exerciseId)
         } else if ( BACKEND === "firebase"){
-            exercisesCollection.document().delete()
+            exercisesCollection.document(docReference).delete()
         }
-
     }
 
     override suspend fun uploadExercisePhoto(

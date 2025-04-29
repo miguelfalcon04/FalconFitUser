@@ -8,6 +8,7 @@ import com.example.falconfituser.data.exercise.IExerciseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -62,9 +63,10 @@ class ExerciseListViewModel @Inject constructor(
         }
     }
 
-    fun deleteExercise(exerciseId: Int) {
+    fun deleteExercise(exerciseId: Int, docReference: String) {
         viewModelScope.launch {
-            exerciseRepository.deleteExercise(exerciseId)
+            exerciseRepository.deleteExercise(exerciseId, docReference)
+            delay(2000)
             loadExercises()
         }
     }

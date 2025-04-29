@@ -52,7 +52,7 @@ class ExerciseListAdapter(
             }
 
             binding.btnDelete.setOnClickListener{
-                viewModel.deleteExercise(exercise.id!!.toInt())
+                viewModel.deleteExercise(exercise.id!!.toInt(), exercise.document!!)
             }
 
             // PARA DAVID -> No se si has explicado lo de Bundle, lo he sacado de stack over flow

@@ -50,3 +50,14 @@ fun Exercise.toLocal(userId: Int): ExerciseEntity{
         userId = userId
     )
 }
+
+fun Exercise.toMap(): Map<String, Any?> {
+    return mapOf(
+        "id" to id,
+        "title" to title,
+        "subtitle" to subtitle,
+        "description" to description,
+        "document" to document,
+        "photo" to photo
+    )
+}
