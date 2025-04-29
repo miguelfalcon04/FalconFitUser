@@ -50,22 +50,6 @@ class MachineListViewModel @Inject constructor(
         }
     }
 
-    fun loadMachinesFirebase(){
-        val firestore = FirestoreSigleton.getInstance()
-
-        firestore.collection("machines").get().addOnSuccessListener { querySnapshot ->
-            val machineList = mutableListOf<Machine>()
-            for (document in querySnapshot.documents){
-                val machine = document.toObject(Machine::class.java)
-
-                machine?.let {
-                    machineList.add(it)
-                }
-            }
-            _uiState.value = MchnListUiState.Success(machineList.toList())
-        }
-    }
-
 }
 
 

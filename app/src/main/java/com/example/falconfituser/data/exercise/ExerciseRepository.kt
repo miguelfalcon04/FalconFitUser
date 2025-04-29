@@ -117,14 +117,19 @@ class ExerciseRepository @Inject constructor(
     }
 
     override suspend fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?) {
-        val response = apiData.updateExercise(exerciseId, exercise.toStrapi(userId))
-        if(response.isSuccessful){
-            var uploadedExercise = response.body()
+        if ( BACKEND === "strapi" ){
+            val response = apiData.updateExercise(exerciseId, exercise.toStrapi(userId))
+            if(response.isSuccessful){
+                var uploadedExercise = response.body()
 
-            photo?.let { uri ->
-                uploadExercisePhoto(uri, uploadedExercise!!.data.id)
+                photo?.let { uri ->
+                    uploadExercisePhoto(uri, uploadedExercise!!.data.id)
+                }
             }
+        } else if (BACKEND === "firebase" ){
+
         }
+
     }
 
     override suspend fun deleteExercise(exerciseId: Int) {
@@ -132,6 +137,7 @@ class ExerciseRepository @Inject constructor(
             localRepository.deleteExercise(exerciseId)
             apiData.deleteExercise(exerciseId)
         } else if ( BACKEND === "firebase"){
+            exercisesCollection.document().delete()
         }
 
     }

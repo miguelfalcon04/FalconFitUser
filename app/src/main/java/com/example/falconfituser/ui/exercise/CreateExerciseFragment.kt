@@ -142,12 +142,10 @@ class CreateExerciseFragment: Fragment() {
                 Toast.makeText(requireContext(),getString(R.string.error_fill_all),
                     Toast.LENGTH_SHORT).show()
             }else{
-                // Obtengo el userId
-                val userId = getUserId()
 
                 // Creo un Exercise para pasarselo a la función
                 val exerciseToSend = Exercise(
-                    id = "NADA",
+                    id = "1",
                     title = title,
                     subtitle = subtitle,
                     description = description,
