@@ -13,19 +13,22 @@ import com.example.falconfituser.data.firebase.exercise.ExerciseFirebase
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
 import com.example.falconfituser.di.FirestoreSigleton
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageMetadata
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Response
 import javax.inject.Inject
+import kotlin.coroutines.resumeWithException
 
 class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
@@ -107,7 +110,8 @@ class ExerciseRepository @Inject constructor(
                 }
             }
         }else if(BACKEND === "firebase"){
-            exercisesCollection.document().set(exercise)
+            val exerciseWithPhoto = uploadPhotoAndPostFirebase(exercise, photo)
+            exercisesCollection.document().set(exerciseWithPhoto)
         }
 
     }
@@ -124,8 +128,12 @@ class ExerciseRepository @Inject constructor(
     }
 
     override suspend fun deleteExercise(exerciseId: Int) {
-        localRepository.deleteExercise(exerciseId)
-        apiData.deleteExercise(exerciseId)
+        if (BACKEND === "strapi"){
+            localRepository.deleteExercise(exerciseId)
+            apiData.deleteExercise(exerciseId)
+        } else if ( BACKEND === "firebase"){
+        }
+
     }
 
     override suspend fun uploadExercisePhoto(
@@ -174,6 +182,69 @@ class ExerciseRepository @Inject constructor(
 
         } catch (e: Exception) {
             return Result.failure(e)
+        }
+    }
+
+    override suspend fun uploadPhotoAndPostFirebase(
+        exercise: Exercise,
+        photo: Uri?
+    ): Exercise {
+        // Si no hay foto devuelvo el ejercicio sin modificar
+        if (photo == null) return exercise
+
+        return try {
+            // Convertir Uri a ByteArray
+            val bytes = context.contentResolver.openInputStream(photo)?.use { it.readBytes() }
+                ?: return exercise
+
+            // Obtener el tipo MIME
+            val mimeType = context.contentResolver.getType(photo) ?: "image/jpeg"
+
+            // Cre0 nombre de archivo
+            val timestamp = System.currentTimeMillis()
+            val random = (Math.random() * 1000000).toInt()
+            val fileName = "uploads/${timestamp}_${random}"
+
+            // Referencia a Firebase Storage
+            val storage = FirebaseStorage.getInstance()
+            val storageRef = storage.reference.child(fileName)
+
+            // Crear metadata
+            val metadata = StorageMetadata.Builder()
+                .setContentType(mimeType)
+                .setCustomMetadata("uploaded-by", userId ?: "anonymous")
+                .build()
+
+            // Subir el archivo y obtener la URL
+            val downloadUrl = suspendCancellableCoroutine<Uri> { continuation ->
+                val uploadTask = storageRef.putBytes(bytes, metadata)
+
+                continuation.invokeOnCancellation {
+                    if (uploadTask.isInProgress) {
+                        uploadTask.cancel()
+                    }
+                }
+
+                uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let { throw it }
+                    }
+                    storageRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resumeWith(Result.success(task.result))
+                    } else {
+                        task.exception?.let { continuation.resumeWith(Result.failure(it)) }
+                    }
+                }
+            }
+
+            // Añadir al ejercicio la URL de la foto
+            exercise.copy(photo = downloadUrl.toString())
+        } catch (e: Exception) {
+            // Registrar error y devolver el ejercicio sin cambios
+            e.printStackTrace()
+            exercise
         }
     }
 

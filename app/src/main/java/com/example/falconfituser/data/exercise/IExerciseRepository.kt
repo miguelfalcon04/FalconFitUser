@@ -19,4 +19,5 @@ interface IExerciseRepository {
     suspend fun deleteExercise(exerciseId: Int)
     fun observeAll(): Flow<List<Exercise>>
     suspend fun uploadExercisePhoto(uri: Uri, exerciseId: Int): Result<Uri>
+    suspend fun uploadPhotoAndPostFirebase(exercise: Exercise, photo: Uri?): Exercise
 }
