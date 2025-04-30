@@ -7,10 +7,7 @@ import androidx.core.net.toUri
 import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.Constants.Companion.BACKEND
 import com.example.falconfituser.data.Constants.Companion.EXERCISEFB
-import com.example.falconfituser.data.api.exercise.ExerciseRaw
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
-import com.example.falconfituser.data.api.exercise.StrapiResponse
-import com.example.falconfituser.data.firebase.exercise.ExerciseFirebase
 import com.example.falconfituser.data.local.LocalRepository
 import com.example.falconfituser.di.ApiModule
 import com.example.falconfituser.di.FirestoreSigleton
@@ -29,12 +26,10 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
-import kotlin.coroutines.resumeWithException
 
 class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apiData: IExerciseApiDataSource,
-    private val fb: ExerciseFirebase,
     private val localRepository: LocalRepository,
     private val authenticationService: AuthenticationService
 ): IExerciseRepository {

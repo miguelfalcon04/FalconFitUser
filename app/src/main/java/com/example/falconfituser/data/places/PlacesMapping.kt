@@ -7,17 +7,17 @@ fun PlaceRaw.toExternal(): Places{
     return Places(
         id = this.id.toString(),
         title = this.attributes.title,
-        latitude = this.attributes.latitud,
-        longitude = this.attributes.longitud,
+        latitud = this.attributes.latitud,
+        longitud = this.attributes.longitud,
     )
 }
 
 fun Places.toLocal(): PlacesEntity{
     return PlacesEntity(
-        id = this.id,
-        title = this.title,
-        latitud = this.latitude.toFloat(),
-        longitud = this.longitude.toFloat()
+        id = this.id!!,
+        title = this.title!!,
+        latitud = this.latitud!!.toFloat(),
+        longitud = this.longitud!!.toFloat()
     )
 }
 
@@ -25,8 +25,8 @@ fun PlacesEntity.toExternal(): Places{
     return Places(
         id = this.id,
         title = this.title,
-        latitude = this.latitud.toDouble(),
-        longitude = this.latitud.toDouble(),
+        latitud = this.latitud.toDouble(),
+        longitud = this.latitud.toDouble(),
     )
 }
 

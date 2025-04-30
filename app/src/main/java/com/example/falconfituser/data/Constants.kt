@@ -6,6 +6,7 @@ class Constants {
         const val MACHINEFB = "machines"
         const val EXERCISEFB = "exercises"
         const val PLACESFB = "places"
+        const val SUPERSETFB = "supersets"
         const val USERFB = "userffs"
 
     }

@@ -101,8 +101,8 @@ class MapsFragment : Fragment() {
     }
 
     private fun addMarker(place: Places) {
-        val latitude = place.latitude
-        val longitude = place.longitude
+        val latitude = place.latitud
+        val longitude = place.longitud
         val place = place.title
 
         if (latitude != null && longitude != null) {

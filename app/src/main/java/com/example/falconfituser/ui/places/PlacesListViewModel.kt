@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.data.places.IPlacesRepository
 import com.example.falconfituser.data.places.Places
+import com.example.falconfituser.ui.machine.MchnListUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +39,15 @@ class PlacesListViewModel @Inject constructor(
     }
 
     suspend fun loadPlaces(): List<Places> {
-        return placesRepository.readAll()
+        val res = placesRepository.readAll()
+
+        if(res.isNotEmpty()){
+            _uiState.value = PlacesListUiState.Success(res)
+        }else{
+            _uiState.value = PlacesListUiState.Error("Error al obtener las máquinas")
+        }
+
+        return res
     }
 }
 

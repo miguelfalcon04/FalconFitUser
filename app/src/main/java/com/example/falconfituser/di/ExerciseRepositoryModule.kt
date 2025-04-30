@@ -4,8 +4,6 @@ import com.example.falconfituser.data.api.exercise.ExerciseApiDataSource
 import com.example.falconfituser.data.api.exercise.IExerciseApiDataSource
 import com.example.falconfituser.data.exercise.ExerciseRepository
 import com.example.falconfituser.data.exercise.IExerciseRepository
-import com.example.falconfituser.data.firebase.exercise.ExerciseFirebase
-import com.example.falconfituser.data.firebase.exercise.IExerciseFirebase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
