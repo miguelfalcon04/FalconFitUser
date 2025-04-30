@@ -135,26 +135,21 @@ class ExerciseRepository @Inject constructor(
                 }
             }
         } else if (BACKEND === "firebase" ) {
-            if (exercise.document != null) {
-                val docRef = exercisesCollection.document(exercise.document)
+            val docRef = exercisesCollection.document(exercise.document!!)
+            val exerciseWithPhoto = uploadPhotoAndPostFirebase(exercise, photo)
 
-                // Convierto el Exercise a un Map para la actualización
-                // Aqui si que guardo el document, por tenerlo mas a mano
-                val exerciseMap = exercise.toMap()
+            // Convierto el Exercise a un Map para la actualización
+            // Aqui si que guardo el document, por tenerlo mas a mano
+            val exerciseMap = exerciseWithPhoto.toMap()
 
-                // Actualizo el documento
-                docRef.update(exerciseMap)
-                    .addOnSuccessListener {
-                        Log.d("Firestore", "Documento actualizado con éxito")
-                    }
-                    .addOnFailureListener { e ->
-                        Log.e("Firestore", "Error al actualizar documento", e)
-                    }
-            } else {
-                // Manejo del caso donde no hay ID de documento
-                Log.e("Firestore", "No se puede actualizar: ID de documento nulo")
-
-            }
+            // Actualizo el documento
+            docRef.update(exerciseMap)
+                .addOnSuccessListener {
+                    Log.d("Firestore", "Documento actualizado con éxito")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firestore", "Error al actualizar documento", e)
+                }
         }
     }
 

@@ -66,6 +66,7 @@ class ExerciseListAdapter(
                     putString("exerciseSubtitle", exercise.subtitle)
                     putString("exerciseDescription", exercise.description)
                     putString("exercisePhoto", exercise.photo)
+                    putString("exerciseDocRef", exercise.document)
                 }
                 navController.navigate(R.id.createExerciseFragment, exerciseData)
             }
