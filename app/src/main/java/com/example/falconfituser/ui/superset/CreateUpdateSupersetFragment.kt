@@ -58,7 +58,7 @@ class CreateUpdateSupersetFragment : Fragment() {
                     } else {
 
                         val createOrUpdateSuperset = Superset(
-                            id = "NADA",
+                            id = "1",
                             title = title,
                             exerciseOne = Exercise(
                                 id = selectedExercisesIds.first().toString(),
@@ -77,8 +77,13 @@ class CreateUpdateSupersetFragment : Fragment() {
                         )
 
                         val supersetId = arguments?.getInt("supersetId",-1)?:-1
+                        val supersetDoc = arguments?.getString("supersetDocRef")
+
                         if(supersetId != -1){
-                            viewModel.updateSuperset(supersetId, createOrUpdateSuperset)
+                            viewModel.updateSuperset(
+                                supersetId,
+                                createOrUpdateSuperset.copy(document = supersetDoc)
+                            )
                         }else{
                             viewModel.createSuperset(createOrUpdateSuperset)
                         }

@@ -59,9 +59,9 @@ class SupersetListViewModel @Inject constructor(
         }
     }
 
-    fun deleteSuperset(supersetId: Int){
+    fun deleteSuperset(supersetId: Int, docReference: String){
         viewModelScope.launch {
-            supersetRepository.deleteSuperset(supersetId)
+            supersetRepository.deleteSuperset(supersetId, docReference)
             loadSupersets()
         }
     }

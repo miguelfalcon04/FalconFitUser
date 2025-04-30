@@ -41,13 +41,14 @@ class SupersetListAdapter(
                 binding.supersetSecondEx.text = superset.exercisTwo?.title ?: "nulo"
 
                 binding.btnDelete.setOnClickListener{
-                    viewModel.deleteSuperset(superset.id.toInt())
+                    viewModel.deleteSuperset(superset.id!!.toInt(), superset.document!!)
                 }
 
                 binding.btnUpdate.setOnClickListener{
                     val supersetId = Bundle().apply {
-                        putInt("supersetId", superset.id.toInt())
+                        putInt("supersetId", superset.id!!.toInt())
                         putString("supersetTitle", superset.title)
+                        putString("supersetDocRef", superset.document)
                     }
 
                     navController.navigate(R.id.createUpdateSupersetFragment, supersetId)

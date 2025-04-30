@@ -11,8 +11,8 @@ interface ISupersetRepository {
     val setStream: StateFlow<List<Superset>>
     suspend fun readAll(id: Int): List<Superset>
     suspend fun readOne(id: Int): Superset
-    suspend fun createSuperset(superset: Superset): Response<StrapiResponse<SupersetRaw>>
-    suspend fun updateSuperset(supersetId: Int, superset: Superset): Response<StrapiResponse<SupersetRaw>>
-    suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw>
+    suspend fun createSuperset(superset: Superset)
+    suspend fun updateSuperset(supersetId: Int, superset: Superset)
+    suspend fun deleteSuperset(supersetId: Int, docReference: String)
     fun observeAll(): Flow<List<Superset>>
 }

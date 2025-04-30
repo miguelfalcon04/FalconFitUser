@@ -35,7 +35,7 @@ fun Superset.toStrapi(userId: Int): SupersetPost{
 
     return SupersetPost(
         data = SupersetRawPost(
-            title = this.title,
+            title = this.title!!,
             exercises = exercisesList,
             userId = UserIdRaw(
                 id = userId
@@ -56,7 +56,7 @@ fun SupersetPost.toLocal(id: String): SupersetEntity{
 
 fun Superset.toLocal(userId: Int): SupersetEntity{
     return SupersetEntity(
-        id = this.id,
+        id = this.id!!,
         title = this.title+" Sin Conexión",
         exerciseOneTitle = this.exerciseOne!!.title!!,
         exerciseTwoTitle = this.exercisTwo!!.title!!,
@@ -74,3 +74,13 @@ fun SupersetEntity.toExternal(): Superset{
 }
 
 fun List<SupersetRaw>.toExternal():List<Superset> = map ( SupersetRaw::toExternal )
+
+fun Superset.toMap(): Map<String, Any?> {
+    return mapOf(
+        "id" to id,
+        "title" to title,
+        "exerciseOne" to exerciseOne,
+        "exercisTwo" to exercisTwo,
+        "document" to document,
+    )
+}

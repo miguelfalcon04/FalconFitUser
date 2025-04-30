@@ -1,16 +1,17 @@
 package com.example.falconfituser.data.superset
 
+import android.util.Log
 import com.example.falconfituser.authentication.AuthenticationService
-import com.example.falconfituser.data.api.exercise.StrapiResponse
+import com.example.falconfituser.data.Constants.Companion.BACKEND
+import com.example.falconfituser.data.Constants.Companion.SUPERSETFB
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
-import com.example.falconfituser.data.api.superset.SupersetRaw
 import com.example.falconfituser.data.local.LocalRepository
+import com.example.falconfituser.di.FirestoreSigleton
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
-import retrofit2.Response
 import javax.inject.Inject
 
 class SupersetRepository @Inject constructor(
@@ -23,29 +24,52 @@ class SupersetRepository @Inject constructor(
         get() = _state.asStateFlow()
 
     val userId = authenticationService.getId().toInt()
+    private val firestore = FirestoreSigleton.getInstance()
+    private val supersetCollection = firestore.collection(SUPERSETFB)
 
     override suspend fun readAll(id: Int): List<Superset> {
-        try {
-            val res = apiData.readAll(id)
+        if( BACKEND === "strapi" ){
+            try {
+                val res = apiData.readAll(id)
 
-            if(res.isSuccessful){
-                val supersList  = res.body()!!.data.toExternal()
-                _state.value = supersList
+                if(res.isSuccessful){
+                    val supersList  = res.body()!!.data.toExternal()
+                    _state.value = supersList
 
-                for (superset in supersList){
-                    localRepository.createSuperset(superset.toLocal(id))
+                    for (superset in supersList){
+                        localRepository.createSuperset(superset.toLocal(id))
+                    }
+
+                    return supersList
                 }
+            }catch (e: Exception){
+                val localSupersets = localRepository.getSupersetsByUser(id)
+                    .first()
+                    .map { it.toExternal() }
 
-                return supersList
+                _state.value = localSupersets
+                return localSupersets
             }
-        }catch (e: Exception){
-            val localSupersets = localRepository.getSupersetsByUser(id)
-                .first()
-                .map { it.toExternal() }
+        } else if ( BACKEND === "firebase" ){
+            supersetCollection.get().addOnSuccessListener { querySnapshot ->
+                val supersetList = mutableListOf<Superset>()
+                for (document in querySnapshot.documents){
+                    val superset = document.toObject(Superset::class.java)
 
-            _state.value = localSupersets
-            return localSupersets
+                    // Lee la referencia del documento y la guarda localmente en cada Superset.
+                    // Por eso al verlo en Firebase la variable document es null pero realmente la
+                    // tomo aquí
+                    val supersetWithDocId = superset!!.copy(document = document.id)
+
+                    supersetWithDocId.let {
+                        supersetList.add(it)
+                    }
+
+                }
+                _state.value = supersetList.toList()
+            }
         }
+        
 
         return _state.value
     }
@@ -65,24 +89,47 @@ class SupersetRepository @Inject constructor(
     }
 
 
-    override suspend fun createSuperset(superset: Superset): Response<StrapiResponse<SupersetRaw>> {
-        val response = apiData.createSuperset(superset.toStrapi(userId))
+    override suspend fun createSuperset(superset: Superset) {
+        if ( BACKEND === "strapi" ){
+            val response = apiData.createSuperset(superset.toStrapi(userId))
 
-        if(response.isSuccessful){
-            val id = response.body()!!.data.id
-            localRepository.createSuperset(superset.toLocal(id))
+            if(response.isSuccessful){
+                val id = response.body()!!.data.id
+                localRepository.createSuperset(superset.toLocal(id))
+            }
+        } else if ( BACKEND === "firebase" ){
+            supersetCollection.document().set(superset)
         }
-
-        return response
     }
 
-    override suspend fun updateSuperset(supersetId: Int, superset: Superset): Response<StrapiResponse<SupersetRaw>> {
-        return apiData.updateSuperset(supersetId, superset.toStrapi(userId))
+    override suspend fun updateSuperset(supersetId: Int, superset: Superset) {
+        if ( BACKEND === "strapi" ) {
+            apiData.updateSuperset(supersetId, superset.toStrapi(userId))
+        } else if ( BACKEND === "firebase" ) {
+            val docRef = supersetCollection.document(superset.document!!)
+
+            // Convierto el Superset a un Map para la actualización
+            // Aqui si que guardo el document, por tenerlo mas a mano
+            val supersetMap = superset.toMap()
+
+            // Actualizo el documento
+            docRef.update(supersetMap)
+                .addOnSuccessListener {
+                    Log.d("Firestore", "Documento actualizado con éxito")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firestore", "Error al actualizar documento", e)
+                }
+        }
     }
 
-    override suspend fun deleteSuperset(supersetId: Int): Response<SupersetRaw> {
-        localRepository.deleteSuperset(supersetId)
-        return apiData.deleteSuperset(supersetId)
+    override suspend fun deleteSuperset(supersetId: Int, docReference: String) {
+        if ( BACKEND === "strapi" ) {
+            localRepository.deleteSuperset(supersetId)
+            apiData.deleteSuperset(supersetId)
+        } else if ( BACKEND === "firebase" ) {
+            supersetCollection.document(docReference).delete()
+        }
     }
 
     override fun observeAll(): Flow<List<Superset>> {

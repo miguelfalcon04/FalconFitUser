@@ -11,7 +11,7 @@ import com.example.falconfituser.databinding.ItemToListExerciseBinding
 
 class CreateUpdateSupersetAdapter(
 ): ListAdapter<Exercise, CreateUpdateSupersetAdapter.CreateUpdateViewHolder>(DiffCallback()) {
-    val exerToAdd: MutableList<Int> = mutableListOf()
+    val exerToAdd: MutableList<String> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateUpdateViewHolder {
         val binding = ItemToListExerciseBinding.inflate(
@@ -29,17 +29,17 @@ class CreateUpdateSupersetAdapter(
 
     class CreateUpdateViewHolder(
         private val binding: ItemToListExerciseBinding,
-        private val exerToAdd: MutableList<Int> ):
+        private val exerToAdd: MutableList<String> ):
         RecyclerView.ViewHolder(binding.root){
             fun bind(exercise: Exercise){
                 binding.exerciseToLisTitle.text = exercise.title
                 binding.exerciseToListSubtitle.text = exercise.subtitle
 
                 binding.itemCheckbox.setOnClickListener{
-                    if (exerToAdd.contains(exercise.id!!.toInt())) {
-                        exerToAdd.remove(exercise.id.toInt())
+                    if (exerToAdd.contains(exercise.document!!)) {
+                        exerToAdd.remove(exercise.document)
                     } else {
-                        exerToAdd.add(exercise.id.toInt())
+                        exerToAdd.add(exercise.document)
                     }
                 }
             }
