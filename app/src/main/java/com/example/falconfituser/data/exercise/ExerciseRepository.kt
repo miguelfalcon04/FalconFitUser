@@ -44,25 +44,25 @@ class ExerciseRepository @Inject constructor(
 
 
     // Debemos pasarle el id del usuario
-    override suspend fun readAll(id: Int): List<Exercise> {
+    override suspend fun readAll(userId: String): List<Exercise> {
 
         if(BACKEND === "strapi"){
             try {
-                val res = apiData.readAll(id)
+                val res = apiData.readAll(userId.toInt())
 
                 if(res.isSuccessful){
                     val execList = res.body()!!.data.toExternal()
                     _state.value = execList
 
                     for (exercise in execList) {
-                        localRepository.createExercise(exercise.toLocal(id))
+                        localRepository.createExercise(exercise.toLocal(userId.toInt()))
                     }
 
                     return execList
                 }
             }catch (e: Exception){
                 // Como devuelve un Flow tengo que mapear uno por uno los ejercicios
-                val localExercises = localRepository.getExercisesByUser(id)
+                val localExercises = localRepository.getExercisesByUser(userId.toInt())
                     .first() // Cojo el primer valor del Flow
                     .map { it.toExternal() } // Mapeo de ExerciseEntity a Exercise
 
@@ -70,7 +70,7 @@ class ExerciseRepository @Inject constructor(
                 return localExercises
             }
         }else if(BACKEND === "firebase"){
-            exercisesCollection.get().addOnSuccessListener { querySnapshot ->
+            exercisesCollection.whereEqualTo("userId", userId).get().addOnSuccessListener { querySnapshot ->
                 val exerciseList = mutableListOf<Exercise>()
                 for (document in querySnapshot.documents){
                     val exercise = document.toObject(Exercise::class.java)

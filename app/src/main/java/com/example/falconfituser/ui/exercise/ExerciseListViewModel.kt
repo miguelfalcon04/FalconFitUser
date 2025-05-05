@@ -25,7 +25,7 @@ class ExerciseListViewModel @Inject constructor(
     val uiState: StateFlow<ExercListUiState>
         get() = _uiState.asStateFlow()
 
-    val userId = authenticationService.getId().toInt()
+    val userId = authenticationService.getId()
 
     // Añado Job para manejar la subscripción y poder eliminarla cuando quiera
     // Así al cerrar sesión e inicar de nuevo con otro usuario, no se mostrará los datos del otro

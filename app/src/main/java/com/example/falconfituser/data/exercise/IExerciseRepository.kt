@@ -10,7 +10,7 @@ import retrofit2.Response
 
 interface IExerciseRepository {
     val setStream: StateFlow<List<Exercise>>
-    suspend fun readAll(id: Int): List<Exercise>
+    suspend fun readAll(userId: String): List<Exercise>
     suspend fun readOne(id: Int): Exercise
     suspend fun createExercise(exercise: Exercise,
                                photo: Uri?)

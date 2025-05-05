@@ -24,7 +24,7 @@ class CreateUpdateSupersViewModel @Inject constructor(
     val uiState: StateFlow<CreateUpdateSupersUiState>
         get() = _uiState.asStateFlow()
 
-    val userId = authenticationService.getId().toInt()
+    val userId = authenticationService.getId()
 
     fun createSuperset(superset: Superset) {
         viewModelScope.launch{
