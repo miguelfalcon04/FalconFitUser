@@ -191,10 +191,6 @@ class CreateExerciseFragment: Fragment() {
         }
     }
 
-    private fun getUserId(): Int {
-        return sharedPreferences.getString("USER_ID", null)?.toIntOrNull() ?: 0
-    }
-
     private fun setFields(){
         // Recuperamos todos los datos del Bundle
         arguments?.let { bundle ->

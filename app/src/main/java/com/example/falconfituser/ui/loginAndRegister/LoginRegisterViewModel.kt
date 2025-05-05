@@ -33,11 +33,34 @@ class LoginRegisterViewModel @Inject constructor(
     fun loginFirebase(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
             val auth = Firebase.auth
-            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    _loginState.value = LoginState.Success("Usuario Registrido en Firebase")
+
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { signInTask ->
+                if (signInTask.isSuccessful) {
+                    val user = auth.currentUser
+
+                    user?.getIdToken(true)?.addOnCompleteListener { tokenTask ->
+                        if (tokenTask.isSuccessful) {
+                            // Obtengo el token como string
+                            val idToken = tokenTask.result.token
+
+                            // Guardo el token y el uid del usuario
+                            if (idToken != null) {
+                                authenticationService.clearCredentials()
+
+                                authenticationService.saveId(user.uid)
+                                authenticationService.saveJwtToken(idToken)
+
+                                _loginState.value = LoginState.Success("Usuario autenticado en Firebase")
+                            } else {
+                                _loginState.value = LoginState.Error("No se pudo obtener el token")
+                            }
+                        } else {
+                            _loginState.value = LoginState.Error("Error al obtener el token: ${tokenTask.exception?.message}")
+                        }
+                    }
                 } else {
-                    _loginState.value = LoginState.Error("No se ha completado el login")
+                    // Error al iniciar sesión
+                    _loginState.value = LoginState.Error("Error de autenticación: ${signInTask.exception?.message}")
                 }
             }
         } else {
