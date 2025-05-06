@@ -58,6 +58,7 @@ fun Exercise.toMap(): Map<String, Any?> {
         "subtitle" to subtitle,
         "description" to description,
         "document" to document,
-        "photo" to photo
+        "photo" to photo,
+        "userId" to userId
     )
 }

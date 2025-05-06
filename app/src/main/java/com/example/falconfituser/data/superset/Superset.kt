@@ -10,5 +10,6 @@ data class Superset (
     val title: String? = null,
     val exerciseOne: Exercise? = null,
     val exercisTwo: Exercise? = null,
-    val document: String? = null
+    val document: String? = null,
+    val userId: String? = null
 ): Serializable

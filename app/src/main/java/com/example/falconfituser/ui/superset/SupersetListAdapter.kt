@@ -49,6 +49,7 @@ class SupersetListAdapter(
                         putInt("supersetId", superset.id!!.toInt())
                         putString("supersetTitle", superset.title)
                         putString("supersetDocRef", superset.document)
+                        putString("supersetUserId", superset.userId)
                     }
 
                     navController.navigate(R.id.createUpdateSupersetFragment, supersetId)

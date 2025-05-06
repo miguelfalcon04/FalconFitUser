@@ -47,51 +47,62 @@ class CreateUpdateSupersetFragment : Fragment() {
             val title = binding.addSupersetTitle.text.toString()
             val selectedExercisesIds = adapter.exerToAdd
 
-            // Verifico que los campos estan rellenos
-                if (selectedExercisesIds.size > 2) {
-                    Toast.makeText(requireContext(), getString(R.string.error_delete_exercises), Toast.LENGTH_SHORT).show()
-                } else if (selectedExercisesIds.size < 2) {
-                    Toast.makeText(requireContext(), getString(R.string.error_add_exercises), Toast.LENGTH_SHORT).show()
-                } else {
-                    if (title.isBlank()) {
-                        Toast.makeText(requireContext(), getString(R.string.error_add_title), Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch{
+                try {
+                    val exerciseOneTitle = viewModel.searchExerciseName(selectedExercisesIds.first().toString())
+                    val exerciseTwoTitle = viewModel.searchExerciseName(selectedExercisesIds.last().toString())
+
+                    if (selectedExercisesIds.size > 2) {
+                        Toast.makeText(requireContext(), getString(R.string.error_delete_exercises), Toast.LENGTH_SHORT).show()
+                    } else if (selectedExercisesIds.size < 2) {
+                        Toast.makeText(requireContext(), getString(R.string.error_add_exercises), Toast.LENGTH_SHORT).show()
                     } else {
+                        if (title.isBlank()) {
+                            Toast.makeText(requireContext(), getString(R.string.error_add_title), Toast.LENGTH_SHORT).show()
+                        } else {
 
-                        val createOrUpdateSuperset = Superset(
-                            id = "1",
-                            title = title,
-                            exerciseOne = Exercise(
-                                id = selectedExercisesIds.first().toString(),
-                                title = "NADA",
-                                subtitle = "NADA",
-                                description = "NADA",
-                                photo = "NADA"
-                            ),
-                            exercisTwo = Exercise(
-                                id = selectedExercisesIds.last().toString(),
-                                title = "NADA",
-                                subtitle = "NADA",
-                                description = "NADA",
-                                photo = "NADA"
+                            val createOrUpdateSuperset = Superset(
+                                id = "1",
+                                title = title,
+                                exerciseOne = Exercise(
+                                    id = selectedExercisesIds.first().toString(),
+                                    title = exerciseOneTitle,
+                                    subtitle = "NADA",
+                                    description = "NADA",
+                                    photo = "NADA"
+                                ),
+                                exercisTwo = Exercise(
+                                    id = selectedExercisesIds.last().toString(),
+                                    title = exerciseTwoTitle,
+                                    subtitle = "NADA",
+                                    description = "NADA",
+                                    photo = "NADA"
+                                )
                             )
-                        )
 
-                        val supersetId = arguments?.getInt("supersetId",-1)?:-1
-                        val supersetDoc = arguments?.getString("supersetDocRef")
+                            val supersetId = arguments?.getInt("supersetId",-1)?:-1
+                            val supersetDoc = arguments?.getString("supersetDocRef")
+                            val supersetUserId = arguments?.getString("supersetUserId")
 
-                        if(supersetId != -1){
-                            viewModel.updateSuperset(
-                                supersetId,
-                                createOrUpdateSuperset.copy(document = supersetDoc)
-                            )
-                        }else{
-                            viewModel.createSuperset(createOrUpdateSuperset)
+                            if(supersetId != -1){
+                                viewModel.updateSuperset(
+                                    supersetId,
+                                    createOrUpdateSuperset.copy(
+                                        document = supersetDoc,
+                                        userId = supersetUserId)
+                                )
+                            }else{
+                                viewModel.createSuperset(createOrUpdateSuperset)
+                            }
+
+                            // Por último navego
+                            findNavController().navigate(R.id.action_createUpdateSupersetFragment_to_superset)
                         }
-
-                        // Por último navego
-                        findNavController().navigate(R.id.action_createUpdateSupersetFragment_to_superset)
                     }
+                } catch (e: Exception){
+                    Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
+            }
         }
 
         lifecycleScope.launch {

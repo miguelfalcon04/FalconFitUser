@@ -3,6 +3,7 @@ package com.example.falconfituser.data.superset
 import android.util.Log
 import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.Constants.Companion.BACKEND
+import com.example.falconfituser.data.Constants.Companion.EXERCISEFB
 import com.example.falconfituser.data.Constants.Companion.SUPERSETFB
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
 import com.example.falconfituser.data.local.LocalRepository
@@ -23,7 +24,7 @@ class SupersetRepository @Inject constructor(
     override val setStream: StateFlow<List<Superset>>
         get() = _state.asStateFlow()
 
-    val userId = authenticationService.getId().toInt()
+    val userId = authenticationService.getId()
     private val firestore = FirestoreSigleton.getInstance()
     private val supersetCollection = firestore.collection(SUPERSETFB)
 
@@ -51,7 +52,7 @@ class SupersetRepository @Inject constructor(
                 return localSupersets
             }
         } else if ( BACKEND === "firebase" ){
-            supersetCollection.get().addOnSuccessListener { querySnapshot ->
+            supersetCollection.whereEqualTo("userId", userId).get().addOnSuccessListener { querySnapshot ->
                 val supersetList = mutableListOf<Superset>()
                 for (document in querySnapshot.documents){
                     val superset = document.toObject(Superset::class.java)
@@ -91,20 +92,20 @@ class SupersetRepository @Inject constructor(
 
     override suspend fun createSuperset(superset: Superset) {
         if ( BACKEND === "strapi" ){
-            val response = apiData.createSuperset(superset.toStrapi(userId))
+            val response = apiData.createSuperset(superset.toStrapi(userId.toInt()))
 
             if(response.isSuccessful){
                 val id = response.body()!!.data.id
                 localRepository.createSuperset(superset.toLocal(id))
             }
         } else if ( BACKEND === "firebase" ){
-            supersetCollection.document().set(superset)
+            supersetCollection.document().set(superset.copy(userId = userId))
         }
     }
 
     override suspend fun updateSuperset(supersetId: Int, superset: Superset) {
         if ( BACKEND === "strapi" ) {
-            apiData.updateSuperset(supersetId, superset.toStrapi(userId))
+            apiData.updateSuperset(supersetId, superset.toStrapi(userId.toInt()))
         } else if ( BACKEND === "firebase" ) {
             val docRef = supersetCollection.document(superset.document!!)
 

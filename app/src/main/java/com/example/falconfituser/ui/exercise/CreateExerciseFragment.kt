@@ -157,13 +157,15 @@ class CreateExerciseFragment: Fragment() {
                 val exerciseId = arguments?.getInt("exerciseId",-1)?: -1
                 val exerciseDocRef = arguments?.getString("exerciseDocRef")
                 val exercisePhoto = arguments?.getString("exercisePhoto")
+                val exerciseUserId = arguments?.getString("exerciseUserId")
 
                 if(exerciseId != -1){
                     viewModel.updateExercise(
                         exerciseId,
                         exerciseToSend.copy(
                             photo = exercisePhoto,
-                            document = exerciseDocRef!!
+                            document = exerciseDocRef!!,
+                            userId = exerciseUserId
                         ),
                         _photoUri
                     )

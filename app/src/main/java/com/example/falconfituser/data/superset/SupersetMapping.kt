@@ -82,5 +82,6 @@ fun Superset.toMap(): Map<String, Any?> {
         "exerciseOne" to exerciseOne,
         "exercisTwo" to exercisTwo,
         "document" to document,
+        "userId" to userId
     )
 }

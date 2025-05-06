@@ -114,7 +114,7 @@ class ExerciseRepository @Inject constructor(
             // Se sube el document vacio ya que no puedo asiganrle el valor antes de haberse creado
             // Por eso al hacer el readAll debo tomar el id del documento y guardarlo en el ejercicio
             val exerciseWithPhoto = uploadPhotoAndPostFirebase(exercise, photo)
-            exercisesCollection.document().set(exerciseWithPhoto)
+            exercisesCollection.document().set(exerciseWithPhoto.copy(userId = authenticationService.getId()))
         }
 
     }
