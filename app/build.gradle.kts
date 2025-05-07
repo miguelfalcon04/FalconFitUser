@@ -49,6 +49,9 @@ android {
 }
 
 dependencies {
+    //Scanner QR
+    implementation ("com.journeyapps:zxing-android-embedded:4.1.0")
+
     //Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
     implementation("com.google.firebase:firebase-analytics")
