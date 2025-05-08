@@ -31,18 +31,18 @@
         app:menu="@menu/bottom_navigation_menu"
         android:layout_gravity="bottom"/>
 
-    <com.google.android.material.button.MaterialButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnScanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan"
         android:textColor="@color/white"
         android:backgroundTint="#6E7C7C"
+        android:layout_gravity="bottom|end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="84dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp" />
+        android:layout_marginBottom="120dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="Scan Button"
+        app:srcCompat="@drawable/ic_scanner"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

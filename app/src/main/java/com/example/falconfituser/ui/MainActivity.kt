@@ -1,6 +1,5 @@
 package com.example.falconfituser.ui
 
-import android.app.Activity
 import android.app.ComponentCaller
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +12,7 @@ import com.example.falconfituser.R
 import com.example.falconfituser.authentication.NavigationManager
 import com.example.falconfituser.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setupWithNavController(navController)
 
 
-        val btnScanner = findViewById<MaterialButton>(R.id.btnScanner)
+        val btnScanner = findViewById<FloatingActionButton>(R.id.btnScanner)
 
         btnScanner.setOnClickListener{
             initScanner()
