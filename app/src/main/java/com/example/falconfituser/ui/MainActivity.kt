@@ -2,6 +2,7 @@ package com.example.falconfituser.ui
 
 import android.app.ComponentCaller
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -77,15 +78,17 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
-        data: Intent?,
-        caller: ComponentCaller
+        data: Intent?
     ) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.setData(Uri.parse(result.contents))
+                intent.setPackage("com.android.chrome")
+                startActivity(intent)
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
