@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         setContentView(R.layout.activity_main)
 
@@ -39,6 +37,12 @@ class MainActivity : AppCompatActivity() {
         bottomNav = findViewById(R.id.bottom_navigation)
         bottomNav.setupWithNavController(navController)
 
+
+        val btnScanner = findViewById<MaterialButton>(R.id.btnScanner)
+
+        btnScanner.setOnClickListener{
+            initScanner()
+        }
 
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             if (navigationManager.shouldNavigateToLogin(destination.id)) {
@@ -53,14 +57,22 @@ class MainActivity : AppCompatActivity() {
                 R.id.cameraPreviewFragment -> {
                     bottomNav.visibility = View.GONE
                 }
-                else -> bottomNav.visibility = View.VISIBLE
+                else -> {
+                    bottomNav.visibility = View.VISIBLE
+                }
+            }
+
+            // Ocultar botón de navegación siempre excepto en machineListFragment
+            when(destination.id) {
+                R.id.machineListFragment -> {
+                    btnScanner.visibility = View.VISIBLE
+                }
+                else -> {
+                    btnScanner.visibility = View.GONE
+                }
             }
         }
 
-
-        binding.btnScanner.setOnClickListener{
-            IntentIntegrator(this).initiateScan()
-        }
     }
 
     override fun onActivityResult(
@@ -70,15 +82,22 @@ class MainActivity : AppCompatActivity() {
         caller: ComponentCaller
     ) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
-        if( result != null){
-            if(result.contents == null){
-                Toast.makeText(this, "Cancelado", Toast.LENGTH_SHORT)
-            }else{
-                Toast.makeText(this, "El valor escanedo es: ${result.contents}", Toast.LENGTH_SHORT)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "El valor escaneado es: " + result.contents, Toast.LENGTH_LONG).show()
             }
         } else {
-            super.onActivityResult(requestCode, resultCode, data, caller)
+            super.onActivityResult(requestCode, resultCode, data)
         }
+    }
 
+    private fun initScanner() {
+        val integrator = IntentIntegrator(this)
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+        integrator.setPrompt("Centra el QR dentro del recuadro")
+        integrator.setBeepEnabled(true)
+        integrator.initiateScan()
     }
 }
