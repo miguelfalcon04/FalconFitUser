@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Colores base -->
+    <color name="primary">#A31D2E</color>
+    <color name="primary_variant">#8B1A1A</color>
+    <color name="secondary">#6E7C7C</color>
+    <color name="secondary_variant">#1D3557</color>
+    <color name="accent">#D4AF37</color>
+
+    <!-- Colores de fondo -->
+    <color name="background">#EDE6D5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="card_background">#FFFFFF</color>
+
+    <!-- Colores de texto -->
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_tertiary">#A9A9A9</color>
+
+    <!-- Colores adicionales -->
+    <color name="divider">#E0E0E0</color>
+    <color name="error">#B00020</color>
+
+    <!-- Colores para botones -->
+    <color name="button_primary">#A31D2E</color>
+    <color name="button_secondary">#6E7C7C</color>
+    <color name="button_danger">#8B1A1A</color>
+    <color name="button_update">#1D3557</color>
+    <color name="button_share">#D4AF37</color>
+
+    <!-- Colores predefinidos Android -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>
