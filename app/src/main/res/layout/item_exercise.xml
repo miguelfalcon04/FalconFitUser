@@ -32,7 +32,9 @@
                     android:gravity="center"
                     android:text="Press militar"
                     android:layout_marginBottom="8dp"
-                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:id="@+id/exercise_image"
@@ -51,6 +53,7 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/text_secondary"
                     android:text="4 x 12"
+                    android:textSize="15sp"
                     />
                 <TextView
                     android:id="@+id/exercise_description"
@@ -60,6 +63,7 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/text_secondary"
                     android:text="Rest Pause de 45 segundos"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -69,26 +73,28 @@
                 android:layout_height="match_parent">
                 <!-- Botón para borrar -->
                 <Button
+                    style="@style/Widget.Material3.Button"
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:backgroundTint="@color/primary"
                     android:text="@string/delete"
-                    app:cornerRadius="8dp"/>
+                    android:textSize="15sp"/>
 
                 <!-- Botón para actualizar -->
                 <Button
+                    style="@style/Widget.Material3.Button"
                     android:id="@+id/btnUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:backgroundTint="@color/secondary_variant"
                     android:text="@string/update"
-                    app:cornerRadius="8dp" />
+                    android:textSize="15sp"/>
 
                 <!-- Botón para compartir -->
                 <com.google.android.material.button.MaterialButton

@@ -34,6 +34,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 android:text="Press Banca"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp"
                 />
             <TextView
                 android:id="@+id/machine_subtitle"
@@ -43,6 +45,7 @@
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="@color/text_secondary"
                 android:text="Pecho"
+                android:textSize="15sp"
                 />
             <TextView
                 android:id="@+id/machine_description"
@@ -52,6 +55,7 @@
                 android:text="Ejercicio compuesto. Trabaja principalmente pecho, triceps y deltides anteriores"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="@color/text_secondary"
+                android:textSize="15sp"
                 />
 
         </LinearLayout>
@@ -61,14 +65,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton
+            <Button
+                style="?attr/materialButtonOutlinedStyle"
                 android:id="@+id/machine_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="@string/include"
-                style="?attr/materialButtonOutlinedStyle"
-                />
+                android:textColor="@color/text_primary"
+                android:textSize="15sp"/>
         </LinearLayout>
 
     </LinearLayout>

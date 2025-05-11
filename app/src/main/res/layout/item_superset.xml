@@ -30,7 +30,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Superserie Hombros"
-                    android:textAppearance="?attr/textAppearanceTitleMedium" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/superset_first_ex"
@@ -40,6 +42,7 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/text_secondary"
                     android:text="Elevaciones laterales"
+                    android:textSize="15sp"
                     />
 
                 <TextView
@@ -50,6 +53,7 @@
                     android:textAppearance="?attr/textAppearanceBodyMedium"
                     android:textColor="@color/text_secondary"
                     android:text="Elevaciones Frontales"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -58,27 +62,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <!-- Botón para borrar -->
-                <com.google.android.material.button.MaterialButton
+                <Button
+                    style="@style/Widget.Material3.Button"
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:backgroundTint="@color/primary"
                     android:text="@string/delete"
-                    app:cornerRadius="8dp"/>
+                    app:cornerRadius="8dp"
+                    android:textSize="15sp"/>
 
                 <!-- Botón para actualizar -->
-                <com.google.android.material.button.MaterialButton
+                <Button
+                    style="@style/Widget.Material3.Button"
                     android:id="@+id/btnUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text_primary"
                     android:backgroundTint="@color/secondary_variant"
                     android:text="@string/update"
-                    app:cornerRadius="8dp" />
+                    app:cornerRadius="8dp"
+                    android:textSize="15sp"/>
             </GridLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
