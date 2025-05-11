@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:text="4 x 12"
                     />
                 <TextView
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:text="Rest Pause de 45 segundos"
                     />
 
@@ -68,25 +68,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <!-- Botón para borrar -->
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/btnDelete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white"
-                    android:backgroundTint="#8B1A1A"
+                    android:backgroundTint="@color/primary"
                     android:text="@string/delete"
                     app:cornerRadius="8dp"/>
 
                 <!-- Botón para actualizar -->
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/btnUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
-                    android:backgroundTint="#1D3557"
+                    android:backgroundTint="@color/secondary_variant"
                     android:text="@string/update"
                     app:cornerRadius="8dp" />
 
@@ -98,7 +98,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_row="0"
                     android:layout_column="3"
-                    android:backgroundTint="#D4AF37"
+                    android:backgroundTint="@color/accent"
                     app:cornerRadius="28dp"
                     app:icon="@drawable/ic_share"
                     app:iconTint="@color/white"

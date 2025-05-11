@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/text_secondary"
                 android:text="Pecho"
                 />
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_marginTop="16dp"
                 android:text="Ejercicio compuesto. Trabaja principalmente pecho, triceps y deltides anteriores"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-                android:textColor="?android:attr/textColorSecondary"
+                android:textColor="@color/text_secondary"
                 />
 
         </LinearLayout>

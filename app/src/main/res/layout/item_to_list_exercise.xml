@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/subtitle"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/text_secondary"
             android:textSize="18sp"
             android:ellipsize="end" />
     </LinearLayout>

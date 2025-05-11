@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:text="Elevaciones laterales"
                     />
 
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:textAppearance="?attr/textAppearanceBodyMedium"
-                    android:textColor="?android:attr/textColorSecondary"
+                    android:textColor="@color/text_secondary"
                     android:text="Elevaciones Frontales"
                     />
 
@@ -65,7 +65,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:textColor="@color/white"
-                    android:backgroundTint="#8B1A1A"
+                    android:backgroundTint="@color/primary"
                     android:text="@string/delete"
                     app:cornerRadius="8dp"/>
 
@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
-                    android:backgroundTint="#1D3557"
+                    android:backgroundTint="@color/secondary_variant"
                     android:text="@string/update"
                     app:cornerRadius="8dp" />
             </GridLayout>

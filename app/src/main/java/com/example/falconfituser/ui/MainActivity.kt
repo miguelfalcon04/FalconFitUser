@@ -1,6 +1,5 @@
 package com.example.falconfituser.ui
 
-import android.app.ComponentCaller
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle

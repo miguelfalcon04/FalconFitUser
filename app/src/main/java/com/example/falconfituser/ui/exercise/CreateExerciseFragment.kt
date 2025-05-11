@@ -26,7 +26,6 @@ import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
-import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -124,7 +123,7 @@ class CreateExerciseFragment: Fragment() {
         }
 
         // Vuelve al listado de fotos
-        val btnBackToList = view.findViewById<MaterialButton>(R.id.backToExerciseListButton)
+        val btnBackToList = view.findViewById<Button>(R.id.backToExerciseListButton)
         btnBackToList.setOnClickListener{
             findNavController().navigate(R.id.action_createExerciseFragment_to_exercise)
         }

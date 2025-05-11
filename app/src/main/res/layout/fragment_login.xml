@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.loginAndRegister.LoginFragment"
-    android:background="#EDE6D5">
+    tools:context=".ui.loginAndRegister.LoginFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,10 +27,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
-                    android:textColorHint="@color/black"
+                    android:textColorHint="@color/text_tertiary"
                     android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +38,7 @@
                 android:id="@+id/textInputLayoutPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:boxStrokeColor="@color/black"
+                app:boxStrokeColor="@color/text_primary"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginTop="20dp"
@@ -48,14 +47,15 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/black"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_tertiary"
                     android:layout_height="wrap_content"
                     android:hint="@string/password"
                     android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                style="@style/Widget.Material3.Button"
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,10 +63,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:textColor="@color/white"
-                android:backgroundTint="#A31D2E"/>
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/primary"
+                android:textSize="16sp"/>
 
             <Button
+                style="@style/Widget.Material3.Button"
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,8 +76,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                android:textColor="@color/white"
-                android:backgroundTint="#6E7C7C"/>
+                android:textColor="@color/text_primary"
+                android:backgroundTint="@color/text_secondary"
+                android:textSize="16sp"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

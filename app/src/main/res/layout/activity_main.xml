@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDE6D5">
+    android:background="@color/background">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_activity_main"
@@ -35,14 +35,16 @@
         android:id="@+id/btnScanner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:backgroundTint="#6E7C7C"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="center"
+        android:contentDescription="@string/scan_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="120dp"
         android:layout_marginEnd="12dp"
-        android:contentDescription="Scan Button"
-        app:srcCompat="@drawable/ic_scanner"/>
+        app:srcCompat="@drawable/ic_scanner"
+        app:tint="@color/text_primary"
+        app:backgroundTint="@color/text_secondary"
+        app:fabSize="normal"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

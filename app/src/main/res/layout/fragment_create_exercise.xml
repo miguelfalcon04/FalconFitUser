@@ -13,7 +13,7 @@
         android:layout_width="0dp"
         android:layout_marginHorizontal="20dp"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="@color/text_primary"
         app:endIconMode="clear_text"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,8 +26,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_primary"
             android:maxLength="45"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="@color/text_primary"
         app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/addSupersetTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,8 +49,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/subtitle"
             android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_primary"
             android:maxLength="45"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +59,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="@color/text_primary"
         app:endIconMode="clear_text"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutSubtitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,38 +72,42 @@
             android:layout_height="wrap_content"
             android:hint="@string/subtitle"
             android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_primary"
             android:maxLength="45"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        style="@style/Widget.Material3.Button"
         android:id="@+id/createExerciseButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/confirm"
-        android:textColor="@color/white"
-        android:backgroundTint="#A31D2E"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/primary"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutDescription"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginEnd="24dp"
+        android:textSize="16sp"/>
 
     <Button
+        style="@style/Widget.Material3.Button"
         android:id="@+id/backToExerciseListButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/back"
-        android:textColor="@color/white"
-        android:backgroundTint="#6E7C7C"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/text_secondary"
         app:layout_constraintTop_toBottomOf="@id/createExerciseButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"
         android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"/>
+        android:layout_marginEnd="24dp"
+        android:textSize="16sp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/buttons_row"
@@ -117,34 +121,44 @@
         android:layout_marginEnd="24dp">
 
         <Button
+            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/select_photo_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/gallery"
-            android:textColor="@color/white"
-            android:backgroundTint="#6E7C7C"
-            android:drawableLeft="@drawable/ic_photolib"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/text_secondary"
             android:drawablePadding="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/showCamera"
             android:layout_marginEnd="8dp"
-            app:layout_constraintHorizontal_weight="1"/>
+            app:layout_constraintHorizontal_weight="1"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_photolib"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconTint="@color/text_primary"/>
 
         <Button
+            style="@style/Widget.Material3.Button.Icon"
             android:id="@+id/showCamera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/camera"
-            android:textColor="@color/white"
-            android:backgroundTint="#6E7C7C"
-            android:drawableLeft="@drawable/ic_camera"
+            android:textColor="@color/text_primary"
+            android:backgroundTint="@color/text_secondary"
             android:drawablePadding="8dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/select_photo_btn"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
-            app:layout_constraintHorizontal_weight="1"/>
+            app:layout_constraintHorizontal_weight="1"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_camera"
+            app:iconGravity="start"
+            app:iconPadding="8dp"
+            app:iconTint="@color/text_primary"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,7 +166,7 @@
         android:id="@+id/exercise_image"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:contentDescription="Imagen Ejercicio"
+        android:contentDescription="@string/imagen_ejercicio"
         app:layout_constraintTop_toBottomOf="@id/buttons_row"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

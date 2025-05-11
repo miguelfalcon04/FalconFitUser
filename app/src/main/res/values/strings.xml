@@ -32,4 +32,8 @@
     <string name="share">Compartir</string>
     <string name="camera">Cámara</string>
     <string name="gallery">Galería</string>
+    <string name="scan_button">Botón escanear</string>
+    <string name="imagen_ejercicio">Imagen Ejercicio</string>
+    <string name="capture">Foto</string>
+    <string name="add_button">Botón Añadir</string>
 </resources>

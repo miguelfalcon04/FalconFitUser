@@ -18,6 +18,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.databinding.FragmentLoginBinding
+import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -52,10 +53,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnLogin = view.findViewById<Button>(R.id.loginButton)
+        val btnLogin = view.findViewById<MaterialButton>(R.id.loginButton)
         val getEmail = view.findViewById<EditText>(R.id.emailEditText)
         val getPassword = view.findViewById<EditText>(R.id.passwordEditText)
-        val toRegister = view.findViewById<Button>(R.id.registerButton)
+        val toRegister = view.findViewById<MaterialButton>(R.id.registerButton)
 
         if (!hasNotisPermissions(requireContext())){
             launcher.launch(PERMISSIONS_REQUIRED)

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:inputType="text"
-        app:boxStrokeColor="@color/black"
+        app:boxStrokeColor="@color/text_primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"/>
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_primary"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Hago un scroll para contener los elementos -->
@@ -57,30 +57,35 @@
     </ScrollView>
 
     <Button
+        style="@style/Widget.Material3.Button"
         android:id="@+id/confirmSupersetButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/confirm"
-        android:textColor="@color/white"
-        android:backgroundTint="#A31D2E"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/primary_variant"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/backToSupersetListButton"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:textSize="16sp"/>
 
     <Button
+        style="@style/Widget.Material3.Button"
         android:id="@+id/backToSupersetListButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/back"
-        android:textColor="@color/white"
-        android:backgroundTint="#6E7C7C"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/text_secondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="50dp" />
+        android:layout_marginBottom="50dp"
+        android:textSize="16sp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -89,7 +89,7 @@ class ExerciseListAdapter(
                         (sendIntent, "Compartir usando"))
                 }catch (e: Exception){
                     Toast.makeText(binding.root.context,"Se produjo algún error, intentelo " +
-                            "mas tarde", Toast.LENGTH_SHORT).show()
+                            "mas tarde ${e.toString()}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
