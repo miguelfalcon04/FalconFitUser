@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:text="@string/confirm"
         android:textColor="@color/text_primary"
-        android:backgroundTint="@color/primary_variant"
+        android:backgroundTint="@color/primary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/backToSupersetListButton"
