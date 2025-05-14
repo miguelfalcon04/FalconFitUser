@@ -1,6 +1,5 @@
 package com.example.falconfituser.ui.superset
 
-import android.R
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.authentication.AuthenticationService

@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.falconfituser.R
+import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.coroutines.withContext
 
@@ -91,6 +92,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun logout() {
+        // Cerrar sesión Firebase
+        FirebaseAuth.getInstance().signOut()
+
         // Guardamo el estado del tema y idioma
         val currentThemeMode = sharedPreferences.getBoolean("ui_mode", false)
         val currentLanguage = sharedPreferences.getBoolean("language_preference", false)
@@ -105,11 +109,13 @@ class SettingsFragment : Fragment() {
             .apply()
 
         // Navegamo al login y elimino los demas fragmentos del back stack con el setPopUpTo
-        findNavController().apply {
-            navigate(R.id.loginFragment, null, NavOptions.Builder()
-                .setPopUpTo(R.id.loginFragment, true)
-                .build())
-        }
+        findNavController().navigate(
+            R.id.loginFragment,
+            null,
+            NavOptions.Builder()
+                .setPopUpTo(R.id.main, inclusive = true)
+                .build()
+        )
     }
 
     override fun onDestroyView() {

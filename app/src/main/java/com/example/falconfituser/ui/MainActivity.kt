@@ -13,6 +13,7 @@ import com.example.falconfituser.authentication.NavigationManager
 import com.example.falconfituser.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,12 +31,25 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-        val navHostFragment=supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
-        val navController = navHostFragment.navController
+        val host = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
+        val navController = host.navController
+        val navInflater = navController.navInflater
+
+        val graph = navInflater.inflate(R.navigation.nav_graph).apply {
+            setStartDestination(
+                if (FirebaseAuth.getInstance().currentUser != null) {
+                    R.id.machine
+                } else {
+                    R.id.loginFragment
+                }
+            )
+        }
+
+        navController.graph = graph
 
         bottomNav = findViewById(R.id.bottom_navigation)
         bottomNav.setupWithNavController(navController)
-
 
         val btnScanner = findViewById<FloatingActionButton>(R.id.btnScanner)
 
