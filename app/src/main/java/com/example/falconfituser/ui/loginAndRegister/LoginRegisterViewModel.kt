@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 
@@ -28,7 +27,6 @@ class LoginRegisterViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Loading)
     val registerState: StateFlow<RegisterState>
         get() = _registerState.asStateFlow()
-
 
     fun loginFirebase(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {

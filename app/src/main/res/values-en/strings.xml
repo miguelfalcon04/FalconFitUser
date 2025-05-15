@@ -9,7 +9,8 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
     <string name="execute">Execute</string>
@@ -36,4 +37,7 @@
     <string name="imagen_ejercicio">Imagen Ejercicio</string>
     <string name="capture">Capture</string>
     <string name="add_button">Add Button</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="phone_number">Phone number</string>
+    <string name="registration_date">Registration date</string>
 </resources>

@@ -24,7 +24,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: LoginRegisterViewModel by viewModels()
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
@@ -33,21 +32,23 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnRegister = view.findViewById<Button>(R.id.registerButton)
-        val getUsername = view.findViewById<EditText>(R.id.nameEditText)
+        val getName = view.findViewById<EditText>(R.id.nameEditText)
+        val getSurname = view.findViewById<EditText>(R.id.surnameEditText)
         val getEmail = view.findViewById<EditText>(R.id.emailEditText)
         val getPassword = view.findViewById<EditText>(R.id.passwordEditText)
+        val btnRegister = view.findViewById<Button>(R.id.registerButton)
         val toLogin = view.findViewById<TextView>(R.id.loginButton)
 
         btnRegister.setOnClickListener {
-            val username = getUsername.text.toString()
+            val name = getName.text.toString()
+            val surname = getSurname.text.toString()
             val email = getEmail.text.toString()
             val password = getPassword.text.toString()
-            if (username.isEmpty() && email.isEmpty() && password.isEmpty()){
+            if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty()){
                 Toast.makeText(context, getString(R.string.error_fill_all), Toast.LENGTH_SHORT).show()
             }else{
                 val userToRegister = RegisterRaw(
-                    username = username,
+                    username = name,
                     email = email,
                     password = password
                 )
