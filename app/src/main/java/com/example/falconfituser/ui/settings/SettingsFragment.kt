@@ -16,14 +16,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.falconfituser.R
+import com.example.falconfituser.data.Constants.Companion.USERFB
+import com.example.falconfituser.data.superset.Superset
+import com.example.falconfituser.di.FirestoreSigleton
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.firebase.auth.auth
+import com.example.falconfituser.data.loginRegister.User
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var sharedPreferences: SharedPreferences
+
+    val userId = Firebase.auth.currentUser!!.uid
+    private val firestore = FirestoreSigleton.getInstance()
+    private val userCollection = firestore.collection(USERFB)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -70,6 +79,26 @@ class SettingsFragment : Fragment() {
             lifecycleScope.launch {
                 setLanguage(isChecked)
             }
+        }
+    }
+
+    private fun getUser(){
+        userCollection.whereEqualTo("userId", userId).get().addOnSuccessListener { querySnapshot ->
+            val userList = mutableListOf<User>()
+            for (document in querySnapshot.documents){
+                val user = document.toObject(User::class.java)
+
+                // Lee la referencia del documento y la guarda localmente en cada Superset.
+                // Por eso al verlo en Firebase la variable document es null pero realmente la
+                // tomo aquí
+
+                /*
+                supersetWithDocId.let {
+                    userList.add(it)
+                }
+                */
+            }
+            // _state.value = userList.toList()
         }
     }
 

@@ -8,6 +8,5 @@ class Constants {
         const val PLACESFB = "places"
         const val SUPERSETFB = "supersets"
         const val USERFB = "userffs"
-
     }
 }
