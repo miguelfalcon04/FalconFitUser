@@ -3,9 +3,12 @@ package com.example.falconfituser.ui.loginAndRegister
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.falconfituser.authentication.AuthenticationService
+import com.example.falconfituser.data.Constants.Companion.USERFB
 import com.example.falconfituser.data.api.loginRegister.LoginRaw
 import com.example.falconfituser.data.api.loginRegister.RegisterRaw
 import com.example.falconfituser.data.loginRegister.LoginRegisterRepository
+import com.example.falconfituser.data.loginRegister.User
+import com.example.falconfituser.di.FirestoreSigleton
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +30,10 @@ class LoginRegisterViewModel @Inject constructor(
     private val _registerState = MutableStateFlow<RegisterState>(RegisterState.Loading)
     val registerState: StateFlow<RegisterState>
         get() = _registerState.asStateFlow()
+
+    val userId = authenticationService.getId()
+    private val firestore = FirestoreSigleton.getInstance()
+    private val userCollection = firestore.collection(USERFB)
 
     fun loginFirebase(email: String, password: String) {
         if (email.isNotEmpty() && password.isNotEmpty()) {
@@ -66,13 +73,14 @@ class LoginRegisterViewModel @Inject constructor(
         }
     }
 
-    fun registerFirebase(email:String, password:String){
+    fun registerFirebase(email:String, password:String, user: User){
         if (email.isNotEmpty() && password.isNotEmpty()){
             val auth = Firebase.auth
 
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                 if (it.isSuccessful){
                     authenticationService.clearCredentials()
+                    userCollection.document().set(user)
                     _registerState.value = RegisterState.Success()
                 }else{
                     _registerState.value = RegisterState.Error("Usuario mal creado")

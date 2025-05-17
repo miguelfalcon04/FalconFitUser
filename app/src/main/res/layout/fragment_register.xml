@@ -6,24 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.loginAndRegister.RegisterFragment">
 
-    <!-- Selector de imagen redondo con borde -->
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/profileImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_profile_placeholder"
-        android:contentDescription="@string/profile_image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
-        app:strokeColor="?attr/colorPrimary"
-        app:strokeWidth="4dp"
-        android:padding="8dp"
-        android:backgroundTint="?attr/colorOnSurfaceVariant"
-        android:clickable="true"
-        android:focusable="true" />
-
     <!-- Nombre -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutName"
@@ -33,7 +15,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/profileImageView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -68,30 +50,7 @@
             android:imeOptions="actionNext" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Número Teléfono -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutPhone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutSurname"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/phoneEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/phone_number"
-            android:inputType="phone"
-            android:maxLength="9"
-            android:imeOptions="actionNext" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Correo (no editable) -->
+    <!-- Correo -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutEmail"
         android:layout_width="0dp"
@@ -100,7 +59,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         app:endIconMode="none"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutPhone"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutSurname"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -109,75 +68,61 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:enabled="false" />
+            android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Fecha Registro (no editable) -->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutDate"
-        android:layout_width="0dp"
+        android:id="@+id/textInputLayoutPassword"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:endIconMode="none"
+        android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/textInputLayoutEmail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registrationDateTextView"
+            android:id="@+id/passwordEditTextRegister"
             android:layout_width="match_parent"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_tertiary"
             android:layout_height="wrap_content"
-            android:hint="@string/registration_date"
-            android:inputType="date"
-            android:enabled="false" />
+            android:hint="@string/password"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Alternar Tema Oscuro -->
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/darkThemeSwitch"
-        android:layout_width="0dp"
+    <Button
+        style="@style/Widget.Material3.Button"
+        android:id="@+id/registerUserButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/darkMode"
-        android:textColor="@color/text_primary"
-        android:layout_marginTop="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutDate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Cambiar Idioma -->
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/languageSwitch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/change_language"
-        android:textColor="@color/text_primary"
+        android:text="@string/register"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/darkThemeSwitch"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/primary"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botón de Logout -->
     <Button
         style="@style/Widget.Material3.Button"
-        android:id="@+id/logoutButton"
-        android:layout_width="0dp"
+        android:id="@+id/goLoginButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/logout"
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/text_primary"
-        android:layout_marginTop="24dp"
+        android:text="@string/login"
+        android:layout_marginTop="8dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/languageSwitch"
+        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/text_secondary"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/registerUserButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

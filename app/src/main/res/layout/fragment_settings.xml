@@ -6,17 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsFragment" >
 
-    <!-- Selector de imagen redondo -->
+    <!-- Selector de imagen redondo con borde -->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/ic_profile_placeholder"
         android:contentDescription="@string/profile_image"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Full"
+        app:shapeAppearanceOverlay="@style/CircleImageView"
+        app:strokeColor="@color/primary"
+        app:strokeWidth="4dp"
+        android:padding="8dp"
         android:clickable="true"
         android:focusable="true" />
 

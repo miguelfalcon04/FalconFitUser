@@ -4,19 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
-import com.example.falconfituser.data.api.loginRegister.RegisterRaw
+import com.example.falconfituser.data.loginRegister.User
 import com.example.falconfituser.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 import kotlin.getValue
 
 @AndroidEntryPoint
@@ -32,27 +32,29 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val getName = view.findViewById<EditText>(R.id.nameEditText)
-        val getSurname = view.findViewById<EditText>(R.id.surnameEditText)
-        val getEmail = view.findViewById<EditText>(R.id.emailEditText)
-        val getPassword = view.findViewById<EditText>(R.id.passwordEditText)
-        val btnRegister = view.findViewById<Button>(R.id.registerButton)
-        val toLogin = view.findViewById<TextView>(R.id.loginButton)
+        val btnRegister = binding.registerUserButton
+        val toLogin = binding.goLoginButton
 
         btnRegister.setOnClickListener {
-            val name = getName.text.toString()
-            val surname = getSurname.text.toString()
-            val email = getEmail.text.toString()
-            val password = getPassword.text.toString()
+            val name = binding.nameEditText.text.toString()
+            val surname = binding.surnameEditText.text.toString()
+            val email = binding.emailTextView.text.toString()
+            val password = binding.passwordEditTextRegister.text.toString()
+
+            val calendar = Calendar.getInstance()
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val date = dateFormat.format(calendar.time)
+
             if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty()){
                 Toast.makeText(context, getString(R.string.error_fill_all), Toast.LENGTH_SHORT).show()
             }else{
-                val userToRegister = RegisterRaw(
-                    username = name,
+                val userToRegister = User(
+                    name = name,
+                    surname = surname,
                     email = email,
-                    password = password
+                    registerDate = date
                 )
-                viewModel.registerFirebase(email, password)
+                viewModel.registerFirebase(email, password, userToRegister  )
                 // viewModel.register(userToRegister)
             }
         }

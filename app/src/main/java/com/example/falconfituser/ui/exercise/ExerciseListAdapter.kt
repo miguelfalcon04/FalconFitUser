@@ -45,7 +45,7 @@ class ExerciseListAdapter(
             binding.exerciseTitle.text = exercise.title
             binding.exerciseSubtitle.text = exercise.subtitle
             binding.exerciseDescription.text = exercise.description
-            if(exercise.photo != null){
+            if(exercise.photo != null && exercise.photo != "NADA"){
                 binding.exerciseImage.load(exercise.photo)
             }else{
                 binding.exerciseImage.load(R.drawable.help)
