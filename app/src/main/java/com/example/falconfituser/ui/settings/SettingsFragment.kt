@@ -49,13 +49,13 @@ class SettingsFragment : Fragment() {
         // Inicializa sharedPreferences
         sharedPreferences = requireContext().getSharedPreferences("falcon_fit_prefs", 0)
 
-        val toLogin = binding.logoutButton
+        val toLogin = binding.btnLogout
         toLogin.setOnClickListener{
             logout()
         }
 
-        val switch = binding.darkThemeSwitch
-        val languageSwitch = binding.languageSwitch
+        val switch = binding.switchDarkMode
+        val languageSwitch = binding.switchLanguage
 
         // TEMA OSCURO O CLARO
         lifecycleScope.launch {
