@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
@@ -17,7 +18,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.falconfituser.R
 import com.example.falconfituser.data.Constants.Companion.USERFB
-import com.example.falconfituser.data.superset.Superset
 import com.example.falconfituser.di.FirestoreSigleton
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
@@ -80,26 +80,49 @@ class SettingsFragment : Fragment() {
                 setLanguage(isChecked)
             }
         }
+
+        getUser()
+
     }
 
-    private fun getUser(){
-        userCollection.whereEqualTo("userId", userId).get().addOnSuccessListener { querySnapshot ->
-            val userList = mutableListOf<User>()
-            for (document in querySnapshot.documents){
-                val user = document.toObject(User::class.java)
-
-                // Lee la referencia del documento y la guarda localmente en cada Superset.
-                // Por eso al verlo en Firebase la variable document es null pero realmente la
-                // tomo aquí
-
-                /*
-                supersetWithDocId.let {
-                    userList.add(it)
+    private fun getUser() {
+        userCollection
+            .whereEqualTo("uuid", userId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val doc = snapshot.documents.firstOrNull()
+                if (doc != null && doc.exists()) {
+                    val user = doc.toObject(User::class.java)
+                    if (user != null) {
+                        binding.apply {
+                            nameSettings.setText(user.name)
+                            surnameSettings.setText(user.surname)
+                            phoneNumberSettings.setText(user.phoneNumber)
+                            emailSettings.setText(user.email)
+                            registrationDateSettings.setText(user.registerDate)
+                        }
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "No se pudo parsear el usuario",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Usuario no encontrado",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
-                */
             }
-            // _state.value = userList.toList()
-        }
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    requireContext(),
+                    "Error cargando usuario: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 
     private suspend fun setUIMode(isChecked: Boolean) {
