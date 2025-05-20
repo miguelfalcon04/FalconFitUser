@@ -73,21 +73,34 @@ class LoginRegisterViewModel @Inject constructor(
         }
     }
 
-    fun registerFirebase(email:String, password:String, user: User){
-        if (email.isNotEmpty() && password.isNotEmpty()){
+    fun registerFirebase(email: String, password: String, user: User) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
             val auth = Firebase.auth
 
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
-                if (it.isSuccessful){
-                    authenticationService.clearCredentials()
-                    userCollection.document().set(user)
-                    _registerState.value = RegisterState.Success()
-                }else{
-                    _registerState.value = RegisterState.Error("Usuario mal creado")
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Obtengo el uuid del usuario creado
+                    val firebaseUser = auth.currentUser
+                    val uuid = firebaseUser?.uid
+
+                    // Se lo asigno
+                    val updatedUser = user.copy(uuid = uuid)
+
+                    // Creo el documento y lo identifico con su uuid
+                    userCollection.document(uuid!!).set(updatedUser)
+                        .addOnSuccessListener {
+                            authenticationService.clearCredentials()
+                            _registerState.value = RegisterState.Success()
+                        }
+                        .addOnFailureListener { e ->
+                            _registerState.value = RegisterState.Error("Error guardando datos: ${e.message}")
+                        }
+                } else {
+                    _registerState.value = RegisterState.Error("Error en registro: ${task.exception?.message}")
                 }
             }
-        }else{
-            _registerState.value = RegisterState.Error("Error falta creedenciales")
+        } else {
+            _registerState.value = RegisterState.Error("Error: faltan credenciales")
         }
     }
 

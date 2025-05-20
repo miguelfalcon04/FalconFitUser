@@ -58,11 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController.addOnDestinationChangedListener { controller, destination, _ ->
-            if (navigationManager.shouldNavigateToLogin(destination.id)) {
-                // Redirigir al login
-                controller.navigate(R.id.loginFragment)
-            }
-
             // Ocultar menu segun su ubicaión
             when(destination.id) {
                 R.id.loginFragment, R.id.registerFragment,

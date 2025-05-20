@@ -54,7 +54,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     email = email,
                     registerDate = date
                 )
-                viewModel.registerFirebase(email, password, userToRegister  )
+                viewModel.registerFirebase(email, password, userToRegister)
                 // viewModel.register(userToRegister)
             }
         }
@@ -68,7 +68,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 when(registerState){
                     RegisterState.Loading -> {}
                     is RegisterState.Success -> {
-                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                        findNavController().navigate(R.id.machine)
                     }
                     is RegisterState.Error -> {
                         Toast.makeText(context, getString(R.string.error_average_error), Toast.LENGTH_SHORT).show()
