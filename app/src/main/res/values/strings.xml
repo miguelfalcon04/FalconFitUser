@@ -40,4 +40,5 @@
     <string name="profile_image">Imagen perfil</string>
     <string name="phone_number">Número teléfono</string>
     <string name="registration_date">Fecha registro</string>
+    <string name="save_changes">Guardar</string>
 </resources>
