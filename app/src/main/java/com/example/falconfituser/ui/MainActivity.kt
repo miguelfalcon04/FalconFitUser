@@ -92,11 +92,13 @@ class MainActivity : AppCompatActivity() {
         if (result != null) {
             if (result.contents == null) {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
-            } else {
+            } else if (result.contents.contains("https://falconfit.netlify.app/")) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.setData(Uri.parse(result.contents))
                 intent.setPackage("com.android.chrome")
                 startActivity(intent)
+            } else {
+                Toast.makeText(this, "Este QR no pertenece a ninguna de nuestras maquinas", Toast.LENGTH_LONG).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)

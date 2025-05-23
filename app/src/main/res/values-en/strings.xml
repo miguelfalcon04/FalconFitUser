@@ -41,4 +41,7 @@
     <string name="phone_number">Phone number</string>
     <string name="registration_date">Registration date</string>
     <string name="save_changes">Save</string>
+    <string name="dialogTitle">What do you prefer?</string>
+    <string name="autologin">Autologin</string>
+    <string name="manual">Manual access</string>
 </resources>

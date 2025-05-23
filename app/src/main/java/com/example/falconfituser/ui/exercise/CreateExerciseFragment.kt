@@ -26,7 +26,6 @@ import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -172,20 +171,6 @@ class CreateExerciseFragment: Fragment() {
                 }else{
                     // Llamo al createExercise() del ViewModel
                     viewModel.createExercise(exerciseToSend, _photoUri)
-
-                    MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(resources.getString(R.string.title))
-                        .setMessage(resources.getString(R.string.title))
-                        .setNeutralButton(resources.getString(R.string.user)) { dialog, which ->
-                            // Respond to neutral button press
-                        }
-                        .setNegativeButton(resources.getString(R.string.user)) { dialog, which ->
-                            // Respond to negative button press
-                        }
-                        .setPositiveButton(resources.getString(R.string.user)) { dialog, which ->
-                            // Respond to positive button press
-                        }
-                        .show()
                 }
 
                 // Y vuelvo a navegar a la lista

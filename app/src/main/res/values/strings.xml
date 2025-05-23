@@ -41,4 +41,7 @@
     <string name="phone_number">Número teléfono</string>
     <string name="registration_date">Fecha registro</string>
     <string name="save_changes">Guardar</string>
+    <string name="dialogTitle">¿Que prefiere?</string>
+    <string name="autologin">Autologin</string>
+    <string name="manual">Acceder manualmente</string>
 </resources>

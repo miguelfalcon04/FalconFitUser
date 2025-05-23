@@ -12,6 +12,10 @@ import androidx.navigation.fragment.findNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.data.loginRegister.User
 import com.example.falconfituser.databinding.FragmentRegisterBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -68,7 +72,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 when(registerState){
                     RegisterState.Loading -> {}
                     is RegisterState.Success -> {
-                        findNavController().navigate(R.id.machine)
+                        LoginOrNot()
                     }
                     is RegisterState.Error -> {
                         Toast.makeText(context, getString(R.string.error_average_error), Toast.LENGTH_SHORT).show()
@@ -80,6 +84,18 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    fun LoginOrNot(){
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.dialogTitle))
+            .setNegativeButton(resources.getString(R.string.manual)) { dialog, which ->
+                FirebaseAuth.getInstance().signOut()
+            }
+            .setPositiveButton(resources.getString(R.string.autologin)) { dialog, which ->
+                findNavController().navigate(R.id.machine)
+            }
+            .show()
     }
 
 }
