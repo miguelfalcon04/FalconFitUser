@@ -26,6 +26,7 @@ import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.FragmentCreateExerciseBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.getValue
@@ -168,9 +169,11 @@ class CreateExerciseFragment: Fragment() {
                         ),
                         _photoUri
                     )
+                    makeSnackBar(R.string.exerciseUpdated)
                 }else{
                     // Llamo al createExercise() del ViewModel
                     viewModel.createExercise(exerciseToSend, _photoUri)
+                    makeSnackBar(R.string.exerciseCreated)
                 }
 
                 // Y vuelvo a navegar a la lista
@@ -207,5 +210,12 @@ class CreateExerciseFragment: Fragment() {
                 }
             }
         }
+    }
+
+    private fun makeSnackBar(message: Int){
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setAnchorView(R.id.bottom_navigation)
+            .setAction("X"){ }
+            .show()
     }
 }

@@ -44,4 +44,6 @@
     <string name="dialogTitle">What do you prefer?</string>
     <string name="autologin">Autologin</string>
     <string name="manual">Manual access</string>
+    <string name="exerciseUpdated">Exercise updated</string>
+    <string name="exerciseCreated">Exercise created</string>
 </resources>
