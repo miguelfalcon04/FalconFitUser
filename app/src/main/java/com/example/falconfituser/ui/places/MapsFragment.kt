@@ -48,7 +48,7 @@ class MapsFragment : Fragment() {
         }
 
         if(!granted){
-            Toast.makeText(requireContext(), "No tiene permisos de localizacion", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.ubiPermission, Toast.LENGTH_LONG).show()
         }
     }
 

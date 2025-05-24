@@ -43,7 +43,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         if(!granted){
-            Toast.makeText(requireContext(), "No se enviaran notificaciones", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.notiPermission, Toast.LENGTH_LONG).show()
         }
     }
 

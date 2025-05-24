@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">FalconFit</string>
+    <string name="machine">Machines</string>
+    <string name="exercise">Exercice</string>
+    <string name="superset">Supersets</string>
+    <string name="hello_blank_fragment">Bonjour fragment vide</string>
+    <string name="include">Inclure</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="login">Connexion</string>
+    <string name="register">S´inscrire</string>
+    <string name="name">Nom</string>
+    <string name="surname">Prénom</string>
+    <string name="title">Titre</string>
+    <string name="subtitle">Sous-titre</string>
+    <string name="execute">Exécuter</string>
+    <string name="back">Retour</string>
+    <string name="delete">Supprimer</string>
+    <string name="update">Mettre à jour</string>
+    <string name="confirm">Confirmer</string>
+    <string name="selectExercises">Sélectionner les exercices</string>
+    <string name="user">Utilisateur</string>
+    <string name="darkMode">Mode sombre</string>
+    <string name="logout">Déconnexion</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="error_invalid_credentials">Certaines informations d´identification sont incorrectes</string>
+    <string name="error_delete_exercises">Supprimez quelques exercices pour continuer</string>
+    <string name="error_add_exercises">Ajoutez quelques exercices pour continuer</string>
+    <string name="error_add_title">Ajouter un titre</string>
+    <string name="error_fill_all">Remplir tous les champs</string>
+    <string name="error_average_error">Quelque chose s´est mal passé</string>
+    <string name="map">Emplacements</string>
+    <string name="share">Partager</string>
+    <string name="camera">Caméra</string>
+    <string name="gallery">Galerie</string>
+    <string name="scan_button">Bouton scanner</string>
+    <string name="imagen_ejercicio">Image d´exercice</string>
+    <string name="capture">Capturer</string>
+    <string name="add_button">Bouton ajouter</string>
+    <string name="profile_image">Image de profil</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="registration_date">Date d´inscription</string>
+    <string name="save_changes">Sauvegarder</string>
+    <string name="dialogTitle">Que préférez-vous ?</string>
+    <string name="autologin">Connexion automatique</string>
+    <string name="manual">Accès manuel</string>
+    <string name="exerciseUpdated">Exercice mis à jour</string>
+    <string name="exerciseCreated">Exercice créé</string>
+    <string name="cameraPermission">Pas d´autorisations de caméra</string>
+    <string name="notiPermission">Les notifications ne seront pas envoyées</string>
+    <string name="ubiPermission">Les autorisations de localisation ne sont pas accordées</string>
+    <string name="cancel">Annulé</string>
+    <string name="invalidQr">Ce QR n´appartient à aucune de nos machines</string>
+    <string name="centerdQr">Centrer le QR dans la boîte</string>
+</resources>

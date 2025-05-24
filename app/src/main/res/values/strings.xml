@@ -46,4 +46,10 @@
     <string name="manual">Acceder manualmente</string>
     <string name="exerciseUpdated">Ejercicio actualizado</string>
     <string name="exerciseCreated">Ejercicio creado</string>
+    <string name="cameraPermission">No tiene permisos de camara</string>
+    <string name="notiPermission">No se enviaran notificaciones</string>
+    <string name="ubiPermission">No tiene permisos de localizacion</string>
+    <string name="cancel">Cancelado</string>
+    <string name="invalidQr">Este QR no pertenece a ninguna de nuestras maquinas</string>
+    <string name="centerdQr">Centra el QR dentro de la caja</string>
 </resources>

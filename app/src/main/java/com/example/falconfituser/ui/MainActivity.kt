@@ -9,20 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.falconfituser.R
-import com.example.falconfituser.authentication.NavigationManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.zxing.integration.android.IntentIntegrator
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView
-
-    @Inject
-    lateinit var navigationManager: NavigationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,14 +84,14 @@ class MainActivity : AppCompatActivity() {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
-                Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.cancel, Toast.LENGTH_LONG).show()
             } else if (result.contents.contains("https://falconfit.netlify.app/")) {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.setData(Uri.parse(result.contents))
                 intent.setPackage("com.android.chrome")
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Este QR no pertenece a ninguna de nuestras maquinas", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, R.string.invalidQr, Toast.LENGTH_LONG).show()
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -106,7 +101,7 @@ class MainActivity : AppCompatActivity() {
     private fun initScanner() {
         val integrator = IntentIntegrator(this)
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-        integrator.setPrompt("Centra el QR dentro del recuadro")
+        integrator.setPrompt("Scan in box")
         integrator.setBeepEnabled(true)
         integrator.initiateScan()
     }

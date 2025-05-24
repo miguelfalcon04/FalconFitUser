@@ -3,7 +3,6 @@ package com.example.falconfituser.data.superset
 import android.util.Log
 import com.example.falconfituser.authentication.AuthenticationService
 import com.example.falconfituser.data.Constants.Companion.BACKEND
-import com.example.falconfituser.data.Constants.Companion.EXERCISEFB
 import com.example.falconfituser.data.Constants.Companion.SUPERSETFB
 import com.example.falconfituser.data.api.superset.ISupersetApiDataSource
 import com.example.falconfituser.data.local.LocalRepository
@@ -77,16 +76,6 @@ class SupersetRepository @Inject constructor(
 
     override suspend fun readOne(id: Int): Superset {
         TODO("Not yet implemented")
-//        val res = apiData.readOne(id)
-//        return if (res.isSuccessful) {
-//            res.body().toExternal() // Mapea de SupersetRaw a Superset
-//        } else {
-//            Superset(
-//                id = "0",
-//                title = "Sin datos",
-//                exercises = emptyList() // Lista vacía de ejercicios
-//            )
-//        }
     }
 
 

@@ -59,7 +59,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     registerDate = date
                 )
                 viewModel.registerFirebase(email, password, userToRegister)
-                // viewModel.register(userToRegister)
             }
         }
 

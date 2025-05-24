@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">FalconFit</string>
+    <string name="machine">Maschinen</string>
+    <string name="exercise">Übung</string>
+    <string name="superset">Supersätze</string>
+    <string name="hello_blank_fragment">Hallo leeres Fragment</string>
+    <string name="include">Einschließen</string>
+    <string name="email">E-Mail</string>
+    <string name="password">Passwort</string>
+    <string name="login">Anmelden</string>
+    <string name="register">Registrieren</string>
+    <string name="name">Name</string>
+    <string name="surname">Nachname</string>
+    <string name="title">Titel</string>
+    <string name="subtitle">Untertitel</string>
+    <string name="execute">Ausführen</string>
+    <string name="back">Zurück</string>
+    <string name="delete">Löschen</string>
+    <string name="update">Aktualisieren</string>
+    <string name="confirm">Bestätigen</string>
+    <string name="selectExercises">Übungen auswählen</string>
+    <string name="user">Benutzer</string>
+    <string name="darkMode">Dunkler Modus</string>
+    <string name="logout">Abmelden</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="error_invalid_credentials">Einige Anmeldedaten sind falsch</string>
+    <string name="error_delete_exercises">Löschen Sie einige Übungen, um fortzufahren</string>
+    <string name="error_add_exercises">Fügen Sie einige Übungen hinzu, um fortzufahren</string>
+    <string name="error_add_title">Titel hinzufügen</string>
+    <string name="error_fill_all">Alle Felder ausfüllen</string>
+    <string name="error_average_error">Etwas ist schief gelaufen</string>
+    <string name="map">Standorte</string>
+    <string name="share">Teilen</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galerie</string>
+    <string name="scan_button">Scan-Taste</string>
+    <string name="imagen_ejercicio">Übungsbild</string>
+    <string name="capture">Aufnehmen</string>
+    <string name="add_button">Hinzufügen-Taste</string>
+    <string name="profile_image">Profilbild</string>
+    <string name="phone_number">Telefonnummer</string>
+    <string name="registration_date">Registrierungsdatum</string>
+    <string name="save_changes">Speichern</string>
+    <string name="dialogTitle">Was bevorzugen Sie?</string>
+    <string name="autologin">Automatische Anmeldung</string>
+    <string name="manual">Manueller Zugang</string>
+    <string name="exerciseUpdated">Übung aktualisiert</string>
+    <string name="exerciseCreated">Übung erstellt</string>
+    <string name="cameraPermission">Keine Kamera-Berechtigungen</string>
+    <string name="notiPermission">Benachrichtigungen werden nicht gesendet</string>
+    <string name="ubiPermission">Standort-Berechtigungen sind nicht erteilt</string>
+    <string name="cancel">Abgebrochen</string>
+    <string name="invalidQr">Dieser QR-Code gehört zu keiner unserer Maschinen</string>
+    <string name="centerdQr">QR-Code in der Box zentrieren</string>
+</resources>

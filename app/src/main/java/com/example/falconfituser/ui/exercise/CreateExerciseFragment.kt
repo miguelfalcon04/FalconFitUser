@@ -59,7 +59,7 @@ class CreateExerciseFragment: Fragment() {
         if(granted){
             findNavController().navigate(R.id.action_createExerciseFragment_to_cameraPreviewFragment)
         }else{
-            Toast.makeText(requireContext(), "No tiene permisos de camara", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), R.string.cameraPermission, Toast.LENGTH_LONG).show()
         }
     }
 
