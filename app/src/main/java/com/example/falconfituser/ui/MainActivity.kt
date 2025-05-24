@@ -10,7 +10,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.falconfituser.R
 import com.example.falconfituser.authentication.NavigationManager
-import com.example.falconfituser.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +20,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var bottomNav: BottomNavigationView
-    private lateinit var binding: ActivityMainBinding
 
     @Inject
     lateinit var navigationManager: NavigationManager

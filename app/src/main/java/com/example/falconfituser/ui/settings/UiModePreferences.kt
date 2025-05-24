@@ -26,11 +26,6 @@ object UiModePreferences {
         }
     }
 
-    suspend fun saveLanguageToDataStore(context: Context, isEnglish: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[LANGUAGE_KEY] = isEnglish
-        }
-    }
 
     fun languagePreference(context: Context): Flow<Boolean> {
         return context.dataStore.data.map { preferences ->

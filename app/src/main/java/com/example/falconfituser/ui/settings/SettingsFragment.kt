@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
@@ -15,7 +15,6 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.falconfituser.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.falconfituser.R
 import com.example.falconfituser.data.Constants.Companion.USERFB
@@ -24,7 +23,9 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.example.falconfituser.data.loginRegister.User
-import kotlinx.coroutines.withContext
+import android.content.Context
+import android.content.res.Configuration
+import java.util.Locale
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -40,6 +41,10 @@ class SettingsFragment : Fragment() {
     private var originalSurname = ""
     private var originalPhoneNumber = ""
     private var hasUnsavedChanges = false
+
+    // Lista de idiomas y sus códigos
+    private val languages = arrayOf("Español", "English", "Français", "Deutsch")
+    private val languageCodes = arrayOf("es", "en", "fr", "de")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +76,6 @@ class SettingsFragment : Fragment() {
         }
 
         val switch = binding.switchDarkMode
-        val languageSwitch = binding.switchLanguage
 
         // TEMA OSCURO O CLARO
         lifecycleScope.launch {
@@ -86,20 +90,12 @@ class SettingsFragment : Fragment() {
         }
 
         // IDIOMA
-        lifecycleScope.launch {
-            UiModePreferences.languagePreference(requireContext()).collect { isEnglish ->
-                languageSwitch.isChecked = isEnglish
-            }
-        }
-        languageSwitch.setOnCheckedChangeListener { _, isChecked ->
-            lifecycleScope.launch {
-                setLanguage(isChecked)
-            }
-        }
+        setupLanguageDropdown()
 
         // Cargar datos del usuario
         getUser()
     }
+
 
     /**
      * Configura los TextWatcher para detectar cambios en tiempo real
@@ -314,18 +310,6 @@ class SettingsFragment : Fragment() {
     }
 
     /**
-     * Configura el idioma de la aplicación
-     */
-    private suspend fun setLanguage(isChecked: Boolean) {
-        withContext(Dispatchers.Main) { // Para que se ejecute en Application y no de error de 2 DataStore
-            val languageTag = if (isChecked) "en" else "es"
-            val localeList = LocaleListCompat.forLanguageTags(languageTag)
-            AppCompatDelegate.setApplicationLocales(localeList)
-        }
-        UiModePreferences.saveLanguageToDataStore(requireContext(), isChecked)
-    }
-
-    /**
      * Cierra la sesión del usuario y navega al login
      */
     private fun logout() {
@@ -353,6 +337,52 @@ class SettingsFragment : Fragment() {
                 .setPopUpTo(R.id.main, inclusive = true)
                 .build()
         )
+    }
+
+    private fun setupLanguageDropdown() {
+        val adapter = ArrayAdapter(requireContext(),
+            android.R.layout.simple_dropdown_item_1line, languages)
+
+        binding.languageDropdown.setAdapter(adapter)
+
+        // Establecer idioma actual
+        val currentLanguage = getCurrentLanguage()
+        val currentIndex = languageCodes.indexOf(currentLanguage)
+        if (currentIndex != -1) {
+            binding.languageDropdown.setText(languages[currentIndex], false)
+        }
+
+        binding.languageDropdown.setOnItemClickListener { _, _, position, _ ->
+            changeLanguage(languageCodes[position])
+        }
+    }
+
+    private fun changeLanguage(languageCode: String) {
+        // Guardar preferencia
+        val sharedPrefs = requireContext().getSharedPreferences("falcon_fit_prefs", Context.MODE_PRIVATE)
+        sharedPrefs.edit().putString("selected_language", languageCode).apply()
+
+        // Cambiar idioma
+        setLocale(languageCode)
+
+        // Reiniciar actividad para aplicar cambios
+        requireActivity().recreate()
+    }
+
+    private fun setLocale(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = Configuration()
+        config.setLocale(locale)
+
+        requireContext().resources.updateConfiguration(config,
+            requireContext().resources.displayMetrics)
+    }
+
+    private fun getCurrentLanguage(): String {
+        val sharedPrefs = requireContext().getSharedPreferences("falcon_fit_prefs", Context.MODE_PRIVATE)
+        return sharedPrefs.getString("selected_language", "es") ?: "es"
     }
 
     override fun onDestroyView() {
