@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
+/**
+ * Repository class responsible for managing machine data.
+ * Retrieves data from remote API or Firebase, with fallback to local storage.
+ */
 class MachineRepository @Inject constructor(
     private val apiData: IMachineApiDataSource,
     private val localRepository: LocalRepository
@@ -23,6 +27,11 @@ class MachineRepository @Inject constructor(
 
     val firestore = FirestoreSigleton.getInstance()
 
+    /**
+     * Reads all machine data depending on the selected backend (Strapi or Firebase).
+     * Falls back to local database if API request fails.
+     * @return List of Machine objects
+     */
     override suspend fun readAll(): List<Machine> {
         if(BACKEND === "strapi"){
             try {

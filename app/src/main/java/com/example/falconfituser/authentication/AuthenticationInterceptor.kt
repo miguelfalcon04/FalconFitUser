@@ -5,6 +5,9 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
+/**
+ * AuthenticationInterceptor that allow us to POST an item on strapi with the Bearer token
+ */
 class AuthenticationInterceptor @Inject constructor(
     private val authenticationService: AuthenticationService
 ):Interceptor {

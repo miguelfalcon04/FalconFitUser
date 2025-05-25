@@ -12,6 +12,13 @@ import androidx.work.WorkerParameters
 import com.example.falconfituser.FalconFitUserApplication
 import com.example.falconfituser.R
 
+/**
+ * Worker class responsible for displaying a training reminder notification.
+ * This is scheduled using WorkManager to run in the background.
+ *
+ * @param context Application context
+ * @param workerParams Parameters passed to the worker
+ */
 class TrainingReminderWorker(
     private val context: Context,
     workerParams: WorkerParameters
@@ -22,11 +29,20 @@ class TrainingReminderWorker(
         const val NOTIFICATION_ID = 1
     }
 
+    /**
+     * Executes the background work to display the training reminder notification.
+     *
+     * @return Result of the work execution (success or failure)
+     */
     override fun doWork(): Result {
         showNotification()
         return Result.success()
     }
 
+    /**
+     * Builds and displays the training reminder notification.
+     * Also ensures the notification channel is created.
+     */
     private fun showNotification() {
         createNotificationChannel()
 
@@ -54,6 +70,10 @@ class TrainingReminderWorker(
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
 
+    /**
+     * Creates the notification channel.
+     * This channel is used to display training reminder notifications.
+     */
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Recordatorios de entrenamiento"

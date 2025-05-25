@@ -12,6 +12,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
+/**
+ * Repository class responsible for managing places data.
+ * Retrieves data from remote API or Firebase, with fallback to local storage.
+ */
 class PlacesRepository @Inject constructor(
     private val apiData: IPlaceApiDataSource,
     private val localRepository: LocalRepository
@@ -23,6 +27,11 @@ class PlacesRepository @Inject constructor(
 
     val firestore = FirestoreSigleton.getInstance()
 
+    /**
+     * Reads all places data depending on the selected backend (Strapi or Firebase).
+     * Falls back to local database if API request fails.
+     * @return List of Places objects
+     */
     override suspend fun readAll(): List<Places> {
         if ( BACKEND === "strapi" ){
             try {

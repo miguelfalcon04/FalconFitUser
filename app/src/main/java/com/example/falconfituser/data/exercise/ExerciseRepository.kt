@@ -27,6 +27,10 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
+/**
+ * Repository class that manages exercise data from multiple sources (API, local DB, Firebase).
+ * Implements the repository pattern to abstract data access from the UI layer.
+ */
 class ExerciseRepository @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apiData: IExerciseApiDataSource,
@@ -43,7 +47,12 @@ class ExerciseRepository @Inject constructor(
     private val exercisesCollection = firestore.collection(EXERCISEFB)
 
 
-    // Debemos pasarle el id del usuario
+    /**
+     * Fetches all exercises for a user from either Strapi API or Firebase.
+     * Falls back to local storage if API call fails.
+     * @param userId User ID to fetch exercises for
+     * @return List of exercises
+     */
     override suspend fun readAll(userId: String): List<Exercise> {
 
         if(BACKEND === "strapi"){
@@ -92,12 +101,23 @@ class ExerciseRepository @Inject constructor(
         return _state.value
     }
 
+    /**
+     * Fetches a single exercise by ID from API.
+     * @param id Exercise ID to retrieve
+     * @return Exercise object or default exercise if API fails
+     */
     override suspend fun readOne(id: Int): Exercise {
         val res = apiData.readOne(id)
         return if(res.isSuccessful)res.body()!!
         else Exercise("0","fuera","no","furula", null)
     }
 
+    /**
+     * Creates a new exercise in the selected backend (Strapi or Firebase).
+     * Handles photo upload if provided.
+     * @param exercise Exercise data to create
+     * @param photo Optional photo URI to upload
+     */
     override suspend fun createExercise(exercise: Exercise,
                                         photo: Uri?) {
         if(BACKEND === "strapi"){
@@ -119,6 +139,12 @@ class ExerciseRepository @Inject constructor(
 
     }
 
+    /**
+     * Updates an existing exercise in the selected backend.
+     * @param exerciseId ID of exercise to update
+     * @param exercise Updated exercise data
+     * @param photo Optional new photo to upload
+     */
     override suspend fun updateExercise(exerciseId: Int, exercise: Exercise, photo: Uri?) {
         if ( BACKEND === "strapi" ){
             val response = apiData.updateExercise(exerciseId, exercise.toStrapi(userId))
@@ -148,6 +174,11 @@ class ExerciseRepository @Inject constructor(
         }
     }
 
+    /**
+     * Deletes an exercise from the selected backend.
+     * @param exerciseId Exercise ID (for Strapi)
+     * @param docReference Document reference (for Firebase)
+     */
     override suspend fun deleteExercise(exerciseId: Int, docReference: String) {
         if (BACKEND === "strapi"){
             localRepository.deleteExercise(exerciseId)
@@ -157,6 +188,12 @@ class ExerciseRepository @Inject constructor(
         }
     }
 
+    /**
+     * Uploads exercise photo to Strapi backend using multipart form data.
+     * @param uri Photo URI to upload
+     * @param exerciseId Exercise ID to associate photo with
+     * @return Result with uploaded photo URI or error
+     */
     override suspend fun uploadExercisePhoto(
         uri: Uri,
         exerciseId: Int
@@ -206,6 +243,12 @@ class ExerciseRepository @Inject constructor(
         }
     }
 
+    /**
+     * Uploads photo to Firebase Storage and returns exercise with photo URL.
+     * @param exercise Exercise object to add photo to
+     * @param photo Photo URI to upload (nullable)
+     * @return Exercise with photo URL or original exercise if no photo
+     */
     override suspend fun uploadPhotoAndPostFirebase(
         exercise: Exercise,
         photo: Uri?
