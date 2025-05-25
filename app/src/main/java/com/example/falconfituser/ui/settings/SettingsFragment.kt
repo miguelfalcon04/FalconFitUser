@@ -99,7 +99,7 @@ class SettingsFragment : Fragment() {
 
     /**
      * Configura los TextWatcher para detectar cambios en tiempo real
-     * en los campos editables (nombre, apellidos, teléfono)
+     * en los campos nombre, apellidos y teléfono
      */
     private fun setupTextChangeListeners() {
         // TextWatcher común para todos los campos editables

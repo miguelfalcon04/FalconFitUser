@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.falconfituser.R
-import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.superset.Superset
 import com.example.falconfituser.databinding.ItemSupersetBinding
-import com.example.falconfituser.ui.exercise.ExerciseListAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SupersetListAdapter(
