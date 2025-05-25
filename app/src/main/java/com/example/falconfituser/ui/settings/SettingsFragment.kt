@@ -298,7 +298,7 @@ class SettingsFragment : Fragment() {
     }
 
     /**
-     * Configura el modo de interfaz (claro/oscuro)
+     * Configure user interface (Light/Dark)
      */
     private suspend fun setUIMode(isChecked: Boolean) {
         if (isChecked) {
@@ -310,7 +310,7 @@ class SettingsFragment : Fragment() {
     }
 
     /**
-     * Cierra la sesión del usuario y navega al login
+     * Close user session and navigate to login
      */
     private fun logout() {
         // Cerrar sesión Firebase

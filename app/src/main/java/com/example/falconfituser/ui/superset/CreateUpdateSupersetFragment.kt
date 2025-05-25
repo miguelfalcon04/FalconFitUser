@@ -15,6 +15,7 @@ import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.superset.Superset
 import com.example.falconfituser.databinding.FragmentCreateUpdateSupersetBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -91,8 +92,10 @@ class CreateUpdateSupersetFragment : Fragment() {
                                         document = supersetDoc,
                                         userId = supersetUserId)
                                 )
+                                makeSnackBar(R.string.supersetUpdated)
                             }else{
                                 viewModel.createSuperset(createOrUpdateSuperset)
+                                makeSnackBar(R.string.supersetCreated)
                             }
 
                             // Por último navego
@@ -126,5 +129,12 @@ class CreateUpdateSupersetFragment : Fragment() {
                 binding.addSupersetTitle.setText(bundle.getString("supersetTitle"))
             }
         }
+    }
+
+    private fun makeSnackBar(message: Int){
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setAnchorView(R.id.bottom_navigation)
+            .setAction("X"){ }
+            .show()
     }
 }

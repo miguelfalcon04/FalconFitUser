@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.exercise
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,11 +14,13 @@ import coil.load
 import com.example.falconfituser.R
 import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.databinding.ItemExerciseBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class ExerciseListAdapter(
     private val viewModel: ExerciseListViewModel,
-    private val navController: NavController
+    private val navController: NavController,
+    private val context: Context
 ): ListAdapter<Exercise,
         ExerciseListAdapter.ExerciseViewHolder>(DiffCallback()) {
 
@@ -27,7 +30,7 @@ class ExerciseListAdapter(
             parent,
             false
         )
-        return ExerciseViewHolder(binding, viewModel, navController)
+        return ExerciseViewHolder(binding, viewModel, navController, this)
     }
 
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
@@ -38,8 +41,9 @@ class ExerciseListAdapter(
     class ExerciseViewHolder(
         private val binding: ItemExerciseBinding,
         private val viewModel: ExerciseListViewModel,
-        private val navController: NavController
-        ):
+        private val navController: NavController,
+        private val adapter: ExerciseListAdapter
+    ):
         RecyclerView.ViewHolder(binding.root){
         fun bind(exercise: Exercise){
             binding.exerciseTitle.text = exercise.title
@@ -52,7 +56,7 @@ class ExerciseListAdapter(
             }
 
             binding.btnDelete.setOnClickListener{
-                viewModel.deleteExercise(exercise.id!!.toInt(), exercise.document!!)
+                adapter.deleteOrNot(exercise)
             }
 
             // PARA DAVID -> No se si has explicado lo de Bundle, lo he sacado de stack over flow
@@ -103,6 +107,16 @@ class ExerciseListAdapter(
         override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
             return oldItem == newItem
         }
+    }
+
+    fun deleteOrNot(exercise: Exercise){
+        MaterialAlertDialogBuilder(context)
+            .setTitle(context.getString(R.string.deleteExercise))
+            .setNegativeButton(context.getString(R.string.no), null)
+            .setPositiveButton(context.getString(R.string.yes)) { dialog, which ->
+                viewModel.deleteExercise(exercise.id!!.toInt(), exercise.document!!)
+            }
+            .show()
     }
 
 }

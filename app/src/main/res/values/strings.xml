@@ -52,4 +52,10 @@
     <string name="cancel">Cancelado</string>
     <string name="invalidQr">Este QR no pertenece a ninguna de nuestras maquinas</string>
     <string name="centerdQr">Centra el QR dentro de la caja</string>
+    <string name="supersetUpdated">Superset actualizado</string>
+    <string name="supersetCreated">Superset creado</string>
+    <string name="deleteExercise">¿Estas seguro que quieres eliminar este ejercicio?</string>
+    <string name="deleteSuperset">¿Estas seguro que quieres eliminar esta superserie?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.falconfituser.ui.superset
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.falconfituser.R
+import com.example.falconfituser.data.exercise.Exercise
 import com.example.falconfituser.data.superset.Superset
 import com.example.falconfituser.databinding.ItemSupersetBinding
+import com.example.falconfituser.ui.exercise.ExerciseListAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class SupersetListAdapter(
     private val viewModel: SupersetListViewModel,
-    private val navController: NavController
+    private val navController: NavController,
+    private val context: Context
 ): ListAdapter<Superset, SupersetListAdapter.SupersetViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SupersetViewHolder {
@@ -22,7 +27,7 @@ class SupersetListAdapter(
             parent,
             false
         )
-        return SupersetViewHolder(binding, viewModel, navController)
+        return SupersetViewHolder(binding, viewModel, navController, this)
     }
 
     override fun onBindViewHolder(holder: SupersetViewHolder, position: Int) {
@@ -33,7 +38,9 @@ class SupersetListAdapter(
     class SupersetViewHolder(
         private val binding: ItemSupersetBinding,
         private val viewModel: SupersetListViewModel,
-        private val navController: NavController):
+        private val navController: NavController,
+        private val adapter: SupersetListAdapter
+    ):
         RecyclerView.ViewHolder(binding.root){
             fun bind(superset: Superset){
                 binding.supersetTitle.text = superset.title
@@ -41,7 +48,7 @@ class SupersetListAdapter(
                 binding.supersetSecondEx.text = superset.exercisTwo?.title ?: "nulo"
 
                 binding.btnDelete.setOnClickListener{
-                    viewModel.deleteSuperset(superset.id!!.toInt(), superset.document!!)
+                    adapter.deleteOrNot(superset)
                 }
 
                 binding.btnUpdate.setOnClickListener{
@@ -65,5 +72,15 @@ class SupersetListAdapter(
         override fun areContentsTheSame(oldItem: Superset, newItem: Superset): Boolean {
             return oldItem == newItem
         }
+    }
+
+    fun deleteOrNot(superset: Superset){
+        MaterialAlertDialogBuilder(context)
+            .setTitle(context.getString(R.string.deleteSuperset))
+            .setNegativeButton(context.getString(R.string.no), null)
+            .setPositiveButton(context.getString(R.string.yes)) { dialog, which ->
+                viewModel.deleteSuperset(superset.id!!.toInt(), superset.document!!)
+            }
+            .show()
     }
 }

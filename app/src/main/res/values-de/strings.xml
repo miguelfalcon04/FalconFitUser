@@ -53,4 +53,10 @@
     <string name="cancel">Abgebrochen</string>
     <string name="invalidQr">Dieser QR-Code gehört zu keiner unserer Maschinen</string>
     <string name="centerdQr">QR-Code in der Box zentrieren</string>
+    <string name="supersetUpdated">Supersätze aktualisiert</string>
+    <string name="supersetCreated">Supersätze erstellt</string>
+    <string name="deleteExercise">Sind Sie sicher, dass Sie diese Übung löschen möchten?</string>
+    <string name="deleteSuperset">Sind Sie sicher, dass Sie diese Supersätze löschen möchten?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
 </resources>
