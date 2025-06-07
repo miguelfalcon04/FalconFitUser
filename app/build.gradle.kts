@@ -10,6 +10,9 @@ plugins {
 
     // Firebase
     id("com.google.gms.google-services")
+
+    // Documentación
+    id("org.jetbrains.dokka")
 }
 
 android {
@@ -136,3 +139,4 @@ secrets {
     ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
     ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
 }
+

@@ -7,6 +7,8 @@ plugins {
 
     // Complemento de google para firebase
     id("com.google.gms.google-services") version "4.4.2" apply false
+
+    id("org.jetbrains.dokka") version "2.0.0"
 }
 
 buildscript {
